@@ -2,6 +2,9 @@
 import error_500 from "../../assets/img/error-500.png";
 
 export default function Error500Screen() {
+    /**
+     * render template
+     */
     return (
         <div id="error">
             <div className="error-page container">

@@ -2,6 +2,9 @@
 import error_403 from "../../assets/img/error-403.png";
 
 export default function Error403Screen() {
+    /**
+     * render template
+     */
     return (
         <div id="error">
             <div className="error-page container">

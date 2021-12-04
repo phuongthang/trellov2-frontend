@@ -1,21 +1,28 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
-//constants
+//Constants
 import LinkName from './constants/linkName';
 
 /**
- * screens
+ * Screens
  */
-//auth
+//Auth
 const LoginScreen = React.lazy(() => import("./screens/Login/Login"));
 
-//errors
+//Errors
 const Error403Screen = React.lazy(() => import("./screens/Errors/Error403"));
 const Error404Screen = React.lazy(() => import("./screens/Errors/Error404"));
 const Error500Screen = React.lazy(() => import("./screens/Errors/Error500"));
 
+//Home
+const HomeScreen = React.lazy(() => import("./screens/Home/Home"));
+
+
 function App() {
+	/**
+     * render template
+     */
 	return (
 		<BrowserRouter>
 			<React.Suspense fallback={<>...</>}>
@@ -30,6 +37,9 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.ERROR_500} element={<Error500Screen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.HOME} element={<HomeScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>

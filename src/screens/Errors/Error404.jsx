@@ -2,6 +2,9 @@
 import errors_404 from "../../assets/img/error-404.png";
 
 export default function Errors404Screen() {
+    /**
+     * render template
+     */
     return (
         <div id="error">
             <div className="error-page container">
