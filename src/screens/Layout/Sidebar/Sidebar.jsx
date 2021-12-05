@@ -1,5 +1,5 @@
 //Packet
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //Constant
 import LinkName from "../../../constants/linkName";
@@ -25,14 +25,14 @@ export default function Sidebar() {
                 <div className="sidebar-header">
                     <div className="d-flex justify-content-between">
                         <div className="logo">
-                            <a href="index.html">
+                            <span onClick={_reload} className="cursor-pointer">
                                 <img src="assets/images/logo/logo.png" alt="Logo" srcSet />
-                            </a>
+                            </span>
                         </div>
                         <div className="toggler">
-                            <a href="#" className="sidebar-hide d-xl-none d-block">
+                            <span onClick={_reload} className="sidebar-hide d-xl-none d-block cursor-pointer">
                                 <i className="bi bi-x bi-middle" />
-                            </a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -46,39 +46,33 @@ export default function Sidebar() {
                             </span>
                         </li>
                         <li className="sidebar-item has-sub">
-                            <a href="#" className="sidebar-link">
+                            <Link to="" className="sidebar-link">
                                 <i className="bi bi-stack" />
                                 <span>Thông tin cá nhân</span>
-                            </a>
+                            </Link>
                             <ul className="submenu ">
                                 <li className="submenu-item ">
-                                    <a href="component-alert.html">Alert</a>
+                                    <Link to="" >Thông tin cá nhân</Link>
                                 </li>
                                 <li className="submenu-item ">
-                                    <a href="component-badge.html">Badge</a>
+                                    <Link to="">Chấm công</Link>
                                 </li>
                             </ul>
                         </li>
                         <li className="sidebar-item  has-sub">
-                            <a href="#" className="sidebar-link">
+                            <Link to="" className="sidebar-link">
                                 <i className="bi bi-collection-fill" />
                                 <span>Dự án</span>
-                            </a>
+                            </Link>
                             <ul className="submenu ">
                                 <li className="submenu-item ">
-                                    <a href="extra-component-avatar.html">Avatar</a>
+                                    <Link to="">Danh sách dự án</Link>
                                 </li>
                                 <li className="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
+                                    <Link to="">Công việc</Link>
                                 </li>
                                 <li className="submenu-item ">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li className="submenu-item ">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li className="submenu-item ">
-                                    <a href="extra-component-divider.html">Divider</a>
+                                    <Link to="">Hoạt động</Link>
                                 </li>
                             </ul>
                         </li>
