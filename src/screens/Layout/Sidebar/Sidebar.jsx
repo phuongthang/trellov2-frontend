@@ -13,7 +13,7 @@ export default function Sidebar() {
         if(window.location.pathname === LinkName.HOME){
             window.location.reload();
         }else{
-            navigate(LinkName.LOGIN);
+            navigate(LinkName.HOME);
         }
     }
     /**
@@ -52,10 +52,10 @@ export default function Sidebar() {
                             </Link>
                             <ul className="submenu ">
                                 <li className="submenu-item ">
-                                    <Link to="" >Thông tin cá nhân</Link>
+                                    <Link to={LinkName.TIME_KEEPING} >Thông tin cá nhân</Link>
                                 </li>
                                 <li className="submenu-item ">
-                                    <Link to="">Chấm công</Link>
+                                    <Link to={LinkName.TIME_KEEPING} >Chấm công</Link>
                                 </li>
                             </ul>
                         </li>

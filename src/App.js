@@ -18,6 +18,16 @@ const Error500Screen = React.lazy(() => import("./screens/Errors/Error500"));
 //Home
 const HomeScreen = React.lazy(() => import("./screens/Home/Home"));
 
+//TimeKeeping
+const TimeKeepingScreen = React.lazy(() => import("./screens/Users/TimeKeeping/TimeKeeping"));
+
+//Project list
+const ProjectListScreen = React.lazy(() => import("./screens/Projects/ProjectList/ProjectList"));
+
+//Task
+const TaskScreen = React.lazy(() => import("./screens/Projects/Tasks/Task"));
+
+
 
 function App() {
 	/**
@@ -40,6 +50,15 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.HOME} element={<HomeScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.TIME_KEEPING} element={<TimeKeepingScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.PROJECT_LIST} element={<ProjectListScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.TASKS} element={<TaskScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>

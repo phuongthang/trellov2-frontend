@@ -1,4 +1,10 @@
-export default function InformationScreen() {
+//Component
+import Layout from '../../Layout/Layout';
+
+export default function TimeKeepingScreen() {
+    /**
+     * render template
+     */
     return (
         <Layout>
             <section class="section">
@@ -41,7 +47,6 @@ export default function InformationScreen() {
                                                 <td>18:25:38</td>
                                                 <td>8</td>
                                                 <td>0</td>
-                      
                                             </tr>
                                             <tr>
                                                 <td class="text-bold-500">2</td>
@@ -68,5 +73,5 @@ export default function InformationScreen() {
                 </div>
             </section>
         </Layout>
-    );
+    )
 }

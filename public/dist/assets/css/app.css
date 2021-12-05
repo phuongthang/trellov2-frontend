@@ -44,3 +44,77 @@ header{
     background: #aaa;
     border-radius: 25px;
 }
+
+.table .team-member-sm {
+    width: 32px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+.table .team-member {
+    position: relative;
+    width: 30px;
+    white-space: nowrap;
+    border-radius: 1000px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+
+.table .order-list li img {
+    border: 2px solid #ffffff;
+    box-shadow: 4px 3px 6px 0 rgba(0,0,0,0.2);
+}
+.table .team-member img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    border-radius: 1000px;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.table .order-list li+li {
+    margin-left: -14px;
+    background: transparent;
+}
+.avatars.avatars-sm {
+    font-size: 12px;
+    height: 30px;
+    width: 30px;
+}
+.avatars {
+    background: #6777ef;
+    border-radius: 50%;
+    color: #e3eaef;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    line-height: 1.28;
+    height: 45px;
+    width: 45px;
+}
+
+.table .order-list li .badge {
+    background: rgba(228,222,222,0.8);
+    color: #6b6f82;
+    margin-bottom: 6px;
+}
+
+.badge {
+    vertical-align: middle;
+    padding: 7px 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border-radius: 30px;
+    font-size: 12px;
+}
+.table-task-list button{
+    font-size: 12px;
+    min-width: 80px;
+}

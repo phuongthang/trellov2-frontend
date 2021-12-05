@@ -9,5 +9,8 @@ const linkName = {
 
     //home
     HOME: '/home',
+    TIME_KEEPING: '/time-keeping',
+    PROJECT_LIST: '/project-list',
+    TASKS: '/tasks'
 };
 export default linkName;
