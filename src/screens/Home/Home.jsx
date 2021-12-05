@@ -1,9 +1,9 @@
 //Components
-import Breadcrumd from "../../components/Breadcrumd/Breadcrumd";
 import Layout from "../Layout/Layout";
-
-//Constants
-import Title from "../../constants/title";
+import ActivityHistoryComponent from "./ActivityHistory";
+import AnalystComponent from "./Analyst";
+import InformationComponent from "./Information";
+import ProjectList from "./ProjectList";
 
 export default function HomeScreen() {
     /**
@@ -12,17 +12,15 @@ export default function HomeScreen() {
     return (
         <Layout>
             <div className="page-heading">
-                <Breadcrumd title={Title.HOME}/>
                 <section className="section mt-3">
-                    <div className="card">
-                        <div className="card-header">
-                            <h4 className="card-title">Example Content</h4>
+                    <div className="row">
+                        <div class="col-xl-4 col-md-6 col-sm-12">
+                            <InformationComponent/>
                         </div>
-                        <div className="card-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-                            quas omnis laudantium tempore exercitationem, expedita aspernatur sed
-                            officia asperiores unde tempora maxime odio reprehenderit distinctio
-                            incidunt! Vel aspernatur dicta consequatur!
+                        <div className="col-lg-8">
+                            <AnalystComponent/>
+                            <ProjectList/>
+                            <ActivityHistoryComponent/>
                         </div>
                     </div>
                 </section>

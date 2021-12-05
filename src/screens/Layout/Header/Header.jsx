@@ -71,12 +71,13 @@ export default function Header() {
                             <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div className="user-menu d-flex">
                                     <div className="user-name text-end me-3">
-                                        <h6 className="mb-0 text-gray-600">John Ducky</h6>
-                                        <p className="mb-0 text-sm text-gray-600">Administrator</p>
+                                        <h6 className="mb-0 text-gray-600">Phương Công Thắng</h6>
+                                        <p className="mb-0 text-sm text-gray-600">Backend Developer</p>
                                     </div>
                                     <div className="user-img d-flex align-items-center">
                                         <div className="avatar avatar-md">
-                                            <img src="assets/images/faces/1.jpg" />
+                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                            <span class="avatar-status bg-success"></span>
                                         </div>
                                     </div>
                                 </div>
