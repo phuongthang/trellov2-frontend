@@ -24,6 +24,12 @@ const TimeKeepingScreen = React.lazy(() => import("./screens/Users/TimeKeeping/T
 //Project list
 const ProjectListScreen = React.lazy(() => import("./screens/Projects/ProjectList/ProjectList"));
 
+//Project detail
+const ProjectDetailScreen = React.lazy(() => import("./screens/Projects/ProjectDetail/ProjectDetail"));
+
+//Project activity
+const ProjectActivityScreen = React.lazy(() => import("./screens/Projects/ProjectActivity/ProjectActivity"));
+
 //Task
 const TaskScreen = React.lazy(() => import("./screens/Projects/Tasks/Task"));
 
@@ -59,6 +65,12 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.TASKS} element={<TaskScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.PROJECT_DETAIL} element={<ProjectDetailScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.PROJECT_ACTIVITY} element={<ProjectActivityScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>
