@@ -13,6 +13,9 @@ const linkName = {
     PROJECT_LIST: '/project-list',
     PROJECT_DETAIL: '/project-detail',
     PROJECT_ACTIVITY: '/project-activity',
-    TASKS: '/tasks'
+    TASKS: '/tasks',
+
+    //user
+    USER_INFORMATION: '/user-information',
 };
 export default linkName;
