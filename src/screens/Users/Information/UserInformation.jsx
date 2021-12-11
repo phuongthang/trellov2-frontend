@@ -1,7 +1,17 @@
 //Component
 import Layout from '../../Layout/Layout';
 
+//icon
+import { RiUser2Fill } from "react-icons/ri";
+import { MdEmail, MdModeEditOutline } from "react-icons/md";
+import { FaPhone } from "react-icons/fa";
+import { BsFillCreditCardFill } from "react-icons/bs";
+
+
 export default function UserInformationScreen() {
+    /**
+     * render template
+     */
     return (
         <Layout>
             <section id="basic-vertical-layouts">
@@ -16,50 +26,60 @@ export default function UserInformationScreen() {
                                     <form className="form form-vertical">
                                         <div className="form-body">
                                             <div className="row">
-                                                <div className="col-xl-4 col-md-4 col-xs-6">
+                                                <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Họ :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500">Ảnh đại diện:</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Họ"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                            <div className="d-flex justify-content-center mt-3">
+                                                                <div class="avatar avatar-xxl me-3">
+                                                                    <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                                                    <span class="avatar-xxl-status bg-warning"><MdModeEditOutline/></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-xl-4 col-md-4 col-xs-6">
+                                                <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Tên :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500">Ảnh chấm công:</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Tên"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                            <div className="d-flex justify-content-center mt-3">
+                                                                <div class="avatar avatar-xxl me-3">
+                                                                    <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                                                    <span class="avatar-xxl-status bg-warning"><MdModeEditOutline/></span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-xl-4 col-md-4 col-xs-6">
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-xl-6 col-md-6 col-xs-6">
+                                                    <div className="form-group has-icon-left">
+                                                        <label htmlFor="first-name-icon text-bold-500">Họ và tên:</label>
+                                                        <div className="position-relative">
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="first-name-icon"
+                                                            />
+                                                            <div className="form-control-icon">
+                                                                <RiUser2Fill />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Chấm công :</label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Chấm công"
                                                                 id="first-name-icon"
                                                             />
                                                             <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                                <RiUser2Fill />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -73,11 +93,10 @@ export default function UserInformationScreen() {
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Email"
                                                                 id="first-name-icon"
                                                             />
                                                             <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                                <MdEmail />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -89,11 +108,10 @@ export default function UserInformationScreen() {
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Email cá nhân"
                                                                 id="first-name-icon"
                                                             />
                                                             <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                                <MdEmail />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -105,11 +123,10 @@ export default function UserInformationScreen() {
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Số điện thoại"
                                                                 id="first-name-icon"
                                                             />
                                                             <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                                <FaPhone />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -120,28 +137,52 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Giới tính :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Họ"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <ul class="list-unstyled mb-0">
+                                                                <li class="d-inline-block me-5 mb-1">
+                                                                    <div class="form-check">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                class="form-check-input form-check-primary"
+                                                                                name="customCheck" id="customColorCheck1" />
+                                                                            <label class="form-check-label"
+                                                                                for="customColorCheck1">Nam</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="d-inline-block me-5 mb-1">
+                                                                    <div class="form-check">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                class="form-check-input form-check-secondary"
+                                                                                name="customCheck" id="customColorCheck2" />
+                                                                            <label class="form-check-label"
+                                                                                for="customColorCheck2">Nữ</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li class="d-inline-block me-5 mb-1">
+                                                                    <div class="form-check">
+                                                                        <div class="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                class="form-check-input form-check-success"
+                                                                                name="customCheck" id="customColorCheck3" />
+                                                                            <label class="form-check-label"
+                                                                                for="customColorCheck3">Khác</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
-                                                    <div className="form-group has-icon-left">
+                                                    <div className="form-group">
                                                         <label htmlFor="first-name-icon">Ngày sinh :</label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
                                                                 className="form-control"
                                                             />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,15 +192,15 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Phòng ban :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Phòng ban"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <select class="choices form-select">
+                                                                <option value="square">Square</option>
+                                                                <option value="rectangle">Rectangle</option>
+                                                                <option value="rombo">Rombo</option>
+                                                                <option value="romboid">Romboid</option>
+                                                                <option value="trapeze">Trapeze</option>
+                                                                <option value="traible">Triangle</option>
+                                                                <option value="polygon">Polygon</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,14 +208,11 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Chức vụ :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Chức vụ"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <select class="choices form-select">
+                                                                <option value="square">Fontend Developer</option>
+                                                                <option value="rectangle">Backend Developer</option>
+                                                                <option value="rombo">Fullstack Developer</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -182,15 +220,12 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Hình thức làm việc :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Hình thức làm việc"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <select class="choices form-select">
+                                                                <option value="square">Part time</option>
+                                                                <option value="rectangle">Full time</option>
+                                                                <option value="rombo">Remote</option>
+                                                                <option value="romboid">Support</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,15 +235,12 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Thành phố :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Họ"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <select class="choices form-select">
+                                                                <option value="square">Part time</option>
+                                                                <option value="rectangle">Full time</option>
+                                                                <option value="rombo">Remote</option>
+                                                                <option value="romboid">Support</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -216,15 +248,12 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Quận/Huyện :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Tên"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <select class="choices form-select">
+                                                                <option value="square">Part time</option>
+                                                                <option value="rectangle">Full time</option>
+                                                                <option value="rombo">Remote</option>
+                                                                <option value="romboid">Support</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -232,83 +261,64 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500">Thị trấn/Xã :</label>
                                                         <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                placeholder="Chấm công"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
+                                                            <select class="choices form-select">
+                                                                <option value="square">Part time</option>
+                                                                <option value="rectangle">Full time</option>
+                                                                <option value="rombo">Remote</option>
+                                                                <option value="romboid">Support</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
-                                                    <div className="form-group has-icon-left">
+                                                    <div className="form-group">
                                                         <label htmlFor="first-name-icon text-bold-500">Địa chỉ thường trú :</label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Họ"
                                                                 id="first-name-icon"
                                                             />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
-                                                    <div className="form-group has-icon-left">
+                                                    <div className="form-group">
                                                         <label htmlFor="first-name-icon text-bold-500">Số chứng minh thư :</label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Họ"
                                                                 id="first-name-icon"
                                                             />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
-                                                    <div className="form-group has-icon-left">
+                                                    <div className="form-group">
                                                         <label htmlFor="first-name-icon text-bold-500">Ngày cấp :</label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
                                                                 className="form-control"
-                                                                placeholder="Tên"
                                                                 id="first-name-icon"
                                                             />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
-                                                    <div className="form-group has-icon-left">
+                                                    <div className="form-group">
                                                         <label htmlFor="first-name-icon text-bold-500">Nơi cấp :</label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Chấm công"
                                                                 id="first-name-icon"
                                                             />
-                                                            <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -321,14 +331,19 @@ export default function UserInformationScreen() {
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
-                                                                placeholder="Họ"
                                                                 id="first-name-icon"
                                                             />
                                                             <div className="form-control-icon">
-                                                                <i className="bi bi-person" />
+                                                                <BsFillCreditCardFill />
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <button type="button" class="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
+                                                    <button type="button" class="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom">Hủy</button>
                                                 </div>
                                             </div>
                                         </div>

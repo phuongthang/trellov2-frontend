@@ -1,6 +1,9 @@
 //Component
 import Layout from '../../Layout/Layout';
 
+//icon
+import { MdBookmarkAdded } from "react-icons/md";
+
 export default function TaskScreen() {
     /**
      * render template
@@ -66,7 +69,7 @@ export default function TaskScreen() {
                                                     03/12/2021
                                                 </td>
                                                 <td>
-                                                    03/12/2021
+                                                    <MdBookmarkAdded />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -92,7 +95,7 @@ export default function TaskScreen() {
                                                     03/12/2021
                                                 </td>
                                                 <td>
-                                                    03/12/2021
+                                                    <MdBookmarkAdded />
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -118,3 +118,36 @@ header{
     font-size: 12px;
     min-width: 80px;
 }
+.btn-custom{
+    width: 120px;
+}
+.avatar-xxl img{
+    width:150px;
+    height:150px;
+    font-size:1.4rem
+}
+
+.avatar-xxl-status{
+    width: 2rem;
+    height:2rem;
+    line-height: 30px;
+    position:absolute;
+    border-radius:50%;
+    border:1px solid #fff;
+    bottom:0;
+    right:0
+}
+.widget-todo-item{
+    list-style: none !important;
+}
+.widget-todo-item .widget-todo-title{
+    min-width: 300px;
+}
+.widget-todo-list-wrapper{
+    height: 320px;
+    overflow-y: scroll;
+}
+.form-check-custom{
+    width: 1.7rem;
+    height: 1.7rem;
+}

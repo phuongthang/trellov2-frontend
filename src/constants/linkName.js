@@ -13,6 +13,7 @@ const linkName = {
     PROJECT_LIST: '/project-list',
     PROJECT_DETAIL: '/project-detail',
     PROJECT_ACTIVITY: '/project-activity',
+    PROJECT_CREATE: '/project-create',
     TASKS: '/tasks',
 
     //user

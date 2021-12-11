@@ -30,6 +30,9 @@ const ProjectListScreen = React.lazy(() => import("./screens/Projects/ProjectLis
 //Project detail
 const ProjectDetailScreen = React.lazy(() => import("./screens/Projects/ProjectDetail/ProjectDetail"));
 
+//Project create
+const ProjectCreateScreen = React.lazy(() => import("./screens/Projects/ProjectCreate/ProjectCreate"));
+
 //Project activity
 const ProjectActivityScreen = React.lazy(() => import("./screens/Projects/ProjectActivity/ProjectActivity"));
 
@@ -77,6 +80,9 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.USER_INFORMATION} element={<UserInformationScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.PROJECT_CREATE} element={<ProjectCreateScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>
