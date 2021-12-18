@@ -36,8 +36,13 @@ const ProjectCreateScreen = React.lazy(() => import("./screens/Projects/ProjectC
 //Project activity
 const ProjectActivityScreen = React.lazy(() => import("./screens/Projects/ProjectActivity/ProjectActivity"));
 
-//Task
-const TaskScreen = React.lazy(() => import("./screens/Projects/Tasks/Task"));
+//Task list
+const TaskListScreen = React.lazy(() => import("./screens/Projects/TaskList/TaskList"));
+
+//Task list
+const TaskCreateScreen = React.lazy(() => import("./screens/Projects/TaskCreate/TaskCreate"));
+
+
 
 
 
@@ -70,7 +75,7 @@ function App() {
 					<Route path={LinkName.PROJECT_LIST} element={<ProjectListScreen />}></Route>
 				</Routes>
 				<Routes>
-					<Route path={LinkName.TASKS} element={<TaskScreen />}></Route>
+					<Route path={LinkName.TASK_LIST} element={<TaskListScreen />}></Route>
 				</Routes>
 				<Routes>
 					<Route path={LinkName.PROJECT_DETAIL} element={<ProjectDetailScreen />}></Route>
@@ -83,6 +88,9 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.PROJECT_CREATE} element={<ProjectCreateScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.TASK_CREATE} element={<TaskCreateScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>

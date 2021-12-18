@@ -4,7 +4,7 @@ import Layout from '../../Layout/Layout';
 //icon
 import { MdBookmarkAdded } from "react-icons/md";
 
-export default function TaskScreen() {
+export default function TaskListScreen() {
     /**
      * render template
      */
