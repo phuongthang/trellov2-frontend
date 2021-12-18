@@ -24,7 +24,7 @@ export default function TaskCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Dự án:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Dự án:</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -39,7 +39,7 @@ export default function TaskCreateScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Phân loại:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Phân loại:</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Rectangle</option>
@@ -57,7 +57,7 @@ export default function TaskCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Tiêu đề:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Tiêu đề:</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -71,7 +71,7 @@ export default function TaskCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Mô tả:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Mô tả:</h6></label>
                                                         <div className="position-relative">
                                                             <textarea
                                                                 type="text"
@@ -89,7 +89,7 @@ export default function TaskCreateScreen() {
                                                     <div className="row">
                                                         <div className="col-xl-12 col-md-12 col-xs-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon">Trạng thái :</label>
+                                                                <label htmlFor="first-name-icon"><h6>Trạng thái :</h6></label>
                                                                 <div className="position-relative">
                                                                     <select class="choices form-select">
                                                                         <option value="square">Rectangle</option>
@@ -107,7 +107,7 @@ export default function TaskCreateScreen() {
                                                     <div className="row">
                                                         <div className="col-xl-12 col-md-12 col-xs-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon">Độ ưu tiên :</label>
+                                                                <label htmlFor="first-name-icon"><h6>Độ ưu tiên :</h6></label>
                                                                 <div className="position-relative">
                                                                     <select class="choices form-select">
                                                                         <option value="square">Rectangle</option>
@@ -125,7 +125,7 @@ export default function TaskCreateScreen() {
                                                     <div className="row">
                                                         <div className="col-xl-12 col-md-12 col-xs-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon">Phân công cho :</label>
+                                                                <label htmlFor="first-name-icon"><h6>Phân công cho :</h6></label>
                                                                 <div className="position-relative">
                                                                     <select class="choices form-select">
                                                                         <option value="square">Rectangle</option>
@@ -145,7 +145,7 @@ export default function TaskCreateScreen() {
                                                     <div className="row">
                                                         <div className="col-xl-12 col-md-12 col-xs-12">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon">Công việc cha :</label>
+                                                                <label htmlFor="first-name-icon"><h6>Công việc cha :</h6></label>
                                                                 <div className="position-relative">
                                                                     <select class="choices form-select">
                                                                         <option value="square">Rectangle</option>
@@ -163,7 +163,7 @@ export default function TaskCreateScreen() {
                                                     <div className="row">
                                                         <div className="col-xl-6 col-md-6 col-xs-6">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon text-bold-500">Ngày bắt đầu :</label>
+                                                                <label htmlFor="first-name-icon text-bold-500"><h6>Ngày bắt đầu :</h6></label>
                                                                 <div className="position-relative">
                                                                     <input
                                                                         type="date"
@@ -175,7 +175,7 @@ export default function TaskCreateScreen() {
                                                         </div>
                                                         <div className="col-xl-6 col-md-6 col-xs-6">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon text-bold-500">Ngày kết thúc :</label>
+                                                                <label htmlFor="first-name-icon text-bold-500"><h6>Ngày kết thúc :</h6></label>
                                                                 <div className="position-relative">
                                                                     <input
                                                                         type="date"
@@ -189,7 +189,7 @@ export default function TaskCreateScreen() {
                                                     <div className="row">
                                                         <div className="col-xl-6 col-md-6 col-xs-6">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon text-bold-500">Thời gian :</label>
+                                                                <label htmlFor="first-name-icon text-bold-500"><h6>Thời gian :</h6></label>
                                                                 <div className="position-relative">
                                                                     <input
                                                                         type="text"
@@ -201,7 +201,7 @@ export default function TaskCreateScreen() {
                                                         </div>
                                                         <div className="col-xl-6 col-md-6 col-xs-6">
                                                             <div className="form-group">
-                                                                <label htmlFor="first-name-icon text-bold-500">Ngày kết thúc :</label>
+                                                                <label htmlFor="first-name-icon text-bold-500"><h6>Ngày kết thúc :</h6></label>
                                                                 <div className="position-relative">
                                                                     <input
                                                                         type="date"
@@ -217,7 +217,7 @@ export default function TaskCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">File tải lên:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>File tải lên:</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="file"

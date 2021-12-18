@@ -10,10 +10,10 @@ export default function ProjectMemberComponent() {
                 </div>
             </div>
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">Project Manager: Phương Công Thắng</li>
-                <li className="list-group-item">Leader: Nguyễn Thị Chinh</li>
-                <li className="list-group-item">Member: Phạm Thị Ngân</li>
-                <li className="list-group-item"></li>
+                <h6 className="list-group-item">Project Manager: Phương Công Thắng</h6>
+                <h6 className="list-group-item">Leader: Nguyễn Thị Chinh</h6>
+                <h6 className="list-group-item">Member: Phạm Thị Ngân</h6>
+                <h6 className="list-group-item"></h6>
             </ul>
         </div>
     )

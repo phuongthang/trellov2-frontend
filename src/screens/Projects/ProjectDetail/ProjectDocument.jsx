@@ -10,10 +10,10 @@ export default function ProjectDocumentComponent() {
                 </div>
             </div>
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">Git: https://github.com/phuongthang/trellov2-frontend</li>
-                <li className="list-group-item">SVN: https://github.com/phuongthang/trellov2-frontend</li>
-                <li className="list-group-item">QA: https://github.com/phuongthang/trellov2-frontend</li>
-                <li className="list-group-item"></li>
+                <h6 className="list-group-item">Git: https://github.com/phuongthang/trellov2-frontend</h6>
+                <h6 className="list-group-item">SVN: https://github.com/phuongthang/trellov2-frontend</h6>
+                <h6 className="list-group-item">QA: https://github.com/phuongthang/trellov2-frontend</h6>
+                <h6 className="list-group-item"></h6>
             </ul>
         </div>
     )

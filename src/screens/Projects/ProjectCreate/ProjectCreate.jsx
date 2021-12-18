@@ -26,7 +26,7 @@ export default function ProjectCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Dự án:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Dự án:</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -43,7 +43,7 @@ export default function ProjectCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Ngày bắt đầu :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ngày bắt đầu :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
@@ -55,7 +55,7 @@ export default function ProjectCreateScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Ngày kết thúc :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ngày kết thúc :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
@@ -69,7 +69,7 @@ export default function ProjectCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Chế độ :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Chế độ :</h6></label>
                                                         <div className="position-relative">
                                                             <ul class="list-unstyled mb-0">
                                                                 <li class="d-inline-block me-5 mb-1 mt-2">
@@ -79,7 +79,7 @@ export default function ProjectCreateScreen() {
                                                                                 class="form-check-input form-check-primary"
                                                                                 name="customCheck" id="customColorCheck1" />
                                                                             <label class="form-check-label"
-                                                                                for="customColorCheck1">Công khai</label>
+                                                                                for="customColorCheck1"><h6>Công khai</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -90,7 +90,7 @@ export default function ProjectCreateScreen() {
                                                                                 class="form-check-input form-check-secondary"
                                                                                 name="customCheck" id="customColorCheck2" />
                                                                             <label class="form-check-label"
-                                                                                for="customColorCheck2">Bảo mật</label>
+                                                                                for="customColorCheck2"><h6>Bảo mật</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -100,7 +100,7 @@ export default function ProjectCreateScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon">Project Manager :</label>
+                                                        <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Rectangle</option>
@@ -118,7 +118,7 @@ export default function ProjectCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Mô tả:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Mô tả:</h6></label>
                                                         <div className="position-relative">
                                                             <textarea
                                                                 type="text"

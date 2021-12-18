@@ -42,6 +42,9 @@ const TaskListScreen = React.lazy(() => import("./screens/Projects/TaskList/Task
 //Task list
 const TaskCreateScreen = React.lazy(() => import("./screens/Projects/TaskCreate/TaskCreate"));
 
+//Task detail
+const TaskDetailScreen = React.lazy(() => import("./screens/Projects/TaskDetail/TaskDetail"));
+
 
 
 
@@ -91,6 +94,9 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.TASK_CREATE} element={<TaskCreateScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.TASK_DETAIL} element={<TaskDetailScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>

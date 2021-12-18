@@ -16,6 +16,7 @@ const linkName = {
     PROJECT_CREATE: '/project-create',
     TASK_LIST: '/task-list',
     TASK_CREATE: '/task-create',
+    TASK_DETAIL: '/task-detail',
 
     //user
     USER_INFORMATION: '/user-information',

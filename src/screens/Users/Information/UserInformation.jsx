@@ -28,7 +28,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Ảnh đại diện:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ảnh đại diện:</h6></label>
                                                         <div className="position-relative">
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div class="avatar avatar-xxl me-3">
@@ -41,7 +41,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Ảnh chấm công:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ảnh chấm công:</h6></label>
                                                         <div className="position-relative">
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div class="avatar avatar-xxl me-3">
@@ -56,7 +56,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Họ và tên:</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Họ và tên:</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -71,7 +71,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Chấm công :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Chấm công :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -88,7 +88,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Email :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Email :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -103,7 +103,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Email cá nhân :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Email cá nhân :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -118,7 +118,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Số điện thoại :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Số điện thoại :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -135,7 +135,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Giới tính :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Giới tính :</h6></label>
                                                         <div className="position-relative">
                                                             <ul class="list-unstyled mb-0">
                                                                 <li class="d-inline-block me-5 mb-1">
@@ -145,7 +145,7 @@ export default function UserInformationScreen() {
                                                                                 class="form-check-input form-check-primary"
                                                                                 name="customCheck" id="customColorCheck1" />
                                                                             <label class="form-check-label"
-                                                                                for="customColorCheck1">Nam</label>
+                                                                                for="customColorCheck1"><h6>Nam</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -156,7 +156,7 @@ export default function UserInformationScreen() {
                                                                                 class="form-check-input form-check-secondary"
                                                                                 name="customCheck" id="customColorCheck2" />
                                                                             <label class="form-check-label"
-                                                                                for="customColorCheck2">Nữ</label>
+                                                                                for="customColorCheck2"><h6>Nữ</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -167,7 +167,7 @@ export default function UserInformationScreen() {
                                                                                 class="form-check-input form-check-success"
                                                                                 name="customCheck" id="customColorCheck3" />
                                                                             <label class="form-check-label"
-                                                                                for="customColorCheck3">Khác</label>
+                                                                                for="customColorCheck3"><h6>Khác</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -177,7 +177,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon">Ngày sinh :</label>
+                                                        <label htmlFor="first-name-icon"><h6>Ngày sinh :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
@@ -190,7 +190,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Phòng ban :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Phòng ban :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Square</option>
@@ -206,7 +206,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Chức vụ :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Chức vụ :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Fontend Developer</option>
@@ -218,7 +218,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Hình thức làm việc :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Hình thức làm việc :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Part time</option>
@@ -233,7 +233,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Thành phố :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Thành phố :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Part time</option>
@@ -246,7 +246,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Quận/Huyện :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Quận/Huyện :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Part time</option>
@@ -259,7 +259,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Thị trấn/Xã :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Thị trấn/Xã :</h6></label>
                                                         <div className="position-relative">
                                                             <select class="choices form-select">
                                                                 <option value="square">Part time</option>
@@ -274,7 +274,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Địa chỉ thường trú :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Địa chỉ thường trú :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -288,7 +288,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Số chứng minh thư :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Số chứng minh thư :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -300,7 +300,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Ngày cấp :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ngày cấp :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
@@ -312,7 +312,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">Nơi cấp :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Nơi cấp :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -326,7 +326,7 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">Tài khoản ngân hàng :</label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Tài khoản ngân hàng :</h6></label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
