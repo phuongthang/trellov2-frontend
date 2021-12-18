@@ -151,3 +151,15 @@ header{
     width: 1.7rem;
     height: 1.7rem;
 }
+
+.modal-task-update{
+    max-width: 100%;
+    min-height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.modal-content{
+    width: 80% !important;
+}

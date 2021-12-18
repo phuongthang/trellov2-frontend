@@ -1,7 +1,17 @@
 //Component
+import { useState } from 'react';
 import Layout from '../../Layout/Layout';
+import TaskUpdateScreen from './../TaskUpdate/TaskUpdate';
 
 export default function TaskDetailScreen() {
+    /**
+     * define state
+     */
+    const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
+    const toggleModalTaskUpdate = () => {
+        setModalTaskUpdate(!modalTaskUpdate);
+    }
+
     /**
      * render template
      */
@@ -21,7 +31,12 @@ export default function TaskDetailScreen() {
                                     <h6 className="list-group-item">Dự án: LandMark</h6>
                                     <h6 className="list-group-item">Ngày bắt đầu: 01/01/2021</h6>
                                     <h6 className="list-group-item">Ngày kết thúc: 01/01/2022</h6>
-                                    <h6 className="list-group-item">Quản lý: Phương Công Thắng</h6>
+                                    <h6 className="list-group-item">Quản lý:
+                                        <div class="avatar avatar-sm px-2">
+                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                        </div>
+                                        Phương Công Thắng
+                                    </h6>
                                     <h6 className="list-group-item"></h6>
                                 </ul>
                             </div>
@@ -31,12 +46,20 @@ export default function TaskDetailScreen() {
                                 <div className="card-content">
                                     <div className="card-body d-flex justify-content-between">
                                         <h5 className="card-title">THÔNG TIN CÔNG VIỆC</h5>
-                                        <button className='btn btn-sm btn-primary'>Chỉnh sửa</button>
+                                        <button
+                                            className='btn btn-sm btn-primary'
+                                            onClick={toggleModalTaskUpdate}>
+                                            Chỉnh sửa
+                                        </button>
                                     </div>
                                 </div>
                                 <ul className="list-group list-group-flush">
                                     <h6 className="list-group-item">Tiêu đề: QA 550 - Bug Khách Hàng No.555 TOP mới</h6>
-                                    <h6 className="list-group-item">Người tạo: Phương Công Thắng</h6>
+                                    <h6 className="list-group-item">Người tạo:
+                                        <div class="avatar avatar-sm px-2">
+                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                        </div>
+                                        Phương Công Thắng</h6>
                                     <h6 className="list-group-item">Cập nhật: 08:00 01/01/2021</h6>
                                     <h6 className="list-group-item">Trạng thái: New - Mức độ ưu tiên: Normal</h6>
                                     <h6 className="list-group-item"></h6>
@@ -57,7 +80,11 @@ export default function TaskDetailScreen() {
                                     </div>
                                 </div>
                                 <ul className="list-group list-group-flush">
-                                    <h6 className="list-group-item">Phân công cho: Phương Công Thắng</h6>
+                                    <h6 className="list-group-item">Phân công cho:
+                                        <div class="avatar avatar-sm px-2">
+                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                        </div>
+                                        Phương Công Thắng</h6>
                                     <h6 className="list-group-item">Ngày bắt đầu: 01/01/2021</h6>
                                     <h6 className="list-group-item">Ngày kết thúc: 01/01/2022</h6>
                                     <h6 className="list-group-item"></h6>
@@ -69,6 +96,9 @@ export default function TaskDetailScreen() {
                                 <div className="card-content">
                                     <div className="card-body">
                                         <h5 className="card-title">Mô tả:</h5>
+                                    </div>
+                                    <div>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.
                                     </div>
                                 </div>
                             </div>
@@ -144,6 +174,13 @@ export default function TaskDetailScreen() {
                     </div>
                 </div>
             </section>
+            {
+                modalTaskUpdate &&
+                <TaskUpdateScreen
+                    modal={modalTaskUpdate}
+                    toggle={toggleModalTaskUpdate}
+                />
+            }
         </Layout>
     )
 }
