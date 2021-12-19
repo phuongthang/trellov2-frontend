@@ -6,6 +6,7 @@ import TaskUpdateScreen from '../TaskUpdate/TaskUpdate';
 
 //icon
 import { MdBookmarkAdded } from "react-icons/md";
+import TaskFillterComponent from '../../Fillters/TaskFillter/TaskFillter';
 
 export default function TaskListScreen() {
     /**
@@ -13,8 +14,15 @@ export default function TaskListScreen() {
      */
     const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
     const toggleModalTaskUpdate = () => {
-         setModalTaskUpdate(!modalTaskUpdate);
+        setModalTaskUpdate(!modalTaskUpdate);
     }
+
+    const [modalTaskFillter, setModalTaskFillter] = useState(false);
+    const toggleModalTaskFillter = () => {
+        setModalTaskFillter(!modalTaskFillter);
+    }
+
+
 
     /**
      * render template
@@ -26,18 +34,13 @@ export default function TaskListScreen() {
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">DANH SÁCH CÔNG VIỆC</h4>
-                            </div>
-                            <div className="row px-3 pb-3">
-                                <div className="col-sm-3">
-                                    <h6>Ngày bắt đầu :</h6>
-                                    <input class="form-control form-control-sm" type="date"
-                                        placeholder="Small Input" />
-                                </div>
-                                <div className="col-sm-3">
-                                    <h6>Ngày kết thúc :</h6>
-                                    <input class="form-control form-control-sm" type="date"
-                                        placeholder="Small Input" />
+                                <div className="d-flex justify-content-between">
+                                    <h4 class="card-title">DANH SÁCH CÔNG VIỆC</h4>
+                                    <button
+                                        className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom"
+                                        onClick={toggleModalTaskFillter}
+                                    >Tìm kiếm
+                                    </button>
                                 </div>
                             </div>
                             <div class="card-content">
@@ -117,6 +120,13 @@ export default function TaskListScreen() {
                     </div>
                 </div>
             </section>
+            {
+                modalTaskFillter &&
+                <TaskFillterComponent
+                    modal={modalTaskFillter}
+                    toggle={toggleModalTaskFillter}
+                />
+            }
             {
                 modalTaskUpdate &&
                 <TaskUpdateScreen

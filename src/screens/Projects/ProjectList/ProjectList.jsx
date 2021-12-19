@@ -15,7 +15,7 @@ export default function ProjectListScreen() {
      */
     const [modalProjectUpdate, setModalProjectUpdate] = useState(false);
     const toggleModalProjectUpdate = () => {
-         setModalProjectUpdate(!modalProjectUpdate);
+        setModalProjectUpdate(!modalProjectUpdate);
     }
     /**
      * render template
@@ -31,14 +31,18 @@ export default function ProjectListScreen() {
                             </div>
                             <div className="row px-3 pb-3">
                                 <div className="col-sm-3">
-                                    <h6>Ngày bắt đầu :</h6>
-                                    <input class="form-control form-control-sm" type="date"
-                                        placeholder="Small Input" />
-                                </div>
-                                <div className="col-sm-3">
-                                    <h6>Ngày kết thúc :</h6>
-                                    <input class="form-control form-control-sm" type="date"
-                                        placeholder="Small Input" />
+                                    <h6>Trạng thái :</h6>
+                                    <div className="position-relative">
+                                        <select class="choices form-select">
+                                            <option value="square">Rectangle</option>
+                                            <option value="rectangle">Rectangle</option>
+                                            <option value="rombo">Rombo</option>
+                                            <option value="romboid">Romboid</option>
+                                            <option value="trapeze">Trapeze</option>
+                                            <option value="traible">Triangle</option>
+                                            <option value="polygon">Polygon</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-content">
@@ -113,7 +117,7 @@ export default function ProjectListScreen() {
                                                 </td>
                                                 <td>
                                                     <div className="d-flex justify-content-center">
-                                                        <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate}/></span>
+                                                        <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
                                                         <span className='px-1'><RiDeleteBin5Fill /></span>
                                                         <span className='px-1'><BsPinAngleFill /></span>
                                                     </div>
