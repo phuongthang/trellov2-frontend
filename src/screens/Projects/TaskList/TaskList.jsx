@@ -1,10 +1,21 @@
+import { useState } from 'react';
+
 //Component
 import Layout from '../../Layout/Layout';
+import TaskUpdateScreen from '../TaskUpdate/TaskUpdate';
 
 //icon
 import { MdBookmarkAdded } from "react-icons/md";
 
 export default function TaskListScreen() {
+    /**
+     * define state
+     */
+    const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
+    const toggleModalTaskUpdate = () => {
+         setModalTaskUpdate(!modalTaskUpdate);
+    }
+
     /**
      * render template
      */
@@ -69,7 +80,7 @@ export default function TaskListScreen() {
                                                     03/12/2021
                                                 </td>
                                                 <td>
-                                                    <MdBookmarkAdded />
+                                                    <MdBookmarkAdded onClick={toggleModalTaskUpdate} />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -95,7 +106,7 @@ export default function TaskListScreen() {
                                                     03/12/2021
                                                 </td>
                                                 <td>
-                                                    <MdBookmarkAdded />
+                                                    <MdBookmarkAdded onClick={toggleModalTaskUpdate} />
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -106,6 +117,13 @@ export default function TaskListScreen() {
                     </div>
                 </div>
             </section>
+            {
+                modalTaskUpdate &&
+                <TaskUpdateScreen
+                    modal={modalTaskUpdate}
+                    toggle={toggleModalTaskUpdate}
+                />
+            }
         </Layout>
     )
 }

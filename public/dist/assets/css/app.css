@@ -152,7 +152,7 @@ header{
     height: 1.7rem;
 }
 
-.modal-task-update{
+.modal-task-update, .modal-project-update{
     max-width: 100%;
     min-height: 100%;
     margin: auto;
@@ -160,6 +160,7 @@ header{
     justify-content: center;
     align-items: center;
 } 
-.modal-content{
+.modal-task-update .modal-content, .modal-project-update .modal-content{
+    margin: 20px 0;
     width: 80% !important;
 }

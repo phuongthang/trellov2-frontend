@@ -1,7 +1,22 @@
+import { useState } from 'react';
+
 //Component
 import Layout from '../../Layout/Layout';
+import ProjectUpdateScreen from './../ProjectUpdate/ProjectUpdate';
+
+//icon
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { BsPinAngleFill } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
 
 export default function ProjectListScreen() {
+    /**
+     * define state
+     */
+    const [modalProjectUpdate, setModalProjectUpdate] = useState(false);
+    const toggleModalProjectUpdate = () => {
+         setModalProjectUpdate(!modalProjectUpdate);
+    }
     /**
      * render template
      */
@@ -36,6 +51,7 @@ export default function ProjectListScreen() {
                                                 <th>Quản lý dự án</th>
                                                 <th>Trạng thái</th>
                                                 <th>Thành viên</th>
+                                                <th>Thao tác</th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-center">
@@ -63,6 +79,13 @@ export default function ProjectListScreen() {
                                                         <li class="avatars avatars-sm"><span class="badge badge-primary">+4</span></li>
                                                     </ul>
                                                 </td>
+                                                <td>
+                                                    <div className="d-flex justify-content-center">
+                                                        <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
+                                                        <span className='px-1'><RiDeleteBin5Fill /></span>
+                                                        <span className='px-1'><BsPinAngleFill /></span>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-bold-500">2</td>
@@ -88,6 +111,13 @@ export default function ProjectListScreen() {
                                                         <li class="avatar avatar-sm"><span class="badge badge-primary">+4</span></li>
                                                     </ul>
                                                 </td>
+                                                <td>
+                                                    <div className="d-flex justify-content-center">
+                                                        <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate}/></span>
+                                                        <span className='px-1'><RiDeleteBin5Fill /></span>
+                                                        <span className='px-1'><BsPinAngleFill /></span>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -97,6 +127,13 @@ export default function ProjectListScreen() {
                     </div>
                 </div>
             </section>
+            {
+                modalProjectUpdate &&
+                <ProjectUpdateScreen
+                    modal={modalProjectUpdate}
+                    toggle={toggleModalProjectUpdate}
+                />
+            }
         </Layout>
     )
 }

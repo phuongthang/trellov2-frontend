@@ -60,8 +60,11 @@ export default function TaskDetailScreen() {
                                             <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
                                         </div>
                                         Phương Công Thắng</h6>
-                                    <h6 className="list-group-item">Cập nhật: 08:00 01/01/2021</h6>
                                     <h6 className="list-group-item">Trạng thái: New - Mức độ ưu tiên: Normal</h6>
+                                    <h6 className="list-group-item">Chỉnh sửa lần cuối: 08:00 01/01/2021 <div class="avatar avatar-sm px-2">
+                                        <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                    </div>
+                                        Phương Công Thắng</h6>
                                     <h6 className="list-group-item"></h6>
                                 </ul>
                             </div>
