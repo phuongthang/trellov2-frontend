@@ -3,10 +3,11 @@ import { useState } from 'react';
 //Component
 import Layout from '../../Layout/Layout';
 import TaskUpdateScreen from '../TaskUpdate/TaskUpdate';
+import TaskFillterComponent from '../../Fillters/TaskFillter/TaskFillter';
 
 //icon
 import { MdBookmarkAdded } from "react-icons/md";
-import TaskFillterComponent from '../../Fillters/TaskFillter/TaskFillter';
+import { TiDelete } from "react-icons/ti";
 
 export default function TaskListScreen() {
     /**
@@ -36,14 +37,25 @@ export default function TaskListScreen() {
                             <div class="card-header">
                                 <div className="d-flex justify-content-between">
                                     <h4 class="card-title">DANH SÁCH CÔNG VIỆC</h4>
-                                    <button
-                                        className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom"
-                                        onClick={toggleModalTaskFillter}
-                                    >Tìm kiếm
-                                    </button>
+                                    <div className="">
+                                        <button
+                                            className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom"
+                                            onClick={toggleModalTaskFillter}
+                                        >Tìm kiếm
+                                        </button>
+                                        <button
+                                            className="btn btn-warning btn-sm me-3 mb-3 mt-3 btn-custom"
+                                        >Xuất file
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-content">
+                                <div class="badges px-3 pb-3">
+                                    <span class="badge bg-success mr-5">LandMark  <TiDelete /></span>
+                                    <span class="badge bg-success mr-5">Đang mở  <TiDelete /></span>
+                                    <span class="badge bg-success">Phương Công Thắng  <TiDelete /></span>
+                                </div>
                                 <div class="table-responsive px-3 pb-3 table-task-list">
                                     <table class="table table-striped mb-0">
                                         <thead className="text-center">
@@ -75,7 +87,7 @@ export default function TaskListScreen() {
                                                 </td>
                                                 <td class="text-bold-500">
                                                     <div class="avatar me-3">
-                                                        <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
                                                     </div>
                                                     Phương Công Thắng
                                                 </td>
@@ -101,7 +113,7 @@ export default function TaskListScreen() {
                                                 </td>
                                                 <td class="text-bold-500">
                                                     <div class="avatar me-3">
-                                                        <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
+                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
                                                     </div>
                                                     Phương Công Thắng
                                                 </td>

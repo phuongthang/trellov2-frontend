@@ -20,5 +20,8 @@ const linkName = {
 
     //user
     USER_INFORMATION: '/user-information',
+
+    //note
+    NOTE: '/note'
 };
 export default linkName;
