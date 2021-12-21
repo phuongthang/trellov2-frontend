@@ -34,7 +34,7 @@ export default function Sidebar() {
                     <div className="d-flex justify-content-between">
                         <div className="logo">
                             <span onClick={_reload} className="cursor-pointer">
-                                <img src="assets/images/logo/logo.png" alt="Logo" srcSet />
+                                <h1>TrelloV2</h1>
                             </span>
                         </div>
                         <div className="toggler">

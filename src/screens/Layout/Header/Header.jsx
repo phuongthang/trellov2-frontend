@@ -6,9 +6,9 @@ export default function Header() {
         <header>
             <nav className="navbar navbar-expand navbar-light ">
                 <div className="container-fluid">
-                    <a href="#" className="burger-btn d-block">
+                    <span className="burger-btn d-block " style={{cursor:'pointer'}}>
                         <i className="bi bi-justify fs-3 text-white-600" />
-                    </a>
+                    </span>
                     <button
                         className="navbar-toggler"
                         type="button"
