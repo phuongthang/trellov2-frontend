@@ -13,12 +13,12 @@ export default function InformationComponent(){
                         </div>
                     </div>
                     <h5 class="mt-2 text-center">Phương Công Thắng</h5>
-                    <div className="text-mute text-center">Backend Developer</div>
+                    <div className="text-mute text-center"><h6>Backend Developer</h6></div>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item cursor-pointer">Thống kê công việc</li>
-                    <li class="list-group-item cursor-pointer">Dự án đang tham gia</li>
-                    <li class="list-group-item cursor-pointer">Lịch sử hoạt động</li>
+                    <li class="list-group-item cursor-pointer"><h6>Thống kê công việc</h6></li>
+                    <li class="list-group-item cursor-pointer"><h6>Dự án đang tham gia</h6></li>
+                    <li class="list-group-item cursor-pointer"><h6>Lịch sử hoạt động</h6></li>
                 </ul>
             </div>
             <div class="card">
@@ -28,9 +28,9 @@ export default function InformationComponent(){
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Email: thang.pc@beetechsoft.vn</li>
-                    <li class="list-group-item">Phòng ban: Information Technology</li>
-                    <li class="list-group-item">Ngày bắt đầu: 17/12/2020</li>
+                    <li class="list-group-item"><h6>Email: thang.pc@beetechsoft.vn</h6></li>
+                    <li class="list-group-item"><h6>Phòng ban: Information Technology</h6></li>
+                    <li class="list-group-item"><h6>Ngày bắt đầu: 17/12/2020</h6></li>
                 </ul>
             </div>
         </>

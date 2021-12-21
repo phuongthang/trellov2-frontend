@@ -7,7 +7,7 @@ export default function Header() {
             <nav className="navbar navbar-expand navbar-light ">
                 <div className="container-fluid">
                     <a href="#" className="burger-btn d-block">
-                        <i className="bi bi-justify fs-3" />
+                        <i className="bi bi-justify fs-3 text-white-600" />
                     </a>
                     <button
                         className="navbar-toggler"
@@ -29,7 +29,7 @@ export default function Header() {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <i className="bi bi-envelope bi-sub fs-4 text-gray-600" />
+                                    <i className="bi bi-envelope bi-sub fs-4 text-white-600" />
                                 </a>
                                 <ul
                                     className="dropdown-menu dropdown-menu-end"
@@ -52,7 +52,7 @@ export default function Header() {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <i className="bi bi-bell bi-sub fs-4 text-gray-600" />
+                                    <i className="bi bi-bell bi-sub fs-4 text-white-600" />
                                 </a>
                                 <ul
                                     className="dropdown-menu dropdown-menu-end"
@@ -71,8 +71,8 @@ export default function Header() {
                             <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div className="user-menu d-flex">
                                     <div className="user-name text-end me-3">
-                                        <h6 className="mb-0 text-gray-600">Phương Công Thắng</h6>
-                                        <p className="mb-0 text-sm text-gray-600">Backend Developer</p>
+                                        <h6 className="mb-0 text-white-600">Phương Công Thắng</h6>
+                                        <p className="mb-0 text-sm text-white-600">Backend Developer</p>
                                     </div>
                                     <div className="user-img d-flex align-items-center">
                                         <div className="avatar avatar-md">

@@ -175,3 +175,30 @@ header{
 .modal-task-fillter .modal-content{
     width: 60%;
 }
+.submenu-item.active{
+    background-color: #435ebe;
+    border-radius: 0.5rem;
+    color: white !important;
+}
+.submenu-item.active a{
+    color: white !important;
+}
+.submenu-item.active:hover{
+    color: #435ebe !important;
+}
+.submenu-item.active a:hover{
+    color: #435ebe !important;
+}
+
+.submenu-item:hover{
+    background-color: #f0f1f5;
+    border-radius: 0.5rem;
+}
+.submenu-item a{
+    color: #25396f !important;
+    font-weight: 700 !important;
+}
+
+.text-white-600{
+    color: white !important;
+}

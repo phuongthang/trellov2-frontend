@@ -10,8 +10,7 @@ export default function Footer() {
                         A product created{" "}
                         <span className="text-danger">
                             <i className="bi bi-heart-fill icon-mid" />
-                        </span>
-                         by <a href="https://ahmadsaugi.com">Phương Thắng</a>
+                        </span><span> by Phương Thắng</span>
                     </p>
                 </div>
             </div>
