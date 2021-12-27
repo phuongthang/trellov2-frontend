@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import LinkName from "../../../constants/linkName";
 
 
-export default function Sidebar() {
+export default function Sidebar(props) {
     /**
      * define constant
      */
@@ -37,25 +37,25 @@ export default function Sidebar() {
                                 <h1>TrelloV2</h1>
                             </span>
                         </div>
-                        <div className="toggler">
-                            <span onClick={_reload} className="sidebar-hide d-xl-none d-block cursor-pointer">
-                                <i className="bi bi-x bi-middle" />
-                            </span>
-                        </div>
                     </div>
                 </div>
                 <div className="sidebar-menu">
                     <ul className="menu">
-                        <li className="sidebar-title">Menu</li>
                         <li className={`sidebar-item ${currentPath === LinkName.HOME ? 'active' : ''}`}>
                             <span onClick={_reload} className="sidebar-link cursor-pointer">
-                                <i className="bi bi-grid-fill" />
+                                <i className="bi bi-house-fill" />
                                 <span>Trang chủ</span>
+                            </span>
+                        </li>
+                        <li className={`sidebar-item ${currentPath === LinkName.USER_LIST ? 'active' : ''}`}>
+                            <span className="sidebar-link cursor-pointer">
+                                <i className="bi bi-people-fill" />
+                                <span onClick={()=>navigate(LinkName.USER_LIST)} >Nhân sự</span>
                             </span>
                         </li>
                         <li className={`sidebar-item ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`}>
                             <span className="sidebar-link" style={{ cursor: 'pointer' }}>
-                                <i className="bi bi-stack" />
+                                <i className="bi bi-person-bounding-box" />
                                 <span>Thông tin cá nhân</span>
                             </span>
                             <ul className="submenu d-block">
@@ -101,7 +101,7 @@ export default function Sidebar() {
                         </li>
                         <li className={`sidebar-item ${currentPath === LinkName.NOTE ? 'active' : ''}`}>
                             <Link to={LinkName.NOTE} className="sidebar-link cursor-pointer">
-                                <i className="bi bi-grid-fill" />
+                                <i className="bi bi-pen-fill" />
                                 <span>Ghi chú</span>
                             </Link>
                         </li>
