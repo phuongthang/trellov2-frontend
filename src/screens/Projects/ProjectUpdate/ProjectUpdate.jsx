@@ -78,25 +78,25 @@ export default function ProjectUpdateScreen(props) {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Chế độ :</h6></label>
                                                         <div className="position-relative">
-                                                            <ul class="list-unstyled mb-0">
-                                                                <li class="d-inline-block me-5 mb-1 mt-2">
-                                                                    <div class="form-check">
-                                                                        <div class="custom-control custom-checkbox">
+                                                            <ul className="list-unstyled mb-0">
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
-                                                                                class="form-check-input form-check-primary"
+                                                                                className="form-check-input form-check-primary"
                                                                                 name="customCheck" id="customColorCheck1" />
-                                                                            <label class="form-check-label"
+                                                                            <label className="form-check-label"
                                                                                 for="customColorCheck1"><h6>Công khai</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                                <li class="d-inline-block me-5 mb-1 mt-2">
-                                                                    <div class="form-check">
-                                                                        <div class="custom-control custom-checkbox">
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
-                                                                                class="form-check-input form-check-secondary"
+                                                                                className="form-check-input form-check-secondary"
                                                                                 name="customCheck" id="customColorCheck2" />
-                                                                            <label class="form-check-label"
+                                                                            <label className="form-check-label"
                                                                                 for="customColorCheck2"><h6>Bảo mật</h6></label>
                                                                         </div>
                                                                     </div>
@@ -109,7 +109,7 @@ export default function ProjectUpdateScreen(props) {
                                                     <div className="form-group">
                                                         <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Rectangle</option>
                                                                 <option value="rectangle">Rectangle</option>
                                                                 <option value="rombo">Rombo</option>
@@ -163,7 +163,7 @@ export default function ProjectUpdateScreen(props) {
                                                                                     </div>
                                                                                     <div className="widget-todo-item-action d-flex align-items-center px-3">
                                                                                         <div className="avatar bg-warning">
-                                                                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt srcSet />
+                                                                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet />
                                                                                         </div>
                                                                                     </div>
                                                                                     <span className="widget-todo-title px-3">
@@ -185,7 +185,7 @@ export default function ProjectUpdateScreen(props) {
                                                                                     </div>
                                                                                     <div className="widget-todo-item-action d-flex align-items-center px-3">
                                                                                         <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt srcSet />
+                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet />
                                                                                         </div>
                                                                                     </div>
                                                                                     <span className="widget-todo-title px-3">
@@ -207,7 +207,7 @@ export default function ProjectUpdateScreen(props) {
                                                                                     </div>
                                                                                     <div className="widget-todo-item-action d-flex align-items-center px-3">
                                                                                         <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt srcSet />
+                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet />
                                                                                         </div>
                                                                                     </div>
                                                                                     <span className="widget-todo-title px-3">
@@ -235,7 +235,7 @@ export default function ProjectUpdateScreen(props) {
                                                                                 <div className="widget-todo-title-area d-flex align-items-center">
                                                                                     <div className="widget-todo-item-action d-flex align-items-center">
                                                                                         <div className="avatar bg-warning">
-                                                                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt srcSet />
+                                                                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet />
                                                                                         </div>
                                                                                     </div>
                                                                                     <span className="widget-todo-title px-3">
@@ -250,7 +250,7 @@ export default function ProjectUpdateScreen(props) {
                                                                                 <div className="widget-todo-title-area d-flex align-items-center">
                                                                                     <div className="widget-todo-item-action d-flex align-items-center">
                                                                                         <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt srcSet />
+                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet />
                                                                                         </div>
                                                                                     </div>
                                                                                     <span className="widget-todo-title px-3">
@@ -265,7 +265,7 @@ export default function ProjectUpdateScreen(props) {
                                                                                 <div className="widget-todo-title-area d-flex align-items-center">
                                                                                     <div className="widget-todo-item-action d-flex align-items-center">
                                                                                         <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt srcSet />
+                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet />
                                                                                         </div>
                                                                                     </div>
                                                                                     <span className="widget-todo-title px-3">
@@ -282,11 +282,11 @@ export default function ProjectUpdateScreen(props) {
                                                 </section>
                                             </div>
                                             <div className="row">
-                                                <div class="col-12 d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
+                                                <div className="col-12 d-flex justify-content-center">
+                                                    <button type="button" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
                                                     <button 
                                                         type="button" 
-                                                        class="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom"
+                                                        className="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom"
                                                         onClick={toggle}
                                                     >Hủy</button>
                                                 </div>

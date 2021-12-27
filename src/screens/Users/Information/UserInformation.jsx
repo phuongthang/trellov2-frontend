@@ -31,9 +31,9 @@ export default function UserInformationScreen() {
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Ảnh đại diện:</h6></label>
                                                         <div className="position-relative">
                                                             <div className="d-flex justify-content-center mt-3">
-                                                                <div class="avatar avatar-xxl me-3">
-                                                                    <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
-                                                                    <span class="avatar-xxl-status bg-warning"><MdModeEditOutline/></span>
+                                                                <div className="avatar avatar-xxl me-3">
+                                                                    <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
+                                                                    <span className="avatar-xxl-status bg-warning"><MdModeEditOutline/></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -44,9 +44,9 @@ export default function UserInformationScreen() {
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Ảnh chấm công:</h6></label>
                                                         <div className="position-relative">
                                                             <div className="d-flex justify-content-center mt-3">
-                                                                <div class="avatar avatar-xxl me-3">
-                                                                    <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcset="" />
-                                                                    <span class="avatar-xxl-status bg-warning"><MdModeEditOutline/></span>
+                                                                <div className="avatar avatar-xxl me-3">
+                                                                    <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
+                                                                    <span className="avatar-xxl-status bg-warning"><MdModeEditOutline/></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -137,37 +137,37 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Giới tính :</h6></label>
                                                         <div className="position-relative">
-                                                            <ul class="list-unstyled mb-0">
-                                                                <li class="d-inline-block me-5 mb-1">
-                                                                    <div class="form-check">
-                                                                        <div class="custom-control custom-checkbox">
+                                                            <ul className="list-unstyled mb-0">
+                                                                <li className="d-inline-block me-5 mb-1">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
-                                                                                class="form-check-input form-check-primary"
+                                                                                className="form-check-input form-check-primary"
                                                                                 name="customCheck" id="customColorCheck1" />
-                                                                            <label class="form-check-label"
-                                                                                for="customColorCheck1"><h6>Nam</h6></label>
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="customColorCheck1"><h6>Nam</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                                <li class="d-inline-block me-5 mb-1">
-                                                                    <div class="form-check">
-                                                                        <div class="custom-control custom-checkbox">
+                                                                <li className="d-inline-block me-5 mb-1">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
-                                                                                class="form-check-input form-check-secondary"
+                                                                                className="form-check-input form-check-secondary"
                                                                                 name="customCheck" id="customColorCheck2" />
-                                                                            <label class="form-check-label"
-                                                                                for="customColorCheck2"><h6>Nữ</h6></label>
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="customColorCheck2"><h6>Nữ</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                                <li class="d-inline-block me-5 mb-1">
-                                                                    <div class="form-check">
-                                                                        <div class="custom-control custom-checkbox">
+                                                                <li className="d-inline-block me-5 mb-1">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
-                                                                                class="form-check-input form-check-success"
+                                                                                className="form-check-input form-check-success"
                                                                                 name="customCheck" id="customColorCheck3" />
-                                                                            <label class="form-check-label"
-                                                                                for="customColorCheck3"><h6>Khác</h6></label>
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="customColorCheck3"><h6>Khác</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -192,7 +192,7 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Phòng ban :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Square</option>
                                                                 <option value="rectangle">Rectangle</option>
                                                                 <option value="rombo">Rombo</option>
@@ -208,7 +208,7 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Chức vụ :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Fontend Developer</option>
                                                                 <option value="rectangle">Backend Developer</option>
                                                                 <option value="rombo">Fullstack Developer</option>
@@ -220,7 +220,7 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Hình thức làm việc :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Part time</option>
                                                                 <option value="rectangle">Full time</option>
                                                                 <option value="rombo">Remote</option>
@@ -235,7 +235,7 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Thành phố :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Part time</option>
                                                                 <option value="rectangle">Full time</option>
                                                                 <option value="rombo">Remote</option>
@@ -248,7 +248,7 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Quận/Huyện :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Part time</option>
                                                                 <option value="rectangle">Full time</option>
                                                                 <option value="rombo">Remote</option>
@@ -261,7 +261,7 @@ export default function UserInformationScreen() {
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Thị trấn/Xã :</h6></label>
                                                         <div className="position-relative">
-                                                            <select class="choices form-select">
+                                                            <select className="choices form-select">
                                                                 <option value="square">Part time</option>
                                                                 <option value="rectangle">Full time</option>
                                                                 <option value="rombo">Remote</option>
@@ -341,9 +341,9 @@ export default function UserInformationScreen() {
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div class="col-12 d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
-                                                    <button type="button" class="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom">Hủy</button>
+                                                <div className="col-12 d-flex justify-content-center">
+                                                    <button type="button" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
+                                                    <button type="button" className="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom">Hủy</button>
                                                 </div>
                                             </div>
                                         </div>

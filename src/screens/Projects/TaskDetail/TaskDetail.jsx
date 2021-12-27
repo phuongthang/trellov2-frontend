@@ -17,7 +17,7 @@ export default function TaskDetailScreen() {
      */
     return (
         <Layout>
-            <section classname="section">
+            <section className="section">
                 <div className="card">
                     <div className="row">
                         <div className="col-xl-4 col-md-4 col-sm-4" style={{ borderRight: '1px solid' }}>
@@ -32,12 +32,12 @@ export default function TaskDetailScreen() {
                                     <h6 className="list-group-item">Ngày bắt đầu: 01/01/2021</h6>
                                     <h6 className="list-group-item">Ngày kết thúc: 01/01/2022</h6>
                                     <h6 className="list-group-item">Quản lý:
-                                        <div class="avatar avatar-sm px-2">
-                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
+                                        <div className="avatar avatar-sm px-2">
+                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
                                         </div>
                                         Phương Công Thắng
                                     </h6>
-                                    <h6 className="list-group-item"></h6>
+                                    <li className="list-group-item"></li>
                                 </ul>
                             </div>
                         </div>
@@ -56,23 +56,23 @@ export default function TaskDetailScreen() {
                                 <ul className="list-group list-group-flush">
                                     <h6 className="list-group-item">Tiêu đề: QA 550 - Bug Khách Hàng No.555 TOP mới</h6>
                                     <h6 className="list-group-item">Người tạo:
-                                        <div class="avatar avatar-sm px-2">
-                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
+                                        <div className="avatar avatar-sm px-2">
+                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
                                         </div>
                                         Phương Công Thắng</h6>
                                     <h6 className="list-group-item">Trạng thái: New - Mức độ ưu tiên: Normal</h6>
-                                    <h6 className="list-group-item">Chỉnh sửa lần cuối: 08:00 01/01/2021 <div class="avatar avatar-sm px-2">
-                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
+                                    <h6 className="list-group-item">Chỉnh sửa lần cuối: 08:00 01/01/2021 <div className="avatar avatar-sm px-2">
+                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
                                     </div>
                                         Phương Công Thắng</h6>
-                                    <h6 className="list-group-item"></h6>
+                                    <li className="list-group-item"></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section classname="section">
+            <section className="section">
                 <div className="card">
                     <div className="row">
                         <div className="col-xl-4 col-md-4 col-sm-4" style={{ borderRight: '1px solid' }}>
@@ -84,13 +84,13 @@ export default function TaskDetailScreen() {
                                 </div>
                                 <ul className="list-group list-group-flush">
                                     <h6 className="list-group-item">Phân công cho:
-                                        <div class="avatar avatar-sm px-2">
-                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
+                                        <div className="avatar avatar-sm px-2">
+                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
                                         </div>
                                         Phương Công Thắng</h6>
                                     <h6 className="list-group-item">Ngày bắt đầu: 01/01/2021</h6>
                                     <h6 className="list-group-item">Ngày kết thúc: 01/01/2022</h6>
-                                    <h6 className="list-group-item"></h6>
+                                    <li className="list-group-item"></li>
                                 </ul>
                             </div>
                         </div>
@@ -109,21 +109,21 @@ export default function TaskDetailScreen() {
                     </div>
                 </div>
             </section>
-            <section class="section">
-                <div class="row" id="table-striped">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">LỊCH SỬ HOẠT ĐỘNG</h4>
+            <section className="section">
+                <div className="row" id="table-striped">
+                    <div className="col-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-title">LỊCH SỬ HOẠT ĐỘNG</h4>
                             </div>
-                            <div class="card-content px-3 pb-3">
+                            <div className="card-content px-3 pb-3">
                                 <h6>Không có lịch sử hoạt động nào gần đây !</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <section classname="section">
+            <section className="section">
                 <div className="card">
                     <div className="row">
                         <div className="col-xl-12 col-md-12 col-sm-12">
@@ -165,9 +165,9 @@ export default function TaskDetailScreen() {
                                             </div>
                                         </div>
                                         <div className="row">
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <button type="button" class="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
-                                                <button type="button" class="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom">Hủy</button>
+                                            <div className="col-12 d-flex justify-content-center">
+                                                <button type="button" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
+                                                <button type="button" className="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom">Hủy</button>
                                             </div>
                                         </div>
                                     </div>

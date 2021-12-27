@@ -13,7 +13,7 @@ export default function ProjectDocumentComponent() {
                 <h6 className="list-group-item">Git: https://github.com/phuongthang/trellov2-frontend</h6>
                 <h6 className="list-group-item">SVN: https://github.com/phuongthang/trellov2-frontend</h6>
                 <h6 className="list-group-item">QA: https://github.com/phuongthang/trellov2-frontend</h6>
-                <h6 className="list-group-item"></h6>
+                <li className="list-group-item"></li>
             </ul>
         </div>
     )

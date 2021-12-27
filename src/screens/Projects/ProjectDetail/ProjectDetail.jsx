@@ -11,7 +11,7 @@ export default function ProjectDetailScreen() {
      */
     return (
         <Layout>
-            <section classname="section">
+            <section className="section">
                 <div className="row">
                     <div className="col-xl-6 col-md-6 col-sm-12 pb-3">
                         <ProjectInformationComponent />
@@ -21,7 +21,7 @@ export default function ProjectDetailScreen() {
                     </div>
                 </div>
             </section>
-            <section classname="section">
+            <section className="section">
                 <div className="row">
                     <div className="col-xl-6 col-md-6 col-sm-12">
                         <ProjectMemberComponent />

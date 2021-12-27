@@ -3,6 +3,7 @@ export default function ProjectMemberComponent() {
      * render template
      */
     return (
+        <>
         <div className="card">
             <div className="card-content">
                 <div className="card-body">
@@ -13,8 +14,9 @@ export default function ProjectMemberComponent() {
                 <h6 className="list-group-item">Project Manager: Phương Công Thắng</h6>
                 <h6 className="list-group-item">Leader: Nguyễn Thị Chinh</h6>
                 <h6 className="list-group-item">Member: Phạm Thị Ngân</h6>
-                <h6 className="list-group-item"></h6>
+                <li className="list-group-item"></li>
             </ul>
         </div>
+        </>
     )
 }

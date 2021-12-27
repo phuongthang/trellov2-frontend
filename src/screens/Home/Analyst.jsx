@@ -3,16 +3,16 @@ export default function AnalystComponent() {
      * render template
      */
     return (
-        <section class="section">
-            <div class="row" id="table-striped">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">THỐNG KÊ</h4>
+        <section className="section">
+            <div className="row" id="table-striped">
+                <div className="col-12">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4 className="card-title">THỐNG KÊ</h4>
                         </div>
-                        <div class="card-content px-3 pb-3">
-                            <div class="table-responsive">
-                                <table class="table table-striped mb-0">
+                        <div className="card-content px-3 pb-3">
+                            <div className="table-responsive">
+                                <table className="table table-striped mb-0">
                                     <thead>
                                         <tr>
                                             <th>Trạng thái</th>
@@ -21,23 +21,23 @@ export default function AnalystComponent() {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text-bold-500">New</td>
+                                            <td className="text-bold-500">New</td>
                                             <td>01</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-bold-500">Pending</td>
+                                            <td className="text-bold-500">Pending</td>
                                             <td>01</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-bold-500">Close</td>
+                                            <td className="text-bold-500">Close</td>
                                             <td>01</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-bold-500">Resolve</td>
+                                            <td className="text-bold-500">Resolve</td>
                                             <td>01</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-bold-500">Waiting review</td>
+                                            <td className="text-bold-500">Waiting review</td>
                                             <td>01</td>
                                         </tr>
                                     </tbody>

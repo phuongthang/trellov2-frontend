@@ -202,3 +202,15 @@ header{
 .text-white-600{
     color: white !important;
 }
+
+.dropdown button{
+    background: none !important;
+    border: none !important;
+}
+
+.dropdown button:hover, .dropdown button:active{
+    background:none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}

@@ -14,7 +14,7 @@ export default function HomeScreen() {
             <div className="page-heading">
                 <section className="section mt-3">
                     <div className="row">
-                        <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div className="col-xl-4 col-md-6 col-sm-12">
                             <InformationComponent/>
                         </div>
                         <div className="col-lg-8">

@@ -30,13 +30,13 @@ export default function TaskListScreen() {
      */
     return (
         <Layout>
-            <section class="section">
-                <div class="row" id="table-striped">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
+            <section className="section">
+                <div className="row" id="table-striped">
+                    <div className="col-12">
+                        <div className="card">
+                            <div className="card-header">
                                 <div className="d-flex justify-content-between">
-                                    <h4 class="card-title">DANH SÁCH CÔNG VIỆC</h4>
+                                    <h4 className="card-title">DANH SÁCH CÔNG VIỆC</h4>
                                     <div className="">
                                         <button
                                             className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom"
@@ -50,14 +50,14 @@ export default function TaskListScreen() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-content">
-                                <div class="badges px-3 pb-3">
-                                    <span class="badge bg-success mr-5">LandMark  <TiDelete /></span>
-                                    <span class="badge bg-success mr-5">Đang mở  <TiDelete /></span>
-                                    <span class="badge bg-success">Phương Công Thắng  <TiDelete /></span>
+                            <div className="card-content">
+                                <div className="badges px-3 pb-3">
+                                    <span className="badge bg-success mr-5">LandMark  <TiDelete /></span>
+                                    <span className="badge bg-success mr-5">Đang mở  <TiDelete /></span>
+                                    <span className="badge bg-success">Phương Công Thắng  <TiDelete /></span>
                                 </div>
-                                <div class="table-responsive px-3 pb-3 table-task-list">
-                                    <table class="table table-striped mb-0">
+                                <div className="table-responsive px-3 pb-3 table-task-list">
+                                    <table className="table table-striped mb-0">
                                         <thead className="text-center">
                                             <tr>
                                                 <th>ID</th>
@@ -73,7 +73,7 @@ export default function TaskListScreen() {
                                         </thead>
                                         <tbody className="text-center">
                                             <tr>
-                                                <td class="text-bold-500">#1</td>
+                                                <td className="text-bold-500">#1</td>
                                                 <td>LandMark</td>
                                                 <td>Bug</td>
                                                 <td>
@@ -85,9 +85,9 @@ export default function TaskListScreen() {
                                                 <td>
                                                     Bug KH No.609 - input request (bãi đậu xe) (front)
                                                 </td>
-                                                <td class="text-bold-500">
-                                                    <div class="avatar me-3">
-                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
+                                                <td className="text-bold-500">
+                                                    <div className="avatar me-3">
+                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
                                                     </div>
                                                     Phương Công Thắng
                                                 </td>
@@ -99,7 +99,7 @@ export default function TaskListScreen() {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-bold-500">#2</td>
+                                                <td className="text-bold-500">#2</td>
                                                 <td>LandMark</td>
                                                 <td>Bug</td>
                                                 <td>
@@ -111,9 +111,9 @@ export default function TaskListScreen() {
                                                 <td>
                                                     Bug KH No.609 - input request (bãi đậu xe) (front)
                                                 </td>
-                                                <td class="text-bold-500">
-                                                    <div class="avatar me-3">
-                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcset="" />
+                                                <td className="text-bold-500">
+                                                    <div className="avatar me-3">
+                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
                                                     </div>
                                                     Phương Công Thắng
                                                 </td>
