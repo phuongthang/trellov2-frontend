@@ -133,7 +133,7 @@ export default function UserInformationScreen() {
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
+                                            <div className="col-xl-4 col-md-4 col-xs-4">
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Giới tính :</h6></label>
                                                         <div className="position-relative">
@@ -175,7 +175,49 @@ export default function UserInformationScreen() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
+                                                <div className="col-xl-4 col-md-4 col-xs-4">
+                                                    <div className="form-group has-icon-left">
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Hình thức làm việc :</h6></label>
+                                                        <div className="position-relative">
+                                                            <ul className="list-unstyled mb-0">
+                                                                <li className="d-inline-block me-5 mb-1">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-primary"
+                                                                                name="customCheck" id="customColorCheck1" />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="customColorCheck1"><h6>Fulltime</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li className="d-inline-block me-5 mb-1">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-secondary"
+                                                                                name="customCheck" id="customColorCheck2" />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="customColorCheck2"><h6>Parttime</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li className="d-inline-block me-5 mb-1">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-success"
+                                                                                name="customCheck" id="customColorCheck3" />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="customColorCheck3"><h6>Khác</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-xl-4 col-md-4 col-xs-4">
                                                     <div className="form-group">
                                                         <label htmlFor="first-name-icon"><h6>Ngày sinh :</h6></label>
                                                         <div className="position-relative">
@@ -218,13 +260,12 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Hình thức làm việc :</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Chức vụ khác :</h6></label>
                                                         <div className="position-relative">
                                                             <select className="choices form-select">
-                                                                <option value="square">Part time</option>
-                                                                <option value="rectangle">Full time</option>
-                                                                <option value="rombo">Remote</option>
-                                                                <option value="romboid">Support</option>
+                                                                <option value="square">Project Manager</option>
+                                                                <option value="rectangle">Leader</option>
+                                                                <option value="rombo">Staff</option>
                                                             </select>
                                                         </div>
                                                     </div>

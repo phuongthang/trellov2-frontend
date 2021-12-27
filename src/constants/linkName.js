@@ -20,6 +20,7 @@ const linkName = {
 
     //user
     USER_INFORMATION: '/user-information',
+    USER_LIST: '/user-list',
 
     //note
     NOTE: '/note'

@@ -48,6 +48,8 @@ const TaskDetailScreen = React.lazy(() => import("./screens/Projects/TaskDetail/
 //Note
 const NoteScreen = React.lazy(() => import("./screens/Note/Note"));
 
+//UserList
+const UserListScreen = React.lazy(() => import("./screens/Users/UserList/UserList"));
 
 
 
@@ -103,6 +105,9 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route path={LinkName.NOTE} element={<NoteScreen />}></Route>
+				</Routes>
+				<Routes>
+					<Route path={LinkName.USER_LIST} element={<UserListScreen />}></Route>
 				</Routes>
 			</React.Suspense>
 		</BrowserRouter>
