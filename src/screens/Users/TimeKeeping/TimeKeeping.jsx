@@ -1,6 +1,9 @@
 //Component
 import Layout from '../../Layout/Layout';
 
+//icon
+import { TiDelete } from "react-icons/ti";
+
 export default function TimeKeepingScreen() {
     /**
      * render template
@@ -14,19 +17,28 @@ export default function TimeKeepingScreen() {
                             <div className="card-header">
                                 <h4 className="card-title">BẢNG CHẤM CÔNG CỦA TÔI</h4>
                             </div>
-                            <div className="row px-3 pb-3">
-                                <div className="col-sm-3">
-                                    <h6>Ngày bắt đầu :</h6>
-                                    <input className="form-control form-control-sm" type="date"
-                                        placeholder="Small Input" />
+                            <div className="d-flex justify-content-between">
+                                <div className="row px-3 pb-3 w-75">
+                                    <div className="col-sm-3">
+                                        <h6>Ngày bắt đầu :</h6>
+                                        <input className="form-control form-control-sm" type="date"
+                                            placeholder="Small Input" />
+                                    </div>
+                                    <div className="col-sm-3">
+                                        <h6>Ngày kết thúc :</h6>
+                                        <input className="form-control form-control-sm" type="date"
+                                            placeholder="Small Input" />
+                                    </div>
                                 </div>
-                                <div className="col-sm-3">
-                                    <h6>Ngày kết thúc :</h6>
-                                    <input className="form-control form-control-sm" type="date"
-                                        placeholder="Small Input" />
+                                <div>
+                                    <button type="button" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Tìm kiếm</button>
                                 </div>
                             </div>
                             <div className="card-content">
+                                <div className="badges px-3 pb-3">
+                                    <span className="badge bg-success mr-5">Từ ngày: 01/01/2021  <TiDelete /></span>
+                                    <span className="badge bg-success mr-5">Đến ngày: 01/01/2022  <TiDelete /></span>
+                                </div>
                                 <div className="table-responsive px-3 pb-3">
                                     <table className="table table-striped mb-0">
                                         <thead className="text-center">

@@ -10,7 +10,7 @@ export default function Sidebar() {
      * define constant
      */
     const listPathUserInformation = [LinkName.USER_INFORMATION, LinkName.TIME_KEEPING];
-    const listPathProject = [LinkName.PROJECT_LIST, LinkName.TASK_LIST, LinkName.PROJECT_ACTIVITY];
+    const listPathProject = [LinkName.PROJECT_CREATE, LinkName.PROJECT_LIST, LinkName.TASK_LIST, LinkName.PROJECT_ACTIVITY];
     const currentPath = window.location.pathname;
 
     /**
@@ -77,7 +77,12 @@ export default function Sidebar() {
                                 <span>Dự án</span>
                             </span>
                             <ul className="submenu d-block">
-                                <li className={`d-flex align-items-center submenu-item mb-1 mt-2 ${currentPath === LinkName.PROJECT_LIST ? 'active' : ''}`}>
+                                <li className={`d-flex align-items-center submenu-item mb-1 mt-2 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
+                                    <Link to={LinkName.PROJECT_CREATE}>
+                                        Tạo mới dự án
+                                    </Link>
+                                </li>
+                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_LIST ? 'active' : ''}`}>
                                     <Link to={LinkName.PROJECT_LIST}>
                                         Danh sách dự án
                                     </Link>
