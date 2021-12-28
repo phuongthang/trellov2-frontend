@@ -3,6 +3,7 @@ import { useState } from 'react';
 //Component
 import Layout from '../../Layout/Layout';
 import ProjectUpdateScreen from './../ProjectUpdate/ProjectUpdate';
+import ModalConfirmDeleteProjectComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -11,12 +12,21 @@ import { MdEdit } from "react-icons/md";
 
 export default function ProjectListScreen() {
     /**
-     * define state
+     * open/close modal project update
      */
     const [modalProjectUpdate, setModalProjectUpdate] = useState(false);
     const toggleModalProjectUpdate = () => {
         setModalProjectUpdate(!modalProjectUpdate);
     }
+
+    /**
+     * open/close modal confirm delete project
+     */
+    const [modalConfirmDeleteProject, setModalConfirmDeleteProject] = useState(false);
+    const toggleModalConfirmDeleteProject = () => {
+        setModalConfirmDeleteProject(!modalConfirmDeleteProject);
+    }
+
     /**
      * render template
      */
@@ -86,7 +96,7 @@ export default function ProjectListScreen() {
                                                 <td>
                                                     <div className="d-flex justify-content-center">
                                                         <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
-                                                        <span className='px-1'><RiDeleteBin5Fill /></span>
+                                                        <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteProject} /></span>
                                                         <span className='px-1'><BsPinAngleFill /></span>
                                                     </div>
                                                 </td>
@@ -118,7 +128,7 @@ export default function ProjectListScreen() {
                                                 <td>
                                                     <div className="d-flex justify-content-center">
                                                         <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
-                                                        <span className='px-1'><RiDeleteBin5Fill /></span>
+                                                        <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteProject} /></span>
                                                         <span className='px-1'><BsPinAngleFill /></span>
                                                     </div>
                                                 </td>
@@ -136,6 +146,13 @@ export default function ProjectListScreen() {
                 <ProjectUpdateScreen
                     modal={modalProjectUpdate}
                     toggle={toggleModalProjectUpdate}
+                />
+            }
+            {
+                modalConfirmDeleteProject &&
+                <ModalConfirmDeleteProjectComponent
+                    modal={modalConfirmDeleteProject}
+                    toggle={toggleModalConfirmDeleteProject}
                 />
             }
         </Layout>

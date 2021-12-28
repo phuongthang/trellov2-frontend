@@ -3,6 +3,7 @@ import { useState } from 'react';
 //Component
 import Layout from '../../Layout/Layout';
 import UserFillterComponent from '../../Fillters/UserFillter/UserFillter';
+import ModalConfirmDeleteUserComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -18,6 +19,14 @@ export default function UserListScreen() {
     const [modalUserFillter, setModalUserFillter] = useState(false);
     const toggleModalUserFillter = () => {
         setModalUserFillter(!modalUserFillter);
+    }
+
+    /**
+     * open/close modal confirm delete user
+     */
+    const [modalConfirmDeleteUser, setModalConfirmDeleteUser] = useState(false);
+    const toggleModalConfirmDeleteUser = () => {
+        setModalConfirmDeleteUser(!modalConfirmDeleteUser);
     }
 
     /**
@@ -73,7 +82,7 @@ export default function UserListScreen() {
                                                 <td>
                                                     <div className="d-flex justify-content-center">
                                                         <span className='px-1'><MdEdit /></span>
-                                                        <span className='px-1'><RiDeleteBin5Fill /></span>
+                                                        <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteUser} /></span>
                                                         <span className='px-1'><BsPinAngleFill /></span>
                                                     </div>
                                                 </td>
@@ -92,7 +101,7 @@ export default function UserListScreen() {
                                                 <td>
                                                     <div className="d-flex justify-content-center">
                                                         <span className='px-1'><MdEdit /></span>
-                                                        <span className='px-1'><RiDeleteBin5Fill /></span>
+                                                        <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteUser} /></span>
                                                         <span className='px-1'><BsPinAngleFill /></span>
                                                     </div>
                                                 </td>
@@ -110,6 +119,13 @@ export default function UserListScreen() {
                 <UserFillterComponent
                     modal={modalUserFillter}
                     toggle={toggleModalUserFillter}
+                />
+            }
+            {
+                modalConfirmDeleteUser &&
+                <ModalConfirmDeleteUserComponent
+                    modal={modalConfirmDeleteUser}
+                    toggle={toggleModalConfirmDeleteUser}
                 />
             }
         </Layout>
