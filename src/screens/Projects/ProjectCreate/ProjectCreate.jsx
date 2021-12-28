@@ -26,7 +26,9 @@ export default function ProjectCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Dự án:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Dự án:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -43,7 +45,9 @@ export default function ProjectCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ngày bắt đầu :</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Ngày bắt đầu :</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"
@@ -55,7 +59,9 @@ export default function ProjectCreateScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Ngày kết thúc :</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Ngày kết thúc :</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="date"

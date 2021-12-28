@@ -56,7 +56,9 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Họ và tên:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Họ và tên:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -71,7 +73,9 @@ export default function UserInformationScreen() {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Chấm công :</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Chấm công :</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -88,7 +92,9 @@ export default function UserInformationScreen() {
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Email :</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Email :</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"

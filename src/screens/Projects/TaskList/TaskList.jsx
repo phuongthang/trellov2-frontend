@@ -9,6 +9,12 @@ import TaskFillterComponent from '../../Fillters/TaskFillter/TaskFillter';
 import { MdBookmarkAdded } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
 
+//packet
+import { Link } from 'react-router-dom';
+
+//Constants
+import LinkName from '../../../constants/linkName';
+
 export default function TaskListScreen() {
     /**
      * define state
@@ -38,6 +44,11 @@ export default function TaskListScreen() {
                                 <div className="d-flex justify-content-between">
                                     <h4 className="card-title">DANH SÁCH CÔNG VIỆC</h4>
                                     <div className="">
+                                        <Link
+                                            to={LinkName.TASK_CREATE}
+                                            className="btn btn-success btn-sm me-3 mb-3 mt-3 btn-custom"
+                                        >Thêm mới
+                                        </Link>
                                         <button
                                             className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom"
                                             onClick={toggleModalTaskFillter}

@@ -33,7 +33,9 @@ export default function TaskUpdateScreen(props) {
                                             <div className="row">
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Dự án:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6>Dự án:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -48,7 +50,9 @@ export default function TaskUpdateScreen(props) {
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-xs-6">
                                                     <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Phân loại:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6>Phân loại:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <select className="choices form-select">
                                                                 <option value="square">Rectangle</option>
@@ -66,7 +70,9 @@ export default function TaskUpdateScreen(props) {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Tiêu đề:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Tiêu đề:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -80,7 +86,9 @@ export default function TaskUpdateScreen(props) {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Mô tả:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Mô tả:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <textarea
                                                                 type="text"

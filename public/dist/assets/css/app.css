@@ -214,3 +214,8 @@ header{
     box-shadow: none !important;
     outline: none !important;
 }
+
+.required::after{
+    content:" *";
+    color:red;
+}

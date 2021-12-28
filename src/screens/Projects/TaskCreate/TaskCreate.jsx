@@ -57,7 +57,9 @@ export default function TaskCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Tiêu đề:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Tiêu đề:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <input
                                                                 type="text"
@@ -71,7 +73,9 @@ export default function TaskCreateScreen() {
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Mô tả:</h6></label>
+                                                        <label htmlFor="first-name-icon text-bold-500">
+                                                            <h6 className="required">Mô tả:</h6>
+                                                        </label>
                                                         <div className="position-relative">
                                                             <textarea
                                                                 type="text"
