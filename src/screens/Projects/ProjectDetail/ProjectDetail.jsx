@@ -1,5 +1,4 @@
 //Component
-import Layout from '../../Layout/Layout';
 import ProjectAnalystComponent from './ProjectAnalyst';
 import ProjectDocumentComponent from './ProjectDocument';
 import ProjectInformationComponent from './ProjectInformation';
@@ -10,7 +9,7 @@ export default function ProjectDetailScreen() {
      * render template
      */
     return (
-        <Layout>
+        <>
             <section className="section">
                 <div className="row">
                     <div className="col-xl-6 col-md-6 col-sm-12 pb-3">
@@ -31,6 +30,6 @@ export default function ProjectDetailScreen() {
                     </div>
                 </div>
             </section>
-        </Layout>
+        </>
     )
 }

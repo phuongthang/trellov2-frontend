@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 //Component
-import Layout from '../../Layout/Layout';
 import UserFillterComponent from '../../Fillters/UserFillter/UserFillter';
 import ModalConfirmDeleteUserComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 
@@ -33,7 +32,7 @@ export default function UserListScreen() {
      * render template
      */
     return (
-        <Layout>
+        <>
             <section className="section">
                 <div className="row" id="table-striped">
                     <div className="col-12">
@@ -128,6 +127,6 @@ export default function UserListScreen() {
                     toggle={toggleModalConfirmDeleteUser}
                 />
             }
-        </Layout>
+        </>
     )
 }

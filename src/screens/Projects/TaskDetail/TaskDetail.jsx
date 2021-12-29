@@ -1,6 +1,5 @@
 //Component
 import { useState } from 'react';
-import Layout from '../../Layout/Layout';
 import TaskUpdateScreen from './../TaskUpdate/TaskUpdate';
 
 export default function TaskDetailScreen() {
@@ -16,7 +15,7 @@ export default function TaskDetailScreen() {
      * render template
      */
     return (
-        <Layout>
+        <>
             <section className="section">
                 <div className="card">
                     <div className="row">
@@ -184,6 +183,6 @@ export default function TaskDetailScreen() {
                     toggle={toggleModalTaskUpdate}
                 />
             }
-        </Layout>
+        </>
     )
 }

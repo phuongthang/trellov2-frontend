@@ -511,7 +511,8 @@ export default function ProjectUpdateScreen(props) {
                                                                                     <span className="widget-todo-title px-3">
                                                                                         Phạm Thị Ngân
                                                                                     </span>
-                                                                                    <RiDeleteBin5Fill />                                                                                </div>
+                                                                                    <RiDeleteBin5Fill />
+                                                                                </div>
                                                                             </div>
                                                                         </li>
                                                                     </ul>

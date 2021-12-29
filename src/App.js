@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 //Constants
 import LinkName from './constants/linkName';
+import Layout from './screens/Layout/Layout';
 
 /**
  * Screens
@@ -56,8 +57,8 @@ const UserListScreen = React.lazy(() => import("./screens/Users/UserList/UserLis
 
 function App() {
 	/**
-     * render template
-     */
+	 * render template
+	 */
 	return (
 		<BrowserRouter>
 			<React.Suspense fallback={<>...</>}>
@@ -73,42 +74,44 @@ function App() {
 				<Routes>
 					<Route path={LinkName.ERROR_500} element={<Error500Screen />}></Route>
 				</Routes>
-				<Routes>
-					<Route path={LinkName.HOME} element={<HomeScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.TIME_KEEPING} element={<TimeKeepingScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.PROJECT_LIST} element={<ProjectListScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.TASK_LIST} element={<TaskListScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.PROJECT_DETAIL} element={<ProjectDetailScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.PROJECT_ACTIVITY} element={<ProjectActivityScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.USER_INFORMATION} element={<UserInformationScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.PROJECT_CREATE} element={<ProjectCreateScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.TASK_CREATE} element={<TaskCreateScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.TASK_DETAIL} element={<TaskDetailScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.NOTE} element={<NoteScreen />}></Route>
-				</Routes>
-				<Routes>
-					<Route path={LinkName.USER_LIST} element={<UserListScreen />}></Route>
-				</Routes>
+				<Layout>
+					<Routes>
+						<Route path={LinkName.HOME} element={<HomeScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.TIME_KEEPING} element={<TimeKeepingScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.PROJECT_LIST} element={<ProjectListScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.TASK_LIST} element={<TaskListScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.PROJECT_DETAIL} element={<ProjectDetailScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.PROJECT_ACTIVITY} element={<ProjectActivityScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.USER_INFORMATION} element={<UserInformationScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.PROJECT_CREATE} element={<ProjectCreateScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.TASK_CREATE} element={<TaskCreateScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.TASK_DETAIL} element={<TaskDetailScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.NOTE} element={<NoteScreen />}></Route>
+					</Routes>
+					<Routes>
+						<Route path={LinkName.USER_LIST} element={<UserListScreen />}></Route>
+					</Routes>
+				</Layout>
 			</React.Suspense>
 		</BrowserRouter>
 	);

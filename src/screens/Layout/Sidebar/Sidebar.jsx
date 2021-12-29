@@ -1,8 +1,11 @@
+import { useState } from 'react';
 //Packet
 import { Link, useNavigate } from 'react-router-dom';
+import { Collapse } from "reactstrap"
 
 //Constant
 import LinkName from "../../../constants/linkName";
+import Common from '../../../constants/common';
 
 
 export default function Sidebar(props) {
@@ -17,13 +20,30 @@ export default function Sidebar(props) {
      * reload component
      */
     let navigate = useNavigate();
-    const _reload = () => {
+    const _onClickIconHomePage = () => {
         if (window.location.pathname === LinkName.HOME) {
             window.location.reload();
         } else {
             navigate(LinkName.HOME);
         }
     }
+    /**
+     * control open collapse
+     */
+    const [isOpenTabInformation, setOpenTabInformation] = useState(false);
+    const [isOpenTabProjectManager, setOpenTabProjectManager] = useState(false);
+
+    const toggleOpenCollaspe = (setCurrentState, state, tabType) => {
+        if(tabType === Common.NAV.USER){
+            setOpenTabProjectManager(false);
+        }else if(tabType === Common.NAV.PROJECT){
+            setOpenTabInformation(false);
+        }
+        setCurrentState(!state);
+    }
+
+
+
     /**
      * render template
      */
@@ -33,7 +53,7 @@ export default function Sidebar(props) {
                 <div className="sidebar-header">
                     <div className="d-flex justify-content-between">
                         <div className="logo">
-                            <span onClick={_reload} className="cursor-pointer">
+                            <span onClick={_onClickIconHomePage} className="cursor-pointer">
                                 <h1>TrelloV2</h1>
                             </span>
                         </div>
@@ -42,7 +62,7 @@ export default function Sidebar(props) {
                 <div className="sidebar-menu">
                     <ul className="menu">
                         <li className={`sidebar-item ${currentPath === LinkName.HOME ? 'active' : ''}`}>
-                            <span onClick={_reload} className="sidebar-link cursor-pointer">
+                            <span onClick={_onClickIconHomePage} className="sidebar-link cursor-pointer">
                                 <i className="bi bi-house-fill" />
                                 <span>Trang chủ</span>
                             </span>
@@ -50,16 +70,17 @@ export default function Sidebar(props) {
                         <li className={`sidebar-item ${currentPath === LinkName.USER_LIST ? 'active' : ''}`}>
                             <span className="sidebar-link cursor-pointer">
                                 <i className="bi bi-people-fill" />
-                                <span onClick={()=>navigate(LinkName.USER_LIST)} >Nhân sự</span>
+                                <span onClick={() => navigate(LinkName.USER_LIST)} >Nhân sự</span>
                             </span>
                         </li>
-                        <li className={`sidebar-item ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`}>
-                            <span className="sidebar-link" style={{ cursor: 'pointer' }}>
-                                <i className="bi bi-person-bounding-box" />
-                                <span>Thông tin cá nhân</span>
-                            </span>
+                        <>
+                        <span onClick={()=>toggleOpenCollaspe(setOpenTabInformation, isOpenTabInformation, Common.NAV.USER)} className={`sidebar-link mt-2 ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                            <i className="bi bi-person-bounding-box" />
+                            <span>Thông tin cá nhân</span>
+                        </span>
+                        <Collapse isOpen={isOpenTabInformation} className={`sidebar-item`}>
                             <ul className="submenu d-block">
-                                <li className={`d-flex align-items-center submenu-item mb-1 mt-2 ${currentPath === LinkName.USER_INFORMATION ? 'active' : ''}`}>
+                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_INFORMATION ? 'active' : ''}`}>
                                     <Link to={LinkName.USER_INFORMATION} >
                                         Thông tin
                                     </Link>
@@ -70,14 +91,17 @@ export default function Sidebar(props) {
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
-                        <li className={`sidebar-item ${listPathProject.includes(currentPath) ? 'active' : ''}`}>
-                            <span className="sidebar-link" style={{ cursor: 'pointer' }}>
-                                <i className="bi bi-collection-fill" />
-                                <span>Dự án</span>
-                            </span>
+                        </Collapse>
+                        </>
+
+                        <>
+                        <span onClick={()=>toggleOpenCollaspe(setOpenTabProjectManager, isOpenTabProjectManager, Common.NAV.PROJECT)} className={`sidebar-link mt-2 ${listPathProject.includes(currentPath) ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                            <i className="bi bi-collection-fill" />
+                            <span>Dự án</span>
+                        </span>
+                        <Collapse isOpen={isOpenTabProjectManager} className={`sidebar-item`}>
                             <ul className="submenu d-block">
-                                <li className={`d-flex align-items-center submenu-item mb-1 mt-2 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
+                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
                                     <Link to={LinkName.PROJECT_CREATE}>
                                         Tạo mới dự án
                                     </Link>
@@ -98,7 +122,9 @@ export default function Sidebar(props) {
                                     </Link>
                                 </li>
                             </ul>
-                        </li>
+                        </Collapse>
+                        </>
+
                         <li className={`sidebar-item ${currentPath === LinkName.NOTE ? 'active' : ''}`}>
                             <Link to={LinkName.NOTE} className="sidebar-link cursor-pointer">
                                 <i className="bi bi-pen-fill" />

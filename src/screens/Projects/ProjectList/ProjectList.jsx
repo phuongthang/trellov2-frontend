@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 //Component
-import Layout from '../../Layout/Layout';
 import ProjectUpdateScreen from './../ProjectUpdate/ProjectUpdate';
 import ModalConfirmDeleteProjectComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 
@@ -31,7 +30,7 @@ export default function ProjectListScreen() {
      * render template
      */
     return (
-        <Layout>
+        <>
             <section className="section">
                 <div className="row" id="table-striped">
                     <div className="col-12">
@@ -155,6 +154,6 @@ export default function ProjectListScreen() {
                     toggle={toggleModalConfirmDeleteProject}
                 />
             }
-        </Layout>
+        </>
     )
 }

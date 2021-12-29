@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 //Component
-import Layout from '../../Layout/Layout';
 import TaskUpdateScreen from '../TaskUpdate/TaskUpdate';
 import TaskFillterComponent from '../../Fillters/TaskFillter/TaskFillter';
 
@@ -35,7 +34,7 @@ export default function TaskListScreen() {
      * render template
      */
     return (
-        <Layout>
+        <>
             <section className="section">
                 <div className="row" id="table-striped">
                     <div className="col-12">
@@ -157,6 +156,6 @@ export default function TaskListScreen() {
                     toggle={toggleModalTaskUpdate}
                 />
             }
-        </Layout>
+        </>
     )
 }

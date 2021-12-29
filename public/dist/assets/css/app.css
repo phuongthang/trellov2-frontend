@@ -179,6 +179,11 @@ header{
 .modal-task-fillter .modal-content{
     width: 60%;
 }
+.sidebar-link.active{
+    background-color: #435ebe !important;
+    border-radius: 0.5rem;
+    color: white !important;
+}
 .submenu-item.active{
     background-color: #435ebe;
     border-radius: 0.5rem;

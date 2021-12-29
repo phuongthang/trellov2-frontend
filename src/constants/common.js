@@ -1,8 +1,7 @@
 const common = {
     NAV:{
-        HOME: 1,
-        USER: 2,
-        PROJECT: 3
+        USER: 1,
+        PROJECT: 2
     }
 };
 export default common;
