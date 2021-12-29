@@ -62,7 +62,7 @@ export default function Header() {
                                 <div className="user-menu d-flex">
                                     <div className="user-name text-end me-3">
                                         <h6 className="mb-0 text-white-600">Phương Công Thắng</h6>
-                                        <p className="mb-0 text-sm text-white-600">Backend Developer</p>
+                                        <p className="mb-0 text-sm text-white-600">thang.pc@beetechsoft.vn</p>
                                     </div>
                                     <div className="user-img d-flex align-items-center">
                                         <div className="avatar avatar-md">
@@ -88,7 +88,7 @@ export default function Header() {
                                 </li>
                                 <li>
                                     <span className="dropdown-item cursor-pointer">
-                                        <i className="icon-mid bi bi-box-arrow-left me-2" /> Logout
+                                        <i className="icon-mid bi bi-box-arrow-left me-2" /> Đăng xuất
                                     </span>
                                 </li>
                             </DropdownMenu >

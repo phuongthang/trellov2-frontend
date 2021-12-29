@@ -143,6 +143,10 @@ header{
 .widget-todo-item .widget-todo-title{
     min-width: 300px;
 }
+
+.category .widget-todo-item .widget-todo-title{
+    min-width: 200px;
+}
 .widget-todo-list-wrapper{
     height: 320px;
     overflow-y: scroll;
