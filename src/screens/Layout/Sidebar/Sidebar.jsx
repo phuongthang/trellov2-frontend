@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //Packet
 import { Link, useNavigate } from 'react-router-dom';
 import { Collapse } from "reactstrap"
@@ -41,6 +41,20 @@ export default function Sidebar(props) {
         }
         setCurrentState(!state);
     }
+
+    /**
+     * check current path
+     */
+    useEffect(()=> {
+        if(listPathUserInformation.includes(currentPath)){
+            setOpenTabInformation(true);
+        }else if(listPathProject.includes(currentPath)){
+            setOpenTabProjectManager(true);
+        }else{
+            setOpenTabInformation(false);
+            setOpenTabProjectManager(false);
+        }
+    }, [currentPath]);
 
 
 
