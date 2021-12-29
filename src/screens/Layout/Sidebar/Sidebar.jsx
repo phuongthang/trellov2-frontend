@@ -14,6 +14,7 @@ export default function Sidebar(props) {
      */
     const listPathUserInformation = [LinkName.USER_INFORMATION, LinkName.TIME_KEEPING];
     const listPathProject = [LinkName.PROJECT_CREATE, LinkName.PROJECT_LIST, LinkName.TASK_LIST, LinkName.PROJECT_ACTIVITY];
+    const listPathManager = [LinkName.USER_LIST];
     const currentPath = window.location.pathname;
 
     /**
@@ -31,13 +32,27 @@ export default function Sidebar(props) {
      * control open collapse
      */
     const [isOpenTabInformation, setOpenTabInformation] = useState(false);
-    const [isOpenTabProjectManager, setOpenTabProjectManager] = useState(false);
+    const [isOpenTabProject, setOpenTabProject] = useState(false);
+    const [isOpenTabManager, setOpenTabManager] = useState(false);
 
     const toggleOpenCollaspe = (setCurrentState, state, tabType) => {
-        if(tabType === Common.NAV.USER){
-            setOpenTabProjectManager(false);
-        }else if(tabType === Common.NAV.PROJECT){
-            setOpenTabInformation(false);
+        switch(tabType){
+            case Common.NAV.USER: 
+                setOpenTabProject(false);
+                setOpenTabManager(false)
+                break;
+            case Common.NAV.PROJECT:
+                setOpenTabInformation(false);
+                setOpenTabManager(false)
+                break;
+            case Common.NAV.MANAGER:
+                setOpenTabProject(false);
+                setOpenTabInformation(false);
+                break;
+            default:
+                setOpenTabProject(false);
+                setOpenTabInformation(false);
+                setOpenTabManager(false);
         }
         setCurrentState(!state);
     }
@@ -49,10 +64,13 @@ export default function Sidebar(props) {
         if(listPathUserInformation.includes(currentPath)){
             setOpenTabInformation(true);
         }else if(listPathProject.includes(currentPath)){
-            setOpenTabProjectManager(true);
+            setOpenTabProject(true);
+        }else if(listPathManager.includes(currentPath)){
+            setOpenTabManager(true);
         }else{
             setOpenTabInformation(false);
-            setOpenTabProjectManager(false);
+            setOpenTabProject(false);
+            setOpenTabManager(false);
         }
     }, [currentPath]);
 
@@ -81,17 +99,35 @@ export default function Sidebar(props) {
                                 <span>Trang chủ</span>
                             </span>
                         </li>
-                        <li className={`sidebar-item ${currentPath === LinkName.USER_LIST ? 'active' : ''}`}>
+                        <>
+                        <li onClick={()=>toggleOpenCollaspe(setOpenTabManager, isOpenTabManager, Common.NAV.MANAGER)} className={`sidebar-item ${listPathManager.includes(currentPath) ? 'active' : ''}`}>
                             <span className="sidebar-link cursor-pointer">
-                                <i className="bi bi-people-fill" />
-                                <span onClick={() => navigate(LinkName.USER_LIST)} >Nhân sự</span>
+                            <i className="bi bi-people-fill" />
+                                <span>Quản lí</span>
                             </span>
                         </li>
+                        <Collapse isOpen={isOpenTabManager} className={`sidebar-item`}>
+                            <ul className="submenu d-block">
+                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_LIST ? 'active' : ''}`}>
+                                    <Link to={LinkName.USER_LIST} >
+                                        Nhân sự
+                                    </Link>
+                                </li>
+                                <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.TIME_KEEPING ? 'active' : ''}`}>
+                                    <Link to={LinkName.TIME_KEEPING} >
+                                        Công việc
+                                    </Link>
+                                </li>
+                            </ul>
+                        </Collapse>
+                        </>
                         <>
-                        <span onClick={()=>toggleOpenCollaspe(setOpenTabInformation, isOpenTabInformation, Common.NAV.USER)} className={`sidebar-link mt-2 ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                        <li onClick={()=>toggleOpenCollaspe(setOpenTabInformation, isOpenTabInformation, Common.NAV.USER)} className={`sidebar-item ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`}>
+                            <span className="sidebar-link cursor-pointer">
                             <i className="bi bi-person-bounding-box" />
-                            <span>Thông tin cá nhân</span>
-                        </span>
+                                <span>Thông tin cá nhân</span>
+                            </span>
+                        </li>
                         <Collapse isOpen={isOpenTabInformation} className={`sidebar-item`}>
                             <ul className="submenu d-block">
                                 <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_INFORMATION ? 'active' : ''}`}>
@@ -109,11 +145,13 @@ export default function Sidebar(props) {
                         </>
 
                         <>
-                        <span onClick={()=>toggleOpenCollaspe(setOpenTabProjectManager, isOpenTabProjectManager, Common.NAV.PROJECT)} className={`sidebar-link mt-2 ${listPathProject.includes(currentPath) ? 'active' : ''}`} style={{ cursor: 'pointer' }}>
+                        <li onClick={()=>toggleOpenCollaspe(setOpenTabProject, isOpenTabProject, Common.NAV.PROJECT)} className={`sidebar-item ${listPathProject.includes(currentPath) ? 'active' : ''}`}>
+                            <span className="sidebar-link cursor-pointer">
                             <i className="bi bi-collection-fill" />
                             <span>Dự án</span>
-                        </span>
-                        <Collapse isOpen={isOpenTabProjectManager} className={`sidebar-item`}>
+                            </span>
+                        </li>
+                        <Collapse isOpen={isOpenTabProject} className={`sidebar-item`}>
                             <ul className="submenu d-block">
                                 <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
                                     <Link to={LinkName.PROJECT_CREATE}>
