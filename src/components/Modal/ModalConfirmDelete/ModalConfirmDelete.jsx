@@ -16,13 +16,13 @@ export default function ModalConfirmDeleteComponent(props) {
         <Modal
             isOpen={modal}
             className="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title">
                         Xóa Dự Án ?
                     </h5>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                     <p>
                         Để xác nhận xóa vui lòng nhập <strong>LandMark</strong> để xóa !
                     </p>
@@ -40,12 +40,12 @@ export default function ModalConfirmDeleteComponent(props) {
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-secondary btn-custom" onClick={toggle}>
-                        <span class="d-none d-sm-block">Hủy</span>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-light-secondary btn-custom" onClick={toggle}>
+                        <span className="d-none d-sm-block">Hủy</span>
                     </button>
-                    <button type="button" class="btn btn-primary ml-1 btn-custom">
-                        <span class="d-none d-sm-block">Xác nhận</span>
+                    <button type="button" className="btn btn-primary ml-1 btn-custom">
+                        <span className="d-none d-sm-block">Xác nhận</span>
                     </button>
                 </div>
             </div>
