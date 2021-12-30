@@ -3,9 +3,35 @@ import { RiUser2Fill } from "react-icons/ri";
 import { MdEmail, MdModeEditOutline } from "react-icons/md";
 import { FaPhone } from "react-icons/fa";
 import { BsFillCreditCardFill } from "react-icons/bs";
+import { useState } from "react";
 
 
 export default function UserInformationScreen() {
+
+    /**
+     * define state
+     */
+    const [avatarSrc, setAvatarSrc] = useState();
+    const [subAvatarSrc, setSubAvatarSrc] = useState();
+
+    /**
+     * preview image
+     * @param {*} setState 
+     */
+    const _onClick = (setState) => {
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = () => {
+            let files =   Array.from(input.files);
+            let reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+
+            reader.onloadend = function (e) {
+                setState(reader.result);
+            }
+        }
+        input.click();
+    }
     /**
      * render template
      */
@@ -28,8 +54,8 @@ export default function UserInformationScreen() {
                                                     <div className="position-relative">
                                                         <div className="d-flex justify-content-center mt-3">
                                                             <div className="avatar avatar-xxl me-3">
-                                                                <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
-                                                                <span className="avatar-xxl-status bg-warning"><MdModeEditOutline /></span>
+                                                                <img src={avatarSrc ? avatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
+                                                                <span className="avatar-xxl-status bg-warning cursor-pointer" onClick={()=>_onClick(setAvatarSrc)}><MdModeEditOutline /></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -41,8 +67,8 @@ export default function UserInformationScreen() {
                                                     <div className="position-relative">
                                                         <div className="d-flex justify-content-center mt-3">
                                                             <div className="avatar avatar-xxl me-3">
-                                                                <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
-                                                                <span className="avatar-xxl-status bg-warning"><MdModeEditOutline /></span>
+                                                                <img src={subAvatarSrc ? subAvatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
+                                                                <span className="avatar-xxl-status bg-warning cursor-pointer" onClick={()=>_onClick(setSubAvatarSrc)}><MdModeEditOutline /></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -50,7 +76,7 @@ export default function UserInformationScreen() {
                                             </div>
                                         </div>
                                         <div className="row mt-3">
-                                            <div className="col-xl-5 col-md-5 col-xs-5">
+                                            <div className="col-xl-4 col-md-4 col-xs-4">
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500">
                                                         <h6 className="required">Họ và tên:</h6>
@@ -84,7 +110,7 @@ export default function UserInformationScreen() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-3 col-md-3 col-xs-3">
+                                            <div className="col-xl-4 col-md-4 col-xs-4">
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500"><h6>Loại tài khoản :</h6></label>
                                                     <div className="position-relative">
