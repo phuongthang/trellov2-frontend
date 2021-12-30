@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Routes, Route } from "react-router-dom";
 import './App.css';
+import LoadingOverlay from './components/Loading/LoadingOverlay';
 //Constants
 import LinkName from './constants/linkName';
 import Layout from './screens/Layout/Layout';
@@ -60,7 +61,7 @@ function App() {
 	 * render template
 	 */
 	return (
-		<React.Suspense fallback={<>...</>}>
+		<React.Suspense fallback={<LoadingOverlay/>}>
 			<Routes>
 				<Route path={LinkName.LOGIN} element={<LoginScreen />}></Route>
 				<Route path={LinkName.ERROR_500} element={<Error500Screen />}></Route>
