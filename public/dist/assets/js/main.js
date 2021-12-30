@@ -31,13 +31,18 @@ window.onload = (event) => {
         }
     });
 
-    document.querySelector('.burger-btn').addEventListener('click', () => {
-        document.getElementById('sidebar').classList.toggle('active');
-    })
-    // document.querySelector('.sidebar-hide').addEventListener('click', () => {
-    //     document.getElementById('sidebar').classList.toggle('active');
+    if(document.querySelector('.burger-btn')){
+        document.querySelector('.burger-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+        })
+    }
 
-    // })
+    if(document.querySelector('.sidebar-hide')){
+        document.querySelector('.sidebar-hide').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+    
+        })
+    }
 
 
     // Perfect Scrollbar Init
@@ -49,5 +54,7 @@ window.onload = (event) => {
     }
 
     // Scroll into active sidebar
-    // document.querySelector('.sidebar-item.active').scrollIntoView(false)
+    if(document.querySelector('.sidebar-item.active')){
+        document.querySelector('.sidebar-item.active').scrollIntoView(false)
+    }
 };
