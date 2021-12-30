@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import './App.css';
 //Constants
 import LinkName from './constants/linkName';
@@ -60,32 +60,28 @@ function App() {
 	 * render template
 	 */
 	return (
-		<BrowserRouter>
-			<React.Suspense fallback={<>...</>}>
-				<Routes>
-					<Route path={LinkName.LOGIN} element={<LoginScreen />}></Route>
-					<Route path={LinkName.ERROR_403} element={<Error403Screen />}></Route>
-					<Route path={LinkName.ERROR_404} element={<Error404Screen />}></Route>
-					<Route path={LinkName.ERROR_500} element={<Error500Screen />}></Route>
-				</Routes>
-				<Layout>
-					<Routes>
-						<Route path={LinkName.HOME} element={<HomeScreen />}></Route>
-						<Route path={LinkName.TIME_KEEPING} element={<TimeKeepingScreen />}></Route>
-						<Route path={LinkName.PROJECT_LIST} element={<ProjectListScreen />}></Route>
-						<Route path={LinkName.TASK_LIST} element={<TaskListScreen />}></Route>
-						<Route path={LinkName.PROJECT_DETAIL} element={<ProjectDetailScreen />}></Route>
-						<Route path={LinkName.PROJECT_ACTIVITY} element={<ProjectActivityScreen />}></Route>
-						<Route path={LinkName.USER_INFORMATION} element={<UserInformationScreen />}></Route>
-						<Route path={LinkName.PROJECT_CREATE} element={<ProjectCreateScreen />}></Route>
-						<Route path={LinkName.TASK_CREATE} element={<TaskCreateScreen />}></Route>
-						<Route path={LinkName.TASK_DETAIL} element={<TaskDetailScreen />}></Route>
-						<Route path={LinkName.NOTE} element={<NoteScreen />}></Route>
-						<Route path={LinkName.USER_LIST} element={<UserListScreen />}></Route>
-					</Routes>
-				</Layout>
-			</React.Suspense>
-		</BrowserRouter>
+		<React.Suspense fallback={<>...</>}>
+			<Routes>
+				<Route path={LinkName.LOGIN} element={<LoginScreen />}></Route>
+				<Route path={LinkName.ERROR_500} element={<Error500Screen />}></Route>
+				<Route path={LinkName.ERROR_403} element={<Error403Screen />}></Route>
+				<Route path={LinkName.ERROR_404} element={<Error404Screen />}></Route>
+				<Route element={<Layout />}>
+					<Route path={LinkName.HOME} element={<HomeScreen />} />
+					<Route path={LinkName.TIME_KEEPING} element={<TimeKeepingScreen />} />
+					<Route path={LinkName.PROJECT_LIST} element={<ProjectListScreen />} />
+					<Route path={LinkName.TASK_LIST} element={<TaskListScreen />} />
+					<Route path={LinkName.PROJECT_DETAIL} element={<ProjectDetailScreen />} />
+					<Route path={LinkName.PROJECT_ACTIVITY} element={<ProjectActivityScreen />} />
+					<Route path={LinkName.USER_INFORMATION} element={<UserInformationScreen />} />
+					<Route path={LinkName.PROJECT_CREATE} element={<ProjectCreateScreen />} />
+					<Route path={LinkName.TASK_CREATE} element={<TaskCreateScreen />} />
+					<Route path={LinkName.TASK_DETAIL} element={<TaskDetailScreen />} />
+					<Route path={LinkName.NOTE} element={<NoteScreen />} />
+					<Route path={LinkName.USER_LIST} element={<UserListScreen />} />
+				</Route>
+			</Routes>
+		</React.Suspense>
 	);
 }
 

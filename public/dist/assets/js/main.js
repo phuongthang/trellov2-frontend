@@ -34,6 +34,10 @@ window.onload = (event) => {
     document.querySelector('.burger-btn').addEventListener('click', () => {
         document.getElementById('sidebar').classList.toggle('active');
     })
+    // document.querySelector('.sidebar-hide').addEventListener('click', () => {
+    //     document.getElementById('sidebar').classList.toggle('active');
+
+    // })
 
 
     // Perfect Scrollbar Init
@@ -45,5 +49,5 @@ window.onload = (event) => {
     }
 
     // Scroll into active sidebar
-    document.querySelector('.sidebar-item.active').scrollIntoView(false)
+    // document.querySelector('.sidebar-item.active').scrollIntoView(false)
 };
