@@ -2,7 +2,6 @@
 import ActivityHistoryComponent from "./ActivityHistory";
 import AnalystComponent from "./Analyst";
 import InformationComponent from "./Information";
-import ProjectList from "./ProjectList";
 
 export default function HomeScreen() {
     /**
@@ -12,12 +11,11 @@ export default function HomeScreen() {
         <div className="page-heading">
             <section className="section mt-3">
                 <div className="row">
-                    <div className="col-xl-4 col-md-6 col-sm-12">
+                    <div className="col-xl-5 col-md-5 col-sm-5">
                         <InformationComponent />
                     </div>
-                    <div className="col-lg-8">
+                    <div className="col-lg-7">
                         <AnalystComponent />
-                        <ProjectList />
                         <ActivityHistoryComponent />
                     </div>
                 </div>

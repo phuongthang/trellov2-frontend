@@ -1,4 +1,4 @@
-export default function InformationComponent(){
+export default function InformationComponent() {
     /**
      * render template
      */
@@ -16,9 +16,43 @@ export default function InformationComponent(){
                     <div className="text-mute text-center"><h6>thang.pc@beetechsoft.vn</h6></div>
                 </div>
                 <ul className="list-group list-group-flush">
-                    <li className="list-group-item cursor-pointer"><h6>Thống kê công việc</h6></li>
-                    <li className="list-group-item cursor-pointer"><h6>Dự án đang tham gia</h6></li>
-                    <li className="list-group-item cursor-pointer"><h6>Lịch sử hoạt động</h6></li>
+                    <li className="list-group-item cursor-pointer"><h6>Danh sách dự án</h6></li>
+                    <li className="list-group-item cursor-pointer">
+                        <div className="card-content pb-3">
+                            <div className="table-responsive">
+                                <table className="table table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Dự án</th>
+                                            <th>Chức vụ</th>
+                                            <th>Ngày gia nhập</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="text-bold-500">1</td>
+                                            <td>JRBus</td>
+                                            <td>Member</td>
+                                            <td>17/12/2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-bold-500">1</td>
+                                            <td>LandMark</td>
+                                            <td>Member</td>
+                                            <td>01/03/2021</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-bold-500">1</td>
+                                            <td>Kondate</td>
+                                            <td>Member</td>
+                                            <td>02/08/2021</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div className="card">

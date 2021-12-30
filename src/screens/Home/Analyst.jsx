@@ -1,3 +1,5 @@
+import { Alert } from "reactstrap";
+
 export default function AnalystComponent() {
     /**
      * render template
@@ -11,38 +13,38 @@ export default function AnalystComponent() {
                             <h4 className="card-title">THỐNG KÊ</h4>
                         </div>
                         <div className="card-content px-3 pb-3">
-                            <div className="table-responsive">
-                                <table className="table table-striped mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Trạng thái</th>
-                                            <th>Số lượng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td className="text-bold-500">New</td>
-                                            <td>01</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-bold-500">Pending</td>
-                                            <td>01</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-bold-500">Close</td>
-                                            <td>01</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-bold-500">Resolve</td>
-                                            <td>01</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="text-bold-500">Waiting review</td>
-                                            <td>01</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <Alert
+                                color="primary"
+                                className="cursor-pointer"
+                            >
+                                Ticket #1: Bug KH No.999 - Top (front)
+                            </Alert>
+                            <Alert
+                                color="danger"
+                                className="cursor-pointer"
+                            >
+                                Ticket #1: Bug KH No.999 - Top (front)
+                            </Alert>
+                            <Alert
+                                color="primary"
+                                className="cursor-pointer"
+
+                            >
+                               Ticket #1: Bug KH No.999 - Top (front)
+                            </Alert>
+                            <Alert
+                                color="success"
+                                className="cursor-pointer"
+
+                            >
+                                Ticket #1: Bug KH No.999 - Top (front)
+                            </Alert>
+                            <Alert
+                                color="primary"
+                                className="cursor-pointer"
+                            >
+                                Ticket #1: Bug KH No.999 - Top (front)
+                            </Alert>
                         </div>
                     </div>
                 </div>
