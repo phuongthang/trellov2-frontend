@@ -49,8 +49,8 @@ export default function UserInformationScreen() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-xl-6 col-md-6 col-xs-6">
+                                        <div className="row mt-3">
+                                            <div className="col-xl-5 col-md-5 col-xs-5">
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500">
                                                         <h6 className="required">Họ và tên:</h6>
@@ -67,7 +67,7 @@ export default function UserInformationScreen() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xl-6 col-md-6 col-xs-6">
+                                            <div className="col-xl-4 col-md-4 col-xs-4">
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500">
                                                         <h6 className="required">Chấm công :</h6>
@@ -81,6 +81,37 @@ export default function UserInformationScreen() {
                                                         <div className="form-control-icon">
                                                             <RiUser2Fill />
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-xl-3 col-md-3 col-xs-3">
+                                                <div className="form-group has-icon-left">
+                                                    <label htmlFor="first-name-icon text-bold-500"><h6>Loại tài khoản :</h6></label>
+                                                    <div className="position-relative">
+                                                        <ul className="list-unstyled mb-0 pt-1">
+                                                            <li className="d-inline-block me-5 mb-1">
+                                                                <div className="form-check">
+                                                                    <div className="custom-control custom-checkbox">
+                                                                        <input type="radio"
+                                                                            className="form-check-input form-check-primary"
+                                                                            name="customCheck" id="customColorCheck1" />
+                                                                        <label className="form-check-label"
+                                                                            htmlFor="customColorCheck1"><h6>Administrator</h6></label>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li className="d-inline-block me-5 mb-1">
+                                                                <div className="form-check">
+                                                                    <div className="custom-control custom-checkbox">
+                                                                        <input type="radio"
+                                                                            className="form-check-input form-check-secondary"
+                                                                            name="customCheck" id="customColorCheck2" />
+                                                                        <label className="form-check-label"
+                                                                            htmlFor="customColorCheck2"><h6>Staff</h6></label>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,7 +170,7 @@ export default function UserInformationScreen() {
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500"><h6>Giới tính :</h6></label>
                                                     <div className="position-relative">
-                                                        <ul className="list-unstyled mb-0">
+                                                        <ul className="list-unstyled mb-0 pt-1">
                                                             <li className="d-inline-block me-5 mb-1">
                                                                 <div className="form-check">
                                                                     <div className="custom-control custom-checkbox">
@@ -181,7 +212,7 @@ export default function UserInformationScreen() {
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500"><h6>Hình thức làm việc :</h6></label>
                                                     <div className="position-relative">
-                                                        <ul className="list-unstyled mb-0">
+                                                        <ul className="list-unstyled mb-0 pt-1">
                                                             <li className="d-inline-block me-5 mb-1">
                                                                 <div className="form-check">
                                                                     <div className="custom-control custom-checkbox">

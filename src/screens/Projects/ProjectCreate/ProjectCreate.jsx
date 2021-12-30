@@ -73,7 +73,7 @@ export default function ProjectCreateScreen() {
                                                 <div className="form-group has-icon-left">
                                                     <label htmlFor="first-name-icon text-bold-500"><h6>Chế độ :</h6></label>
                                                     <div className="position-relative">
-                                                        <ul className="list-unstyled mb-0">
+                                                        <ul className="list-unstyled mb-0 pt-1">
                                                             <li className="d-inline-block me-5 mb-1 mt-2">
                                                                 <div className="form-check">
                                                                     <div className="custom-control custom-checkbox">

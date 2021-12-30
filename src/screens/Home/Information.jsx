@@ -13,7 +13,7 @@ export default function InformationComponent(){
                         </div>
                     </div>
                     <h5 className="mt-2 text-center">Phương Công Thắng</h5>
-                    <div className="text-mute text-center"><h6>Backend Developer</h6></div>
+                    <div className="text-mute text-center"><h6>thang.pc@beetechsoft.vn</h6></div>
                 </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item cursor-pointer"><h6>Thống kê công việc</h6></li>
