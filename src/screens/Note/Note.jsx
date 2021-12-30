@@ -1,6 +1,3 @@
-//Component
-import Layout from './../Layout/Layout';
-
 //icon
 import { RiSendPlaneFill } from "react-icons/ri";
 

@@ -1,6 +1,3 @@
-//Component
-import Layout from '../../Layout/Layout';
-
 export default function ProjectActivityScreen() {
     /**
      * render template

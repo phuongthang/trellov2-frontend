@@ -72,7 +72,7 @@ export default function Sidebar(props) {
             setOpenTabProject(false);
             setOpenTabManager(false);
         }
-    }, [currentPath]);
+    }, [currentPath]);// eslint-disable-line
 
 
 

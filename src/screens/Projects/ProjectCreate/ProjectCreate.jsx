@@ -1,6 +1,3 @@
-//Component
-import Layout from '../../Layout/Layout';
-
 //icon
 import { DiAndroid } from "react-icons/di";
 import { RiDeleteBin5Fill } from "react-icons/ri";
