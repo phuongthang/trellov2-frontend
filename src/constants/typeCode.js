@@ -136,6 +136,11 @@ const typeCode = {
         2: 'Normal',
         3: 'High',
         4: 'Urgent'
+    },
+
+    ROLE: {
+        ADMINISTRATOR: 1,
+        STAFF: 0
     }
     
 
