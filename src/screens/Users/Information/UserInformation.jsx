@@ -13,12 +13,12 @@ import InformationComponent from "./Information";
 import PersonalComponent from "./Personal";
 import OtherInformationComponent from "./OtherInformation";
 import AddressComponent from "./Address";
+import IdCardComponent from "./IdCard";
 
 //Constant
 import { replaceString } from "../../../utils/helpers";
 import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
-import IdCardComponent from "./IdCard";
 
 
 export default function UserInformationScreen() {
