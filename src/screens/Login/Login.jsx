@@ -115,7 +115,7 @@ export default function LoginScreen() {
                                         {
                                             required: {
                                                 value: true,
-                                                message: replaceString(Message.REQUIRE, ["Email"]),
+                                                message: replaceString(Message.TEXT.REQUIRED, ["Email"]),
                                             },
                                             pattern: {
                                                 value: new RegExp(Validation.EMAIL.PATTERN),
@@ -143,7 +143,7 @@ export default function LoginScreen() {
                                         {
                                             required: {
                                                 value: true,
-                                                message: replaceString(Message.REQUIRE, ["Mật khẩu"]),
+                                                message: replaceString(Message.TEXT.REQUIRED, ["Mật khẩu"]),
                                             },
                                             // pattern: {
                                             //     value: new RegExp(Validation.PASSWORD.PATTERN),

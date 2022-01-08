@@ -242,3 +242,8 @@ header{
     justify-content: center;
     background-color: rgba(0,0,0,0.2);
 }
+
+input, select{
+    font-weight: 700 !important;
+    color: #000 !important;
+}

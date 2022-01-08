@@ -1,64 +1,85 @@
 const typeCode = {
-    /**
+    USER: {
+        /**
      * gender
      */
-    GENDER: {
-        OTHER: 0,
-        MALE: 1,
-        FEMALE: 2
-    },
-    GENDER_MAPPING: {
-        0: 'Khác',
-        1: 'Nam',
-        2: 'Nữ'
-    },
+        GENDER: {
+            OTHER: 0,
+            MALE: 1,
+            FEMALE: 2
+        },
+        GENDER_MAPPING: {
+            0: 'Khác',
+            1: 'Nam',
+            2: 'Nữ'
+        },
 
-    /**
-     * workform
-     */
-    WORKFORM: {
-        OTHER: 0,
-        FULLTIME: 1,
-        PARTTIME: 2
-    },
-    WORKFORM_MAPPING: {
-        0: 'Khác',
-        1: 'Fulltime',
-        2: 'Parttime'
-    },
+        /**
+         * workform
+         */
+        WORKFORM: {
+            OTHER: 0,
+            FULLTIME: 1,
+            PARTTIME: 2
+        },
+        WORKFORM_MAPPING: {
+            0: 'Khác',
+            1: 'Fulltime',
+            2: 'Parttime'
+        },
 
-    /**
-     * postion
-     */
-    POSTION: {
-        OTHER: 0,
-        DEVELOPER: 1,
-        TESTER: 2,
-        BUSINESS_ANALYST: 3,
-        COMTOR: 4
-    },
-    POSTION_MAPPING: {
-        0: 'Khác',
-        1: 'Developer',
-        2: 'Tester',
-        3: 'Business Analyst',
-        4: 'Comtor'
-    },
+        /**
+         * postion
+         */
+        POSTION: {
+            OTHER: 0,
+            DEVELOPER: 1,
+            TESTER: 2,
+            BUSINESS_ANALYST: 3,
+            DESIGNER: 4,
+            COMTOR: 5
+        },
+        POSTION_MAPPING: {
+            0: 'Khác',
+            1: 'Developer',
+            2: 'Tester',
+            3: 'Business Analyst',
+            4: 'Designer',
+            5: 'Comtor'
+        },
 
-    /**
-     * experience
-     */
-    EXPERIENCE: {
-        OTHER: 0,
-        STAFF: 1,
-        LEADER: 2,
-        PROJECT_MANAGER: 2
-    },
-    EXPERINCE_MAPPING: {
-        0: 'Khác',
-        1: 'Staff',
-        2: 'Leader',
-        3: 'Project Manager'
+        /**
+         * experience
+         */
+        EXPERIENCE: {
+            OTHER: 0,
+            STAFF: 1,
+            LEADER: 2,
+            PROJECT_MANAGER: 3
+        },
+        EXPERIENCE_MAPPING: {
+            0: 'Khác',
+            1: 'Staff',
+            2: 'Leader',
+            3: 'Project Manager'
+        },
+
+        ZOOM: {
+            OTHER: 0,
+            OUTSOURCE: 1,
+            PRODUCT: 2
+        },
+
+        ZOOM_MAPPING: {
+            0: 'Khác',
+            1: 'Outsource',
+            2: 'Product',
+        },
+
+        ROLE: {
+            ADMINISTRATOR: 1,
+            STAFF: 0
+        }
     },
 
     /**
@@ -138,11 +159,6 @@ const typeCode = {
         4: 'Urgent'
     },
 
-    ROLE: {
-        ADMINISTRATOR: 1,
-        STAFF: 0
-    }
-    
 
 
 

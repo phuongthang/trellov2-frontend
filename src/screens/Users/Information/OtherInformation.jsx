@@ -2,16 +2,9 @@ import React from 'react';
 
 //packet
 import { useFormContext } from 'react-hook-form';
-import { FormFeedback } from 'reactstrap';
 
 //Constant
-import Validation from '../../../constants/validation';
-import Message from '../../../constants/message';
-import { replaceString } from '../../../utils/helpers';
-
-//icon
-import { MdEmail } from "react-icons/md";
-import { FaPhone } from "react-icons/fa";
+import TypeCode from './../../../constants/typeCode';
 
 export default function OtherInformationComponent(props) {
 
@@ -25,14 +18,12 @@ export default function OtherInformationComponent(props) {
                 <div className="form-group has-icon-left">
                     <label htmlFor="first-name-icon text-bold-500"><h6>Phòng ban :</h6></label>
                     <div className="position-relative">
-                        <select className="choices form-select">
-                            <option value="square">Square</option>
-                            <option value="rectangle">Rectangle</option>
-                            <option value="rombo">Rombo</option>
-                            <option value="romboid">Romboid</option>
-                            <option value="trapeze">Trapeze</option>
-                            <option value="traible">Triangle</option>
-                            <option value="polygon">Polygon</option>
+                        <select className="choices form-select"
+                            {...register("zoom")}
+                        >
+                            <option value={TypeCode.USER.ZOOM.OUTSOURCE}>{TypeCode.USER.ZOOM_MAPPING[TypeCode.USER.ZOOM.OUTSOURCE]}</option>
+                            <option value={TypeCode.USER.ZOOM.PRODUCT}>{TypeCode.USER.ZOOM_MAPPING[TypeCode.USER.ZOOM.PRODUCT]}</option>
+                            <option value={TypeCode.USER.ZOOM.OTHER}>{TypeCode.USER.ZOOM_MAPPING[TypeCode.USER.ZOOM.OTHER]}</option>
                         </select>
                     </div>
                 </div>
@@ -41,10 +32,15 @@ export default function OtherInformationComponent(props) {
                 <div className="form-group has-icon-left">
                     <label htmlFor="first-name-icon text-bold-500"><h6>Chức vụ :</h6></label>
                     <div className="position-relative">
-                        <select className="choices form-select">
-                            <option value="square">Fontend Developer</option>
-                            <option value="rectangle">Backend Developer</option>
-                            <option value="rombo">Fullstack Developer</option>
+                        <select className="choices form-select"
+                            {...register("position")}
+                        >
+                            <option value={TypeCode.USER.POSTION.DEVELOPER}>{TypeCode.USER.POSTION_MAPPING[TypeCode.USER.POSTION.DEVELOPER]}</option>
+                            <option value={TypeCode.USER.POSTION.TESTER}>{TypeCode.USER.POSTION_MAPPING[TypeCode.USER.POSTION.TESTER]}</option>
+                            <option value={TypeCode.USER.POSTION.COMTOR}>{TypeCode.USER.POSTION_MAPPING[TypeCode.USER.POSTION.COMTOR]}</option>
+                            <option value={TypeCode.USER.POSTION.BUSINESS_ANALYST}>{TypeCode.USER.POSTION_MAPPING[TypeCode.USER.POSTION.BUSINESS_ANALYST]}</option>
+                            <option value={TypeCode.USER.POSTION.DESIGNER}>{TypeCode.USER.POSTION_MAPPING[TypeCode.USER.POSTION.DESIGNER]}</option>
+                            <option value={TypeCode.USER.POSTION.OTHER}>{TypeCode.USER.POSTION_MAPPING[TypeCode.USER.POSTION.OTHER]}</option>
                         </select>
                     </div>
                 </div>
@@ -53,10 +49,13 @@ export default function OtherInformationComponent(props) {
                 <div className="form-group has-icon-left">
                     <label htmlFor="first-name-icon text-bold-500"><h6>Chức vụ khác :</h6></label>
                     <div className="position-relative">
-                        <select className="choices form-select">
-                            <option value="square">Project Manager</option>
-                            <option value="rectangle">Leader</option>
-                            <option value="rombo">Staff</option>
+                        <select className="choices form-select"
+                            {...register("experience")}
+                        >
+                            <option value={TypeCode.USER.EXPERIENCE.STAFF}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.STAFF]}</option>
+                            <option value={TypeCode.USER.EXPERIENCE.LEADER}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.LEADER]}</option>
+                            <option value={TypeCode.USER.EXPERIENCE.PROJECT_MANAGER}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.PROJECT_MANAGER]}</option>
+                            <option value={TypeCode.USER.EXPERIENCE.OTHER}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.OTHER]}</option>
                         </select>
                     </div>
                 </div>

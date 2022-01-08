@@ -5,13 +5,8 @@ import { useFormContext } from 'react-hook-form';
 import { FormFeedback } from 'reactstrap';
 
 //Constant
-import Validation from '../../../constants/validation';
 import Message from '../../../constants/message';
-import TypeCode from '../../../constants/typeCode';
 import { replaceString } from '../../../utils/helpers';
-
-//icon
-import { RiUser2Fill } from "react-icons/ri";
 
 export default function IdentityCardComponent(props) {
 
@@ -30,19 +25,19 @@ export default function IdentityCardComponent(props) {
                             type="text"
                             className="form-control"
                             {...register(
-                                "card",
+                                "identity_card",
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Số chứng minh thư"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Số chứng minh thư"]),
                                     }
                                 }
                             )}
                             onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
                         />
                     </div>
-                    {errors.card && (
-                        <FormFeedback className="d-block">{errors.card.message}</FormFeedback>
+                    {errors.identity_card && (
+                        <FormFeedback className="d-block">{errors.identity_card.message}</FormFeedback>
                     )}
                 </div>
             </div>
@@ -54,19 +49,19 @@ export default function IdentityCardComponent(props) {
                             type="date"
                             className="form-control"
                             {...register(
-                                "card_date",
+                                "identity_date",
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Ngày cấp"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Ngày cấp"]),
                                     }
                                 }
                             )}
                             onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
                         />
                     </div>
-                    {errors.card_date && (
-                        <FormFeedback className="d-block">{errors.card_date.message}</FormFeedback>
+                    {errors.identity_date && (
+                        <FormFeedback className="d-block">{errors.identity_date.message}</FormFeedback>
                     )}
                 </div>
             </div>
@@ -78,19 +73,19 @@ export default function IdentityCardComponent(props) {
                             type="text"
                             className="form-control"
                             {...register(
-                                "card_address",
+                                "identity_place",
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Nơi cấp"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Nơi cấp"]),
                                     }
                                 }
                             )}
                             onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
                         />
                     </div>
-                    {errors.card_address && (
-                        <FormFeedback className="d-block">{errors.card_address.message}</FormFeedback>
+                    {errors.identity_place && (
+                        <FormFeedback className="d-block">{errors.identity_place.message}</FormFeedback>
                     )}
                 </div>
             </div>

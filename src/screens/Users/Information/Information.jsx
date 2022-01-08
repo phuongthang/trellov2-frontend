@@ -36,11 +36,11 @@ export default function InformationComponent(props) {
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Email"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Email"]),
                                     },
                                     pattern: {
-                                        value: new RegExp(Validation.EMAIL),
-                                        message: Message.EMAIL_ERROR_FORMAT
+                                        value: new RegExp(Validation.EMAIL.PATTERN),
+                                        message: Message.EMAIL.PATTERN
                                     }
                                 }
                             )}
@@ -63,11 +63,11 @@ export default function InformationComponent(props) {
                             type="text"
                             className="form-control"
                             {...register(
-                                "email_person",
+                                "personal_email",
                                 {
                                     pattern: {
-                                        value: new RegExp(Validation.EMAIL),
-                                        message: Message.EMAIL_ERROR_FORMAT
+                                        value: new RegExp(Validation.EMAIL.PATTERN),
+                                        message: Message.EMAIL.PATTERN
                                     }
                                 }
                             )}
@@ -77,8 +77,8 @@ export default function InformationComponent(props) {
                             <MdEmail />
                         </div>
                     </div>
-                    {errors.email_person && (
-                        <FormFeedback className="d-block">{errors.email_person.message}</FormFeedback>
+                    {errors.personal_email && (
+                        <FormFeedback className="d-block">{errors.personal_email.message}</FormFeedback>
                     )}
                 </div>
             </div>
@@ -93,8 +93,8 @@ export default function InformationComponent(props) {
                                 "phone",
                                 {
                                     pattern: {
-                                        value: new RegExp(Validation.PHONE),
-                                        message: Message.PHONE_ERROR_FORMAT
+                                        value: new RegExp(Validation.PHONE.PATTERN),
+                                        message: Message.PHONE.PATTERN
                                     }
                                 }
                             )}

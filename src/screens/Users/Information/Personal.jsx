@@ -28,7 +28,7 @@ export default function PersonalComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-primary"
                                             id="male"
-                                            value={TypeCode.GENDER.MALE}
+                                            value={TypeCode.USER.GENDER.MALE}
                                             defaultChecked
                                             {...register(
                                                 "gender",
@@ -44,7 +44,7 @@ export default function PersonalComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-primary"
                                             id="female"
-                                            value={TypeCode.GENDER.FEMALE}
+                                            value={TypeCode.USER.GENDER.FEMALE}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -59,7 +59,7 @@ export default function PersonalComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-success"
                                             id="gender_other"
-                                            value={TypeCode.GENDER.OTHER}
+                                            value={TypeCode.USER.GENDER.OTHER}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -84,7 +84,7 @@ export default function PersonalComponent(props) {
                                             className="form-check-input form-check-primary"
                                             id="fulltime"
                                             defaultChecked
-                                            value={TypeCode.WORKFORM.FULLTIME}
+                                            value={TypeCode.USER.WORKFORM.FULLTIME}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -99,7 +99,7 @@ export default function PersonalComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-secondary"
                                             id="parttime"
-                                            value={TypeCode.WORKFORM.PARTTIME}
+                                            value={TypeCode.USER.WORKFORM.PARTTIME}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -114,7 +114,7 @@ export default function PersonalComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-success"
                                             id="workform_other"
-                                            value={TypeCode.WORKFORM.OTHER}
+                                            value={TypeCode.USER.WORKFORM.OTHER}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -139,7 +139,7 @@ export default function PersonalComponent(props) {
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Ngày sinh"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Ngày sinh"]),
                                     },
                                 }
                                 

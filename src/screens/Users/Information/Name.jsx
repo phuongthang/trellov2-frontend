@@ -36,15 +36,15 @@ export default function NameComponent(props) {
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Họ tên"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Họ tên"]),
                                     },
                                     maxLength: {
-                                        value: Validation.TEXT_MAX_LENGTH,
-                                        message: replaceString(Message.TEXT_MAX_LENGTH, ["Họ và tên", Validation.TEXT_MAX_LENGTH]),
+                                        value: Validation.TEXT.MAX_LENGTH,
+                                        message: replaceString(Message.TEXT.MAX_LENGTH, ["Họ và tên", Validation.TEXT.MAX_LENGTH]),
                                     },
                                     minLength: {
-                                        value: Validation.TEXT_MIN_LENGTH,
-                                        message: replaceString(Message.TEXT_MIN_LENGTH, ["Họ và tên", Validation.TEXT_MIN_LENGTH]),
+                                        value: Validation.TEXT.MIN_LENGTH,
+                                        message: replaceString(Message.TEXT.MIN_LENGTH, ["Họ và tên", Validation.TEXT.MIN_LENGTH]),
                                     },
                                 }
                             )}
@@ -73,15 +73,15 @@ export default function NameComponent(props) {
                                 {
                                     required: {
                                         value: true,
-                                        message: replaceString(Message.REQUIRE, ["Chấm công"]),
+                                        message: replaceString(Message.TEXT.REQUIRED, ["Chấm công"]),
                                     },
                                     maxLength: {
-                                        value: Validation.TEXT_MAX_LENGTH,
-                                        message: replaceString(Message.TEXT_MAX_LENGTH, ["Chấm công", Validation.TEXT_MAX_LENGTH]),
+                                        value: Validation.TEXT.MAX_LENGTH,
+                                        message: replaceString(Message.TEXT.MAX_LENGTH, ["Chấm công", Validation.TEXT.MAX_LENGTH]),
                                     },
                                     minLength: {
-                                        value: Validation.TEXT_MIN_LENGTH,
-                                        message: replaceString(Message.TEXT_MIN_LENGTH, ["Chấm công", Validation.TEXT_MIN_LENGTH]),
+                                        value: Validation.TEXT.MIN_LENGTH,
+                                        message: replaceString(Message.TEXT.MIN_LENGTH, ["Chấm công", Validation.TEXT.MIN_LENGTH]),
                                     },
                                 }
                             )}
@@ -107,7 +107,7 @@ export default function NameComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-primary"
                                             id="administrator"
-                                            value={TypeCode.ROLE.ADMINISTRATOR}
+                                            value={TypeCode.USER.ROLE.ADMINISTRATOR}
                                             {...register(
                                                 "role",
                                             )} />
@@ -122,7 +122,7 @@ export default function NameComponent(props) {
                                         <input type="radio"
                                             className="form-check-input form-check-primary"
                                             id="staff"
-                                            value={TypeCode.ROLE.STAFF}
+                                            value={TypeCode.USER.ROLE.STAFF}
                                             defaultChecked
                                             {...register(
                                                 "role",

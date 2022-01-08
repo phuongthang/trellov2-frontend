@@ -1,33 +1,41 @@
+import { useState } from "react";
+
 //icon
 import { MdModeEditOutline } from "react-icons/md";
 import { BsFillCreditCardFill } from "react-icons/bs";
-import { useState } from "react";
 
 //packet
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormFeedback } from "reactstrap";
+import { useNavigate } from 'react-router-dom';
 
 //Component
 import NameComponent from "./Name";
 import InformationComponent from "./Information";
 import PersonalComponent from "./Personal";
 import OtherInformationComponent from "./OtherInformation";
-import AddressComponent from "./Address";
 import IdentityCardComponent from "./IdentityCard";
 
 //Constant
 import { replaceString } from "../../../utils/helpers";
 import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
+import LinkName from "../../../constants/linkName";
+import Common from "../../../constants/common";
 
+//api
+import userApi from './../../../api/userApi';
+import { getTokenFromLocalStorage } from './../../../utils/utils';
 
 export default function UserInformationScreen() {
 
+    let navigate = useNavigate();
     const methods = useForm({
         mode: 'all',
         reValidateMode: 'all',
     });
     const { register, handleSubmit, getValues, setValue, formState: { errors } } = methods;
+    const token = getTokenFromLocalStorage();
 
     /**
      * define state
@@ -55,7 +63,47 @@ export default function UserInformationScreen() {
     }
 
     const _onSubmit = () => {
+        if (token) {
+            const data = {
+                fullname: getValues('fullname'),
+                username: getValues('username'),
+                role: getValues('role'),
+                email: getValues('email'),
+                personal_email: getValues('personal_email'),
+                phone: getValues('phone'),
+                gender: getValues('gender'),
+                workform: getValues('workform'),
+                birthday: getValues('birthday'),
+                zoom: getValues('zoom'),
+                position: getValues('position'),
+                experience: getValues('experience'),
+                address: getValues('address'),
+                identity_card: getValues('identity_card'),
+                identity_date: getValues('identity_date'),
+                identity_place: getValues('identity_place'),
+                bank_account: getValues('bank_account'),
+            }
 
+            userApi.create(data).then(
+                (response) => {
+                    if (response.status === Common.HTTP_STATUS.OK) {
+                        console.log("OK");
+                    }
+                    else {
+                        console.log("Fail");
+                    }
+                },
+                (error) => {
+                    if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                        navigate(LinkName.LOGIN);
+                    } else {
+                        navigate(LinkName.ERROR_500);
+                    }
+                }
+            );
+        }else{
+            navigate(LinkName.LOGIN);
+        }
     }
 
     /**
@@ -122,7 +170,6 @@ export default function UserInformationScreen() {
                                             />
                                             <OtherInformationComponent />
 
-                                            <AddressComponent />
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
                                                     <div className="form-group">
@@ -136,11 +183,11 @@ export default function UserInformationScreen() {
                                                                     {
                                                                         required: {
                                                                             value: true,
-                                                                            message: replaceString(Message.REQUIRE, ["Địa chỉ thường trú"]),
+                                                                            message: replaceString(Message.TEXT.REQUIRED, ["Địa chỉ thường trú"]),
                                                                         },
                                                                         minLength: {
-                                                                            value: Validation.TEXT_MIN_LENGTH,
-                                                                            message: replaceString(Message.TEXT_MIN_LENGTH, ["Địa chỉ thường trú", Validation.TEXT_MIN_LENGTH]),
+                                                                            value: Validation.TEXT.MIN_LENGTH,
+                                                                            message: replaceString(Message.TEXT.MIN_LENGTH, ["Địa chỉ thường trú", Validation.TEXT.MIN_LENGTH]),
                                                                         },
                                                                     }
                                                                 )}
@@ -165,7 +212,7 @@ export default function UserInformationScreen() {
                                                                 type="text"
                                                                 className="form-control"
                                                                 {...register(
-                                                                    "bank"
+                                                                    "bank_account"
                                                                 )}
                                                                 onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
                                                             />
