@@ -245,5 +245,25 @@ header{
 
 input, select{
     font-weight: 700 !important;
-    color: #000 !important;
+    color: #25396f !important;
+}
+input[disabled], select[disabled], span[disabled]{
+    pointer-events: none;
+    cursor: not-allowed !important;
+}
+input[type="radio"]:disabled{
+    cursor: not-allowed !important;
+}
+
+.table-striped tr td, .table-striped tr th {
+    border: 1px solid #dedede;
+    font-weight: 700;
+    color: #25396f;
+}
+
+.table-striped .td-name{
+    display: flex;
+    width: 70%;
+    margin: auto;
+    text-align: left;
 }

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Dropdown, DropdownToggle, DropdownMenu} from 'reactstrap';
 
-export default function Header() {
+export default function Header(props) {
+
+    const { data } = props;
     /**
     * define state
     */
@@ -61,8 +63,8 @@ export default function Header() {
                             <DropdownToggle>
                                 <div className="user-menu d-flex">
                                     <div className="user-name text-end me-3">
-                                        <h6 className="mb-0 text-white-600">Phương Công Thắng</h6>
-                                        <p className="mb-0 text-sm text-white-600">thang.pc@beetechsoft.vn</p>
+                                        <h6 className="mb-0 text-white-600">{data.fullname ? data.fullname : '' }</h6>
+                                        <p className="mb-0 text-sm text-white-600">{data.email ? data.email : ''}</p>
                                     </div>
                                     <div className="user-img d-flex align-items-center">
                                         <div className="avatar avatar-md">
@@ -76,7 +78,7 @@ export default function Header() {
                                 className="dropdown-menu dropdown-menu-end"
                             >
                                 <li>
-                                    <h6 className="dropdown-header">Xin chào, Phương Công Thắng!</h6>
+                                    <h6 className="dropdown-header">Xin chào, {data.fullname ? data.fullname : ''}!</h6>
                                 </li>
                                 <li>
                                     <span className="dropdown-item cursor-pointer">

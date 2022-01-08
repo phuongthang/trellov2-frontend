@@ -10,7 +10,7 @@ import { replaceString } from '../../../utils/helpers';
 
 export default function IdentityCardComponent(props) {
 
-    const { _onBlur } = props;
+    const { _onBlur, _disabled } = props;
     const { register, formState: { errors } } = useFormContext();
     /**
      * render template
@@ -24,6 +24,7 @@ export default function IdentityCardComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "identity_card",
                                 {
@@ -48,6 +49,7 @@ export default function IdentityCardComponent(props) {
                         <input
                             type="date"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "identity_date",
                                 {
@@ -72,6 +74,7 @@ export default function IdentityCardComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "identity_place",
                                 {

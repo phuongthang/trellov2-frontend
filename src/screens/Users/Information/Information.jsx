@@ -15,7 +15,7 @@ import { FaPhone } from "react-icons/fa";
 
 export default function InformationComponent(props) {
 
-    const { _onBlur } = props;
+    const { _onBlur, _disabled } = props;
     const { register, formState: { errors } } = useFormContext();
     /**
      * render template
@@ -31,6 +31,7 @@ export default function InformationComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "email",
                                 {
@@ -62,6 +63,7 @@ export default function InformationComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "personal_email",
                                 {
@@ -89,6 +91,7 @@ export default function InformationComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "phone",
                                 {

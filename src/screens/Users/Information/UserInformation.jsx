@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 //icon
 import { MdModeEditOutline } from "react-icons/md";
@@ -15,6 +15,8 @@ import InformationComponent from "./Information";
 import PersonalComponent from "./Personal";
 import OtherInformationComponent from "./OtherInformation";
 import IdentityCardComponent from "./IdentityCard";
+import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
+import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
 
 //Constant
 import { replaceString } from "../../../utils/helpers";
@@ -22,26 +24,32 @@ import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
 import LinkName from "../../../constants/linkName";
 import Common from "../../../constants/common";
+import TypeCode from "../../../constants/typeCode";
 
 //api
 import userApi from './../../../api/userApi';
-import { getTokenFromLocalStorage } from './../../../utils/utils';
 
-export default function UserInformationScreen() {
+// utils
+import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from './../../../utils/utils';
+
+export default function UserInformationScreen(props) {
 
     let navigate = useNavigate();
+    const token = getTokenFromLocalStorage();
+
     const methods = useForm({
         mode: 'all',
         reValidateMode: 'all',
     });
     const { register, handleSubmit, getValues, setValue, formState: { errors } } = methods;
-    const token = getTokenFromLocalStorage();
 
     /**
      * define state
      */
     const [avatarSrc, setAvatarSrc] = useState();
     const [subAvatarSrc, setSubAvatarSrc] = useState();
+    const [data, setData] = useState(getUserDataFromLocalStorage);
+    const [isDisabled, setDisabled] = useState(true);
 
     /**
      * preview image
@@ -62,21 +70,55 @@ export default function UserInformationScreen() {
         input.click();
     }
 
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
+    }
+
+    const [modalError, setModalError] = useState(false);
+    const toggleModalError = () => {
+        setModalError(!modalError);
+    }
+    const [message, setMessage] = useState('');
+
+    const setValueFormInput = (data) => {
+        setValue('fullname',data.fullname ? data.fullname : '');
+        setValue('username',data.username ? data.username : '');
+        setValue('personal_email',data.personal_email ? data.personal_email : '');
+        setValue('role',data.role ? ''+data.role : ''+TypeCode.USER.ROLE.STAFF);
+        setValue('email',data.email ? data.email : '');
+        setValue('phone',data.phone ? data.phone : '');
+        setValue('gender', (data.gender || data.gender === TypeCode.USER.GENDER.OTHER) ? ''+data.gender : TypeCode.USER.GENDER.MALE);
+        setValue('workform', (data.workform || data.workform === TypeCode.USER.WORKFORM.OTHER) ? ''+data.workform : TypeCode.USER.WORKFORM.FULLTIME);
+        setValue('birthday',data.birthday ? data.birthday : '');
+        setValue('room', ( data.room || data.room === TypeCode.USER.ROOM.OTHER) ? data.room : TypeCode.USER.ROOM.OUTSOURCE);
+        setValue('position', ( data.position || data.position === TypeCode.USER.POSITION.OTHER)  ? data.position : TypeCode.USER.POSITION.DEVELOPER);
+        setValue('experience', ( data.experience || data.experience === TypeCode.USER.EXPERIENCE.OTHER) ? data.experience : TypeCode.USER.EXPERIENCE.STAFF);
+        setValue('address',data.address ? data.address : '');
+        setValue('identity_card',data.identity_card ? data.identity_card : '');
+        setValue('identity_date',data.identity_date ? data.identity_date : '');
+        setValue('identity_place',data.identity_place ? data.identity_place : '');
+        setValue('bank_account',data.bank_account ? data.bank_account : '');
+    }
+
+    /**
+     * on submit form
+     */
     const _onSubmit = () => {
         if (token) {
             const data = {
                 fullname: getValues('fullname'),
                 username: getValues('username'),
-                role: getValues('role'),
+                role: parseInt(getValues('role'), 10),
                 email: getValues('email'),
                 personal_email: getValues('personal_email'),
                 phone: getValues('phone'),
-                gender: getValues('gender'),
-                workform: getValues('workform'),
+                gender: parseInt(getValues('gender'),10),
+                workform: parseInt(getValues('workform'),10),
                 birthday: getValues('birthday'),
-                zoom: getValues('zoom'),
-                position: getValues('position'),
-                experience: getValues('experience'),
+                room: parseInt(getValues('room'), 10),
+                position: parseInt(getValues('position'), 10),
+                experience: parseInt(getValues('experience'), 10),
                 address: getValues('address'),
                 identity_card: getValues('identity_card'),
                 identity_date: getValues('identity_date'),
@@ -87,17 +129,20 @@ export default function UserInformationScreen() {
             userApi.create(data).then(
                 (response) => {
                     if (response.status === Common.HTTP_STATUS.OK) {
-                        console.log("OK");
+                        setMessage(response.data.message || 'Đăng kí tài khoản thành công !');
+                        toggleModalSuccess();
                     }
                     else {
-                        console.log("Fail");
+                        setMessage(response.data.message || 'Đăng kí tài khoản thất bại. Vui lòng thử lại !');
+                        toggleModalError();
                     }
                 },
                 (error) => {
                     if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
                         navigate(LinkName.LOGIN);
                     } else {
-                        navigate(LinkName.ERROR_500);
+                        setMessage(error.response.message || 'Đăng kí tài khoản thất bại. Vui lòng thử lại !');
+                        toggleModalError();
                     }
                 }
             );
@@ -114,6 +159,15 @@ export default function UserInformationScreen() {
     const _onBlur = (name, value) => {
         setValue(name, value.trim(), { shouldValidate: true });
     }
+
+    useEffect(()=>{
+        if(window.location.pathname === LinkName.USER_INFORMATION){
+            setValueFormInput(data);
+            if(data.role === TypeCode.USER.ROLE.ADMINISTRATOR){
+                setDisabled(false);
+            }
+        }
+    },[window.location.pathname]);
 
     /**
      * render template
@@ -152,7 +206,7 @@ export default function UserInformationScreen() {
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div className="avatar avatar-xxl me-3">
                                                                     <img src={subAvatarSrc ? subAvatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
-                                                                    <span className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setSubAvatarSrc)}><MdModeEditOutline /></span>
+                                                                    <span disabled = {isDisabled} className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setSubAvatarSrc)}><MdModeEditOutline /></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -161,14 +215,18 @@ export default function UserInformationScreen() {
                                             </div>
                                             <NameComponent
                                                 _onBlur={_onBlur}
+                                                _disabled = {isDisabled}
                                             />
                                             <InformationComponent
                                                 _onBlur={_onBlur}
+                                                _disabled = {isDisabled}
                                             />
                                             <PersonalComponent
                                                 _onBlur={_onBlur}
+                                                _disabled = {isDisabled}
                                             />
-                                            <OtherInformationComponent />
+                                            <OtherInformationComponent
+                                                _disabled = {isDisabled} />
 
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
@@ -178,6 +236,7 @@ export default function UserInformationScreen() {
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
+                                                                disabled = {isDisabled}
                                                                 {...register(
                                                                     "address",
                                                                     {
@@ -202,6 +261,7 @@ export default function UserInformationScreen() {
                                             </div>
                                             <IdentityCardComponent
                                                 _onBlur={_onBlur}
+                                                _disabled = {isDisabled}
                                             />
                                             <div className="row">
                                                 <div className="col-xl-12 col-md-12 col-xs-12">
@@ -211,6 +271,7 @@ export default function UserInformationScreen() {
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
+                                                                disabled = {isDisabled}
                                                                 {...register(
                                                                     "bank_account"
                                                                 )}
@@ -237,6 +298,22 @@ export default function UserInformationScreen() {
                     </div>
                 </div>
             </div>
+            {
+                modalSuccess && 
+                <ModalSuccessComponent
+                    modal = {modalSuccess}
+                    toggle = {toggleModalSuccess}
+                    message = {message}
+                />
+            }
+            {
+                modalError && 
+                <ModalErrorComponent
+                    modal = {modalError}
+                    toggle = {toggleModalError}
+                    message = {message}
+                />
+            }
         </section>
     );
 }

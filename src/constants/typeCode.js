@@ -31,7 +31,7 @@ const typeCode = {
         /**
          * postion
          */
-        POSTION: {
+        POSITION: {
             OTHER: 0,
             DEVELOPER: 1,
             TESTER: 2,
@@ -39,7 +39,7 @@ const typeCode = {
             DESIGNER: 4,
             COMTOR: 5
         },
-        POSTION_MAPPING: {
+        POSITION_MAPPING: {
             0: 'Khác',
             1: 'Developer',
             2: 'Tester',
@@ -64,13 +64,13 @@ const typeCode = {
             3: 'Project Manager'
         },
 
-        ZOOM: {
+        ROOM: {
             OTHER: 0,
             OUTSOURCE: 1,
             PRODUCT: 2
         },
 
-        ZOOM_MAPPING: {
+        ROOM_MAPPING: {
             0: 'Khác',
             1: 'Outsource',
             2: 'Product',
@@ -79,6 +79,10 @@ const typeCode = {
         ROLE: {
             ADMINISTRATOR: 1,
             STAFF: 0
+        },
+        ROLE_MAPPING: {
+            0: 'Nhân viên',
+            1: 'Quản trị viên',
         }
     },
 

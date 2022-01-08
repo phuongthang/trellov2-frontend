@@ -11,6 +11,7 @@ import { replaceString } from '../../../utils/helpers';
 
 export default function PersonalComponent(props) {
 
+    const { _disabled } = props;
     const { register, formState: { errors } } = useFormContext();
     /**
      * render template
@@ -30,6 +31,7 @@ export default function PersonalComponent(props) {
                                             id="male"
                                             value={TypeCode.USER.GENDER.MALE}
                                             defaultChecked
+                                            disabled = {_disabled}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -45,6 +47,7 @@ export default function PersonalComponent(props) {
                                             className="form-check-input form-check-primary"
                                             id="female"
                                             value={TypeCode.USER.GENDER.FEMALE}
+                                            disabled = {_disabled}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -60,6 +63,7 @@ export default function PersonalComponent(props) {
                                             className="form-check-input form-check-success"
                                             id="gender_other"
                                             value={TypeCode.USER.GENDER.OTHER}
+                                            disabled = {_disabled}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -85,6 +89,7 @@ export default function PersonalComponent(props) {
                                             id="fulltime"
                                             defaultChecked
                                             value={TypeCode.USER.WORKFORM.FULLTIME}
+                                            disabled = {_disabled}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -100,6 +105,7 @@ export default function PersonalComponent(props) {
                                             className="form-check-input form-check-secondary"
                                             id="parttime"
                                             value={TypeCode.USER.WORKFORM.PARTTIME}
+                                            disabled = {_disabled}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -115,6 +121,7 @@ export default function PersonalComponent(props) {
                                             className="form-check-input form-check-success"
                                             id="workform_other"
                                             value={TypeCode.USER.WORKFORM.OTHER}
+                                            disabled = {_disabled}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -134,6 +141,7 @@ export default function PersonalComponent(props) {
                         <input
                             type="date"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "birthday",
                                 {

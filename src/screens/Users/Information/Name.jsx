@@ -15,7 +15,7 @@ import { RiUser2Fill } from "react-icons/ri";
 
 export default function NameComponent(props) {
 
-    const { _onBlur } = props;
+    const { _onBlur, _disabled } = props;
     const { register, formState: { errors } } = useFormContext();
     /**
      * render template
@@ -31,6 +31,7 @@ export default function NameComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "fullname",
                                 {
@@ -68,6 +69,7 @@ export default function NameComponent(props) {
                         <input
                             type="text"
                             className="form-control"
+                            disabled = {_disabled}
                             {...register(
                                 "username",
                                 {
@@ -108,6 +110,7 @@ export default function NameComponent(props) {
                                             className="form-check-input form-check-primary"
                                             id="administrator"
                                             value={TypeCode.USER.ROLE.ADMINISTRATOR}
+                                            disabled = {_disabled}
                                             {...register(
                                                 "role",
                                             )} />
@@ -124,6 +127,7 @@ export default function NameComponent(props) {
                                             id="staff"
                                             value={TypeCode.USER.ROLE.STAFF}
                                             defaultChecked
+                                            disabled = {_disabled}
                                             {...register(
                                                 "role",
                                             )} />
