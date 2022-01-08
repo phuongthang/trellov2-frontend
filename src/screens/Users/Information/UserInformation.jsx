@@ -13,7 +13,7 @@ import InformationComponent from "./Information";
 import PersonalComponent from "./Personal";
 import OtherInformationComponent from "./OtherInformation";
 import AddressComponent from "./Address";
-import IdCardComponent from "./IdCard";
+import IdentityCardComponent from "./IdentityCard";
 
 //Constant
 import { replaceString } from "../../../utils/helpers";
@@ -153,7 +153,7 @@ export default function UserInformationScreen() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <IdCardComponent
+                                            <IdentityCardComponent
                                                 _onBlur={_onBlur}
                                             />
                                             <div className="row">
