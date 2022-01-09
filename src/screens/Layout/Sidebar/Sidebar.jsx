@@ -14,7 +14,7 @@ export default function Sidebar(props) {
      */
     const listPathUserInformation = [LinkName.USER_INFORMATION, LinkName.TIME_KEEPING];
     const listPathProject = [LinkName.PROJECT_CREATE, LinkName.PROJECT_LIST, LinkName.TASK_LIST, LinkName.PROJECT_ACTIVITY];
-    const listPathManager = [LinkName.USER_LIST];
+    const listPathManager = [LinkName.USER_LIST, LinkName.USER_UPDATE, LinkName.USER_CREATE];
     const currentPath = window.location.pathname;
 
     /**

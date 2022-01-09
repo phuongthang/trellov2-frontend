@@ -1,13 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Packet
 import { Modal } from "reactstrap";
+import { useForm } from 'react-hook-form';
 
 export default function ModalConfirmDeleteComponent(props) {
     /**
      * get property
      */
-    const { modal, toggle } = props;
+    const { modal, toggle, keyWord, _onCallback, id } = props;
+
+    const [isDisable, setDisable] = useState(true);
+    const { register, watch, formState: { errors } } = useForm({
+        mode: 'all',
+        reValidateMode: 'all',
+    });
+
+    const _onCallbackfunc = async() => {
+        await _onCallback(id);
+        toggle();
+    }
+
+    const watchKeyWord = watch('keyword');
+    useEffect(() => {
+        if(watchKeyWord === keyWord){
+            setDisable(false);
+        }else{
+            setDisable(true);
+        }
+    },[watchKeyWord]);
 
     /**
      * render template
@@ -19,12 +40,12 @@ export default function ModalConfirmDeleteComponent(props) {
             <div className="modal-content">
                 <div className="modal-header">
                     <h5 className="modal-title">
-                        Xóa Dự Án ?
+                        Xác nhận xóa?
                     </h5>
                 </div>
                 <div className="modal-body">
                     <p>
-                        Để xác nhận xóa vui lòng nhập <strong>LandMark</strong> để xóa !
+                        Để xác nhận xóa vui lòng nhập <strong>{keyWord}</strong> để xóa !
                     </p>
                     <div className="row">
                         <div className="col-xl-12 col-md-12 col-xs-12">
@@ -33,7 +54,9 @@ export default function ModalConfirmDeleteComponent(props) {
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="first-name-icon"
+                                        {...register(
+                                            "keyword",
+                                        )}
                                     />
                                 </div>
                             </div>
@@ -44,7 +67,7 @@ export default function ModalConfirmDeleteComponent(props) {
                     <button type="button" className="btn btn-light-secondary btn-custom" onClick={toggle}>
                         <span className="d-none d-sm-block">Hủy</span>
                     </button>
-                    <button type="button" className="btn btn-primary ml-1 btn-custom">
+                    <button type="button" disabled={isDisable} onClick={_onCallbackfunc} className="btn btn-primary ml-1 btn-custom">
                         <span className="d-none d-sm-block">Xác nhận</span>
                     </button>
                 </div>

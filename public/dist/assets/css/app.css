@@ -263,7 +263,6 @@ input[type="radio"]:disabled{
 
 .table-striped .td-name{
     display: flex;
-    width: 70%;
     margin: auto;
     text-align: left;
 }

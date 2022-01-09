@@ -3,18 +3,26 @@ import { useState, useEffect } from 'react';
 //Component
 import UserFillterComponent from '../../Fillters/UserFillter/UserFillter';
 import ModalConfirmDeleteUserComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
+import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
+import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { BsPinAngleFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
+
+//packet
 import { useNavigate } from 'react-router-dom';
+
+//constant
 import LinkName from './../../../constants/linkName';
-import userApi from './../../../api/userApi';
-import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 import TypeCode from '../../../constants/typeCode';
 import Common from '../../../constants/common';
+
+//api
+import userApi from './../../../api/userApi';
+
+//utils
 import { getTokenFromLocalStorage } from '../../../utils/utils';
 
 export default function UserListScreen() {
@@ -30,6 +38,11 @@ export default function UserListScreen() {
     const toggleModalUserFillter = () => {
         setModalUserFillter(!modalUserFillter);
     }
+
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
+    }
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
@@ -37,12 +50,39 @@ export default function UserListScreen() {
     const [message, setMessage] = useState('');
 
     const [userList, setUserList] = useState([]);
+    const [keyWord, setKeyWord] = useState();
+    const [userId, setUserId] = useState();
+
+    const _onDelete = (id) => {
+        userApi.delete(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Xóa tài khoản nhân viên thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Xóa tài khoản nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response.message || 'Xóa tài khoản nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
 
     /**
      * open/close modal confirm delete user
      */
     const [modalConfirmDeleteUser, setModalConfirmDeleteUser] = useState(false);
-    const toggleModalConfirmDeleteUser = () => {
+    const toggleModalConfirmDeleteUser = (id,keyWord) => {
+        setUserId(id);
+        setKeyWord(keyWord);
         setModalConfirmDeleteUser(!modalConfirmDeleteUser);
     }
 
@@ -147,8 +187,7 @@ export default function UserListScreen() {
                                                         <td>
                                                             <div className="d-flex justify-content-center">
                                                                 <span className='px-1 cursor-pointer' onClick={()=>_onEdit(user._id)}><MdEdit /></span>
-                                                                <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteUser} /></span>
-                                                                <span className='px-1 cursor-pointer'><BsPinAngleFill /></span>
+                                                                <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={()=>toggleModalConfirmDeleteUser(user._id,user.fullname)} /></span>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -174,6 +213,9 @@ export default function UserListScreen() {
                 <ModalConfirmDeleteUserComponent
                     modal={modalConfirmDeleteUser}
                     toggle={toggleModalConfirmDeleteUser}
+                    keyWord = {keyWord}
+                    _onCallback = {_onDelete}
+                    id = {userId}
                 />
             }
             {
@@ -181,6 +223,14 @@ export default function UserListScreen() {
                 <ModalErrorComponent
                     modal={modalError}
                     toggle={toggleModalError}
+                    message={message}
+                />
+            }
+            {
+                modalSuccess &&
+                <ModalSuccessComponent
+                    modal={modalSuccess}
+                    toggle={toggleModalSuccess}
                     message={message}
                 />
             }

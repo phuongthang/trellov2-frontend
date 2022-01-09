@@ -38,6 +38,15 @@ const userApi = {
         return axiosClient.put(url,params);
     },
 
+    /**
+     * [DELETE] delete user
+     * @returns 
+     */
+    delete(params){
+        const url = `/user/delete/${params}`;
+        return axiosClient.delete(url);
+    },
+
     
 }
 
