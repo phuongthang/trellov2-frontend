@@ -81,6 +81,7 @@ export default function UserListScreen() {
         } else {
             navigate(LinkName.LOGIN);
         }
+        // eslint-disable-next-line
     }, [token]);
 
     /**

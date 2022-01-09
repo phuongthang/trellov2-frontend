@@ -1,8 +1,10 @@
 import React from 'react';
 
 //packet
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { FormFeedback } from 'reactstrap';
+import moment from "moment";
+import DatePicker from "react-datepicker";
 
 //Constant
 import Message from '../../../constants/message';
@@ -12,7 +14,7 @@ import { replaceString } from '../../../utils/helpers';
 export default function PersonalComponent(props) {
 
     const { _disabled } = props;
-    const { register, formState: { errors } } = useFormContext();
+    const { register, control, formState: { errors } } = useFormContext();
     /**
      * render template
      */
@@ -31,7 +33,7 @@ export default function PersonalComponent(props) {
                                             id="male"
                                             value={TypeCode.USER.GENDER.MALE}
                                             defaultChecked
-                                            disabled = {_disabled}
+                                            disabled={_disabled}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -47,7 +49,7 @@ export default function PersonalComponent(props) {
                                             className="form-check-input form-check-primary"
                                             id="female"
                                             value={TypeCode.USER.GENDER.FEMALE}
-                                            disabled = {_disabled}
+                                            disabled={_disabled}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -60,10 +62,10 @@ export default function PersonalComponent(props) {
                                 <div className="form-check">
                                     <div className="custom-control custom-checkbox">
                                         <input type="radio"
-                                            className="form-check-input form-check-success"
+                                            className="form-check-input form-check-primary"
                                             id="gender_other"
                                             value={TypeCode.USER.GENDER.OTHER}
-                                            disabled = {_disabled}
+                                            disabled={_disabled}
                                             {...register(
                                                 "gender",
                                             )} />
@@ -89,7 +91,7 @@ export default function PersonalComponent(props) {
                                             id="fulltime"
                                             defaultChecked
                                             value={TypeCode.USER.WORKFORM.FULLTIME}
-                                            disabled = {_disabled}
+                                            disabled={_disabled}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -102,10 +104,10 @@ export default function PersonalComponent(props) {
                                 <div className="form-check">
                                     <div className="custom-control custom-checkbox">
                                         <input type="radio"
-                                            className="form-check-input form-check-secondary"
+                                            className="form-check-input form-check-primary"
                                             id="parttime"
                                             value={TypeCode.USER.WORKFORM.PARTTIME}
-                                            disabled = {_disabled}
+                                            disabled={_disabled}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -118,10 +120,10 @@ export default function PersonalComponent(props) {
                                 <div className="form-check">
                                     <div className="custom-control custom-checkbox">
                                         <input type="radio"
-                                            className="form-check-input form-check-success"
+                                            className="form-check-input form-check-primary"
                                             id="workform_other"
                                             value={TypeCode.USER.WORKFORM.OTHER}
-                                            disabled = {_disabled}
+                                            disabled={_disabled}
                                             {...register(
                                                 "workform",
                                             )} />
@@ -138,21 +140,33 @@ export default function PersonalComponent(props) {
                 <div className="form-group">
                     <label htmlFor="first-name-icon"><h6 className="required">Ngày sinh :</h6></label>
                     <div className="position-relative">
-                        <input
-                            type="date"
-                            className="form-control"
-                            disabled = {_disabled}
-                            {...register(
-                                "birthday",
-                                {
-                                    valueAsDate: true,
-                                    required: {
-                                        value: true,
-                                        message: replaceString(Message.TEXT.REQUIRED, ["Ngày sinh"]),
-                                    },
-                                }
-                                
+                        <Controller
+                            control={control}
+                            name="birthday"
+                            disabled={_disabled}
+                            render={({ field: {
+                                onChange,
+                                onBlur,
+                                value
+                            } }) => (
+                                <DatePicker
+                                    dateFormat="dd/MM/yyyy"
+                                    className="form-control"
+                                    name="birthday"
+                                    autoComplete="off"
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    selected={value ? moment(value).toDate() : value}
+
+                                />
                             )}
+                            rules={{
+                                validate: (birthday) => {
+                                    if (!birthday) {
+                                        return replaceString(Message.TEXT.REQUIRED, ["Ngày sinh"]);
+                                    }
+                                },
+                            }}
                         />
                     </div>
                     {errors.birthday && (

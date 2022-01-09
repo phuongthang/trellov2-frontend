@@ -34,6 +34,7 @@ export default function Layout(props) {
         }else{
             navigate(LinkName.LOGIN);
         }
+        // eslint-disable-next-line
     },[token]);
 
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 
 //icon
 import { MdModeEditOutline } from "react-icons/md";
@@ -49,7 +50,7 @@ export default function UserInformationScreen(props) {
      */
     const [avatarSrc, setAvatarSrc] = useState();
     const [subAvatarSrc, setSubAvatarSrc] = useState();
-    const [data, setData] = useState(getUserDataFromLocalStorage);
+    const [ data ] = useState(getUserDataFromLocalStorage);
     const [isDisabled, setDisabled] = useState(true);
 
     /**
@@ -195,7 +196,7 @@ export default function UserInformationScreen(props) {
                 bank_account: getValues('bank_account'),
             }
             if(id){
-                let dataUpdate = {... data};
+                let dataUpdate = {...data};
                 dataUpdate._id = id;
                 _onUpdate(dataUpdate);
             }else{
@@ -218,7 +219,6 @@ export default function UserInformationScreen(props) {
     }
 
     useEffect(() => {
-        console.log(window.location.pathname);
         if (window.location.pathname === LinkName.USER_INFORMATION) {
             setValueFormInput(data);
             if (data.role === TypeCode.USER.ROLE.ADMINISTRATOR) {
@@ -228,6 +228,7 @@ export default function UserInformationScreen(props) {
             _onDetail(id);
             setDisabled(false);
         }
+        // eslint-disable-next-line
     }, [window.location.pathname]);
 
     /**

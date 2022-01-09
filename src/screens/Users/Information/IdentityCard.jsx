@@ -1,8 +1,10 @@
 import React from 'react';
 
 //packet
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { FormFeedback } from 'reactstrap';
+import moment from "moment";
+import DatePicker from "react-datepicker";
 
 //Constant
 import Message from '../../../constants/message';
@@ -11,7 +13,7 @@ import { replaceString } from '../../../utils/helpers';
 export default function IdentityCardComponent(props) {
 
     const { _onBlur, _disabled } = props;
-    const { register, formState: { errors } } = useFormContext();
+    const { register, control, formState: { errors } } = useFormContext();
     /**
      * render template
      */
@@ -24,7 +26,7 @@ export default function IdentityCardComponent(props) {
                         <input
                             type="text"
                             className="form-control"
-                            disabled = {_disabled}
+                            disabled={_disabled}
                             {...register(
                                 "identity_card",
                                 {
@@ -46,21 +48,33 @@ export default function IdentityCardComponent(props) {
                 <div className="form-group">
                     <label htmlFor="first-name-icon text-bold-500"><h6 className="required">Ngày cấp :</h6></label>
                     <div className="position-relative">
-                        <input
-                            type="date"
-                            className="form-control"
-                            disabled = {_disabled}
-                            {...register(
-                                "identity_date",
-                                {
-                                    valueAsDate: true,
-                                    required: {
-                                        value: true,
-                                        message: replaceString(Message.TEXT.REQUIRED, ["Ngày cấp"]),
-                                    }
-                                }
+                        <Controller
+                            control={control}
+                            name="identity_date"
+                            disabled={_disabled}
+                            render={({ field: {
+                                onChange,
+                                onBlur,
+                                value
+                            } }) => (
+                                <DatePicker
+                                    dateFormat="dd/MM/yyyy"
+                                    className="form-control"
+                                    name="identity_date"
+                                    autoComplete="off"
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                    selected={value ? moment(value).toDate() : value}
+
+                                />
                             )}
-                            onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
+                            rules={{
+                                validate: (identity_date) => {
+                                    if (!identity_date) {
+                                        return replaceString(Message.TEXT.REQUIRED, ["Ngày sinh"]);
+                                    }
+                                },
+                            }}
                         />
                     </div>
                     {errors.identity_date && (
@@ -75,7 +89,7 @@ export default function IdentityCardComponent(props) {
                         <input
                             type="text"
                             className="form-control"
-                            disabled = {_disabled}
+                            disabled={_disabled}
                             {...register(
                                 "identity_place",
                                 {
