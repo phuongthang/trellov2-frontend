@@ -46,6 +46,14 @@ export default function UserListScreen() {
         setModalConfirmDeleteUser(!modalConfirmDeleteUser);
     }
 
+    /**
+     * on click button edit
+     */
+    const _onEdit = (id) => {
+        localStorage.setItem('userId',id);
+        navigate(LinkName.USER_UPDATE);
+    }
+
     useEffect(() => {
         const _getListUser = () => {
             userApi.list().then(
@@ -137,9 +145,9 @@ export default function UserListScreen() {
                                                         <td>{TypeCode.USER.WORKFORM_MAPPING[user.workform]}</td>
                                                         <td>
                                                             <div className="d-flex justify-content-center">
-                                                                <span className='px-1'><MdEdit /></span>
-                                                                <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteUser} /></span>
-                                                                <span className='px-1'><BsPinAngleFill /></span>
+                                                                <span className='px-1 cursor-pointer' onClick={()=>_onEdit(user._id)}><MdEdit /></span>
+                                                                <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteUser} /></span>
+                                                                <span className='px-1 cursor-pointer'><BsPinAngleFill /></span>
                                                             </div>
                                                         </td>
                                                     </tr>

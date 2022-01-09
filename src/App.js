@@ -80,6 +80,7 @@ function App() {
 					<Route path={LinkName.TASK_DETAIL} element={<TaskDetailScreen />} />
 					<Route path={LinkName.NOTE} element={<NoteScreen />} />
 					<Route path={LinkName.USER_LIST} element={<UserListScreen />} />
+					<Route path={LinkName.USER_UPDATE} element={<UserInformationScreen />} />
 				</Route>
 			</Routes>
 		</React.Suspense>

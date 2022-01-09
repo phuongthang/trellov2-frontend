@@ -145,6 +145,7 @@ export default function PersonalComponent(props) {
                             {...register(
                                 "birthday",
                                 {
+                                    valueAsDate: true,
                                     required: {
                                         value: true,
                                         message: replaceString(Message.TEXT.REQUIRED, ["Ngày sinh"]),

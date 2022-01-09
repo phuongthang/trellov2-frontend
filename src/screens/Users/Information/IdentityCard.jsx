@@ -53,6 +53,7 @@ export default function IdentityCardComponent(props) {
                             {...register(
                                 "identity_date",
                                 {
+                                    valueAsDate: true,
                                     required: {
                                         value: true,
                                         message: replaceString(Message.TEXT.REQUIRED, ["Ngày cấp"]),
