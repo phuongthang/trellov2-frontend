@@ -43,30 +43,36 @@ export default function UserInformationScreen(props) {
         mode: 'all',
         reValidateMode: 'all',
     });
-    const { register, handleSubmit, getValues, setValue, formState: { errors } } = methods;
+    const { register, handleSubmit, getValues, setValue, reset, formState: { errors } } = methods;
 
     /**
      * define state
      */
     const [avatarSrc, setAvatarSrc] = useState();
     const [subAvatarSrc, setSubAvatarSrc] = useState();
-    const [ data ] = useState(getUserDataFromLocalStorage);
+    const [avatar, setAvatar] = useState({});
+    const [subAvatar, setSubAvatar] = useState({});
+    const [isUploadAvatar, setUploadAvatar] = useState(false);
+    const [isUploadSubAvatar, setUploadSubAvatar] = useState(false);
+    const [data] = useState(getUserDataFromLocalStorage);
     const [isDisabled, setDisabled] = useState(true);
 
     /**
      * preview image
      * @param {*} setState 
      */
-    const _onClick = (setState) => {
+    const _onClick = (setStateSrc, setStateFile, setStateUpload) => {
         let input = document.createElement('input');
         input.type = 'file';
         input.onchange = () => {
             let files = Array.from(input.files);
+            setStateFile(files[0]);
+            setStateUpload(true);
             let reader = new FileReader();
             reader.readAsDataURL(files[0]);
 
             reader.onloadend = function (e) {
-                setState(reader.result);
+                setStateSrc(reader.result);
             }
         }
         input.click();
@@ -101,6 +107,8 @@ export default function UserInformationScreen(props) {
         setValue('identity_date', data.identity_date ? data.identity_date : '');
         setValue('identity_place', data.identity_place ? data.identity_place : '');
         setValue('bank_account', data.bank_account ? data.bank_account : '');
+        setAvatarSrc(Common.ENV + data.avatar);
+        setSubAvatarSrc(Common.ENV + data.sub_avatar);
     }
 
     const _onDetail = (id) => {
@@ -171,35 +179,54 @@ export default function UserInformationScreen(props) {
         );
     }
 
+    const _onReset = () => {
+        reset();
+        setAvatarSrc(null);
+        setSubAvatarSrc(null);
+        setUploadAvatar(false);
+        setUploadSubAvatar(false);
+        for (let item of Object.keys(localStorage)) {
+            if (!['token'].includes(item)) {
+                localStorage.removeItem(item);
+            }
+        }
+    }
     /**
      * on submit form
      */
     const _onSubmit = () => {
         if (token) {
-            const data = {
-                fullname: getValues('fullname'),
-                username: getValues('username'),
-                role: parseInt(getValues('role'), 10),
-                email: getValues('email'),
-                personal_email: getValues('personal_email'),
-                phone: getValues('phone'),
-                gender: parseInt(getValues('gender'), 10),
-                workform: parseInt(getValues('workform'), 10),
-                birthday: getValues('birthday'),
-                room: parseInt(getValues('room'), 10),
-                position: parseInt(getValues('position'), 10),
-                experience: parseInt(getValues('experience'), 10),
-                address: getValues('address'),
-                identity_card: getValues('identity_card'),
-                identity_date: getValues('identity_date'),
-                identity_place: getValues('identity_place'),
-                bank_account: getValues('bank_account'),
+            const data = new FormData();
+            if (isUploadAvatar) {
+                const avatarBlob = new Blob([avatar], { type: 'image' });
+                data.append('avatar', avatarBlob, avatar.name);
             }
-            if(id){
-                let dataUpdate = {...data};
-                dataUpdate._id = id;
-                _onUpdate(dataUpdate);
-            }else{
+            if (isUploadSubAvatar) {
+                const subAvatarBlob = new Blob([subAvatar], { type: 'image' });
+                data.append('sub_avatar', subAvatarBlob, subAvatar.name);
+            }
+
+            data.append('fullname', getValues('fullname'));
+            data.append('username', getValues('username'));
+            data.append('role', getValues('role') ? parseInt(getValues('role'), 10) : TypeCode.USER.ROLE.STAFF);
+            data.append('email', getValues('email'));
+            data.append('phone', getValues('phone'));
+            data.append('gender', (getValues('gender') || parseInt(getValues('gender'), 10) === TypeCode.USER.GENDER.OTHER) ? parseInt(getValues('gender'), 10) : TypeCode.USER.GENDER.MALE);
+            data.append('workform', (getValues('workform') || parseInt(getValues('workform'), 10) === TypeCode.USER.WORKFORM.OTHER) ? parseInt(getValues('workform'), 10) : TypeCode.USER.WORKFORM.FULLTIME);
+            data.append('birthday', getValues('birthday'));
+            data.append('room', (getValues('room') || parseInt(getValues('room'), 10) === TypeCode.USER.ROOM.OTHER) ? parseInt(getValues('room'), 10) : TypeCode.USER.ROOM.OUTSOURCE);
+            data.append('position', (getValues('position') || parseInt(getValues('position'), 10) === TypeCode.USER.POSITION.OTHER) ? parseInt(getValues('position'), 10) : TypeCode.USER.POSITION.DEVELOPER);
+            data.append('experience', (getValues('experience') || parseInt(getValues('experience'), 10) === TypeCode.USER.EXPERIENCE.OTHER) ? parseInt(getValues('experience'), 10) : TypeCode.USER.EXPERIENCE.STAFF);
+            data.append('address', getValues('address'));
+            data.append('identity_card', getValues('identity_card'));
+            data.append('identity_date', getValues('identity_date'));
+            data.append('identity_place', getValues('identity_place'));
+            data.append('bank_account', getValues('bank_account'));
+
+            if (id) {
+                data.append('_id', id);
+                _onUpdate(data);
+            } else {
                 _onCreate(data);
             }
 
@@ -219,14 +246,17 @@ export default function UserInformationScreen(props) {
     }
 
     useEffect(() => {
-        if (window.location.pathname === LinkName.USER_INFORMATION) {
+        setDisabled(false);
+        if (window.location.pathname === LinkName.USER_CREATE) {
+            _onReset(); 
+        }
+        else if (window.location.pathname === LinkName.USER_INFORMATION) {
             setValueFormInput(data);
-            if (data.role === TypeCode.USER.ROLE.ADMINISTRATOR) {
-                setDisabled(false);
+            if (data.role === TypeCode.USER.ROLE.STAFF) {
+                setDisabled(true);
             }
         } else if (window.location.pathname === LinkName.USER_UPDATE) {
             _onDetail(id);
-            setDisabled(false);
         }
         // eslint-disable-next-line
     }, [window.location.pathname]);
@@ -255,7 +285,7 @@ export default function UserInformationScreen(props) {
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div className="avatar avatar-xxl me-3">
                                                                     <img src={avatarSrc ? avatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
-                                                                    <span className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setAvatarSrc)}><MdModeEditOutline /></span>
+                                                                    <span className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setAvatarSrc, setAvatar, setUploadAvatar)}><MdModeEditOutline /></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -268,7 +298,7 @@ export default function UserInformationScreen(props) {
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div className="avatar avatar-xxl me-3">
                                                                     <img src={subAvatarSrc ? subAvatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
-                                                                    <span disabled={isDisabled} className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setSubAvatarSrc)}><MdModeEditOutline /></span>
+                                                                    <span disabled={isDisabled} className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setSubAvatarSrc, setSubAvatar, setUploadSubAvatar)}><MdModeEditOutline /></span>
                                                                 </div>
                                                             </div>
                                                         </div>

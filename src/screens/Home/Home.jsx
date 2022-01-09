@@ -2,8 +2,17 @@
 import ActivityHistoryComponent from "./ActivityHistory";
 import AnalystComponent from "./Analyst";
 import InformationComponent from "./Information";
+import { useEffect } from 'react';
 
 export default function HomeScreen() {
+
+    useEffect(() => {
+        for (let item of Object.keys(localStorage)) {
+            if (!['token'].includes(item)) {
+                localStorage.removeItem(item);
+            }
+        }
+    }, []);
     /**
      * render template
      */

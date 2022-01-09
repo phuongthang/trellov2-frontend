@@ -36,8 +36,8 @@ export default function Sidebar(props) {
     const [isOpenTabManager, setOpenTabManager] = useState(false);
 
     const toggleOpenCollaspe = (setCurrentState, state, tabType) => {
-        switch(tabType){
-            case Common.NAV.USER: 
+        switch (tabType) {
+            case Common.NAV.USER:
                 setOpenTabProject(false);
                 setOpenTabManager(false)
                 break;
@@ -60,14 +60,14 @@ export default function Sidebar(props) {
     /**
      * check current path
      */
-    useEffect(()=> {
-        if(listPathUserInformation.includes(currentPath)){
+    useEffect(() => {
+        if (listPathUserInformation.includes(currentPath)) {
             setOpenTabInformation(true);
-        }else if(listPathProject.includes(currentPath)){
+        } else if (listPathProject.includes(currentPath)) {
             setOpenTabProject(true);
-        }else if(listPathManager.includes(currentPath)){
+        } else if (listPathManager.includes(currentPath)) {
             setOpenTabManager(true);
-        }else{
+        } else {
             setOpenTabInformation(false);
             setOpenTabProject(false);
             setOpenTabManager(false);
@@ -100,81 +100,86 @@ export default function Sidebar(props) {
                             </span>
                         </li>
                         <>
-                        <li onClick={()=>toggleOpenCollaspe(setOpenTabManager, isOpenTabManager, Common.NAV.MANAGER)} className={`sidebar-item ${listPathManager.includes(currentPath) ? 'active' : ''}`}>
-                            <span className="sidebar-link cursor-pointer">
-                            <i className="bi bi-people-fill" />
-                                <span>Quản lí</span>
-                            </span>
-                        </li>
-                        <Collapse isOpen={isOpenTabManager} className={`sidebar-item`}>
-                            <ul className="submenu d-block">
-                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_LIST ? 'active' : ''}`}>
-                                    <Link to={LinkName.USER_LIST} >
-                                        Nhân sự
-                                    </Link>
-                                </li>
-                                <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.TIME_KEEPING ? 'active' : ''}`}>
-                                    <Link to={LinkName.TIME_KEEPING} >
-                                        Công việc
-                                    </Link>
-                                </li>
-                            </ul>
-                        </Collapse>
+                            <li onClick={() => toggleOpenCollaspe(setOpenTabManager, isOpenTabManager, Common.NAV.MANAGER)} className={`sidebar-item ${listPathManager.includes(currentPath) ? 'active' : ''}`}>
+                                <span className="sidebar-link cursor-pointer">
+                                    <i className="bi bi-people-fill" />
+                                    <span>Quản lí</span>
+                                </span>
+                            </li>
+                            <Collapse isOpen={isOpenTabManager} className={`sidebar-item`}>
+                                <ul className="submenu d-block">
+                                    <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_CREATE ? 'active' : ''}`}>
+                                        <Link to={LinkName.USER_CREATE} >
+                                            Thêm nhân viên
+                                        </Link>
+                                    </li>
+                                    <li className={`d-flex align-items-center submenu-item ${(currentPath === LinkName.USER_LIST || currentPath === LinkName.USER_UPDATE)? 'active' : ''}`}>
+                                        <Link to={LinkName.USER_LIST} >
+                                            Nhân sự
+                                        </Link>
+                                    </li>
+                                    <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.TIME_KEEPING ? 'active' : ''}`}>
+                                        <Link to={LinkName.TIME_KEEPING} >
+                                            Công việc
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </Collapse>
                         </>
                         <>
-                        <li onClick={()=>toggleOpenCollaspe(setOpenTabInformation, isOpenTabInformation, Common.NAV.USER)} className={`sidebar-item ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`}>
-                            <span className="sidebar-link cursor-pointer">
-                            <i className="bi bi-person-bounding-box" />
-                                <span>Thông tin cá nhân</span>
-                            </span>
-                        </li>
-                        <Collapse isOpen={isOpenTabInformation} className={`sidebar-item`}>
-                            <ul className="submenu d-block">
-                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_INFORMATION ? 'active' : ''}`}>
-                                    <Link to={LinkName.USER_INFORMATION} >
-                                        Thông tin
-                                    </Link>
-                                </li>
-                                <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.TIME_KEEPING ? 'active' : ''}`}>
-                                    <Link to={LinkName.TIME_KEEPING} >
-                                        Chấm công
-                                    </Link>
-                                </li>
-                            </ul>
-                        </Collapse>
+                            <li onClick={() => toggleOpenCollaspe(setOpenTabInformation, isOpenTabInformation, Common.NAV.USER)} className={`sidebar-item ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`}>
+                                <span className="sidebar-link cursor-pointer">
+                                    <i className="bi bi-person-bounding-box" />
+                                    <span>Thông tin cá nhân</span>
+                                </span>
+                            </li>
+                            <Collapse isOpen={isOpenTabInformation} className={`sidebar-item`}>
+                                <ul className="submenu d-block">
+                                    <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_INFORMATION ? 'active' : ''}`}>
+                                        <Link to={LinkName.USER_INFORMATION} >
+                                            Thông tin
+                                        </Link>
+                                    </li>
+                                    <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.TIME_KEEPING ? 'active' : ''}`}>
+                                        <Link to={LinkName.TIME_KEEPING} >
+                                            Chấm công
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </Collapse>
                         </>
 
                         <>
-                        <li onClick={()=>toggleOpenCollaspe(setOpenTabProject, isOpenTabProject, Common.NAV.PROJECT)} className={`sidebar-item ${listPathProject.includes(currentPath) ? 'active' : ''}`}>
-                            <span className="sidebar-link cursor-pointer">
-                            <i className="bi bi-collection-fill" />
-                            <span>Dự án</span>
-                            </span>
-                        </li>
-                        <Collapse isOpen={isOpenTabProject} className={`sidebar-item`}>
-                            <ul className="submenu d-block">
-                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
-                                    <Link to={LinkName.PROJECT_CREATE}>
-                                        Tạo mới dự án
-                                    </Link>
-                                </li>
-                                <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_LIST ? 'active' : ''}`}>
-                                    <Link to={LinkName.PROJECT_LIST}>
-                                        Danh sách dự án
-                                    </Link>
-                                </li>
-                                <li className={`d-flex align-items-center mb-1 submenu-item ${currentPath === LinkName.TASK_LIST ? 'active' : ''}`}>
-                                    <Link to={LinkName.TASK_LIST}>
-                                        Công việc
-                                    </Link>
-                                </li>
-                                <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.PROJECT_ACTIVITY ? 'active' : ''}`}>
-                                    <Link to={LinkName.PROJECT_ACTIVITY}>
-                                        Hoạt động
-                                    </Link>
-                                </li>
-                            </ul>
-                        </Collapse>
+                            <li onClick={() => toggleOpenCollaspe(setOpenTabProject, isOpenTabProject, Common.NAV.PROJECT)} className={`sidebar-item ${listPathProject.includes(currentPath) ? 'active' : ''}`}>
+                                <span className="sidebar-link cursor-pointer">
+                                    <i className="bi bi-collection-fill" />
+                                    <span>Dự án</span>
+                                </span>
+                            </li>
+                            <Collapse isOpen={isOpenTabProject} className={`sidebar-item`}>
+                                <ul className="submenu d-block">
+                                    <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
+                                        <Link to={LinkName.PROJECT_CREATE}>
+                                            Tạo mới dự án
+                                        </Link>
+                                    </li>
+                                    <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_LIST ? 'active' : ''}`}>
+                                        <Link to={LinkName.PROJECT_LIST}>
+                                            Danh sách dự án
+                                        </Link>
+                                    </li>
+                                    <li className={`d-flex align-items-center mb-1 submenu-item ${currentPath === LinkName.TASK_LIST ? 'active' : ''}`}>
+                                        <Link to={LinkName.TASK_LIST}>
+                                            Công việc
+                                        </Link>
+                                    </li>
+                                    <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.PROJECT_ACTIVITY ? 'active' : ''}`}>
+                                        <Link to={LinkName.PROJECT_ACTIVITY}>
+                                            Hoạt động
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </Collapse>
                         </>
 
                         <li className={`sidebar-item ${currentPath === LinkName.NOTE ? 'active' : ''}`}>
