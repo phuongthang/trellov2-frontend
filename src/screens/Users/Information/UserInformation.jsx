@@ -37,7 +37,8 @@ export default function UserInformationScreen(props) {
 
     let navigate = useNavigate();
     const token = getTokenFromLocalStorage();
-    const id = localStorage.getItem("userId") || null;
+    const url = window.location.pathname;
+    const id = localStorage.getItem("userId") || getUserDataFromLocalStorage()._id;
 
     const methods = useForm({
         mode: 'all',
@@ -126,7 +127,7 @@ export default function UserInformationScreen(props) {
                 if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
                     navigate(LinkName.LOGIN);
                 } else {
-                    setMessage(error.response.message || 'Lấy thông tin nhân viên thất bại. Vui lòng thử lại !');
+                    setMessage(error.response?.message || 'Lấy thông tin nhân viên thất bại. Vui lòng thử lại !');
                     toggleModalError();
                 }
             }
@@ -149,7 +150,7 @@ export default function UserInformationScreen(props) {
                 if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
                     navigate(LinkName.LOGIN);
                 } else {
-                    setMessage(error.response.message || 'Đăng kí tài khoản thất bại. Vui lòng thử lại !');
+                    setMessage(error.response?.message || 'Đăng kí tài khoản thất bại. Vui lòng thử lại !');
                     toggleModalError();
                 }
             }
@@ -160,6 +161,9 @@ export default function UserInformationScreen(props) {
         userApi.update(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
+                    if(url === LinkName.USER_INFORMATION){
+                        localStorage.setItem('token', response.data.token);
+                    }
                     setMessage(response.data.message || 'Cập nhật tài khoản thành công !');
                     toggleModalSuccess();
                 }
@@ -172,7 +176,7 @@ export default function UserInformationScreen(props) {
                 if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
                     navigate(LinkName.LOGIN);
                 } else {
-                    setMessage(error.response.message || 'Cập nhật tài khoản thất bại. Vui lòng thử lại !');
+                    setMessage(error.response?.message || 'Cập nhật tài khoản thất bại. Vui lòng thử lại !');
                     toggleModalError();
                 }
             }
@@ -210,6 +214,7 @@ export default function UserInformationScreen(props) {
             data.append('username', getValues('username'));
             data.append('role', getValues('role') ? parseInt(getValues('role'), 10) : TypeCode.USER.ROLE.STAFF);
             data.append('email', getValues('email'));
+            data.append('personal_email', getValues('personal_email'));
             data.append('phone', getValues('phone'));
             data.append('gender', (getValues('gender') || parseInt(getValues('gender'), 10) === TypeCode.USER.GENDER.OTHER) ? parseInt(getValues('gender'), 10) : TypeCode.USER.GENDER.MALE);
             data.append('workform', (getValues('workform') || parseInt(getValues('workform'), 10) === TypeCode.USER.WORKFORM.OTHER) ? parseInt(getValues('workform'), 10) : TypeCode.USER.WORKFORM.FULLTIME);
@@ -223,11 +228,11 @@ export default function UserInformationScreen(props) {
             data.append('identity_place', getValues('identity_place'));
             data.append('bank_account', getValues('bank_account'));
 
-            if (id) {
+            if (url === LinkName.USER_CREATE) {
+                _onCreate(data);
+            } else {
                 data.append('_id', id);
                 _onUpdate(data);
-            } else {
-                _onCreate(data);
             }
 
 

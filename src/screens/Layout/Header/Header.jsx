@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Dropdown, DropdownToggle, DropdownMenu} from 'reactstrap';
+import Common from "../../../constants/common";
 
 export default function Header(props) {
 
@@ -68,7 +69,7 @@ export default function Header(props) {
                                     </div>
                                     <div className="user-img d-flex align-items-center">
                                         <div className="avatar avatar-md">
-                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
+                                            <img src={Common.ENV + data.avatar} alt="" srcSet="" />
                                             <span className="avatar-status bg-success"></span>
                                         </div>
                                     </div>

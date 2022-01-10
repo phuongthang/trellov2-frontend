@@ -6,10 +6,9 @@ import Footer from './Footer/Footer';
 
 //packet
 import { Outlet, useNavigate } from 'react-router-dom';
-import jwt_decode from "jwt-decode";
 
 //utils
-import { getTokenFromLocalStorage } from '../../utils/utils';
+import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../utils/utils';
 
 //constant
 import LinkName from './../../constants/linkName';
@@ -29,8 +28,7 @@ export default function Layout(props) {
      */
     useEffect(() => {
         if(token){
-            const data = jwt_decode(token);
-            setUserData(data.user);
+            setUserData(getUserDataFromLocalStorage);
         }else{
             navigate(LinkName.LOGIN);
         }
