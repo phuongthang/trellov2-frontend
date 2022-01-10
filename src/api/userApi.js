@@ -8,7 +8,16 @@ const userApi = {
      */
     list(){
         const url = `/user/list`;
-        return axiosClient.post(url);
+        return axiosClient.get(url);
+    },
+
+    /**
+     * [POST] list user
+     * @returns 
+     */
+    search(params){
+        const url = `/user/search`;
+        return axiosClient.post(url, params);
     },
 
     /**
