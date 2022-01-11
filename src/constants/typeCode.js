@@ -163,6 +163,10 @@ const typeCode = {
         4: 'Urgent'
     },
 
+    FILLTER: {
+        ALL: -1
+    }
+
 
 
 

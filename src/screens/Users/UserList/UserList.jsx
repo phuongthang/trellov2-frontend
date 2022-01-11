@@ -55,6 +55,11 @@ export default function UserListScreen() {
     const [userId, setUserId] = useState();
     const [parameterQuery, setParameterQuery] = useState([]);
 
+    /**
+     * 
+     * @param {*} id 
+     * click button delete
+     */
     const _onDelete = (id) => {
         userApi.delete(id).then(
             (response) => {
@@ -89,6 +94,32 @@ export default function UserListScreen() {
     }
 
     /**
+     * 
+     * @param {*} get list user
+     */
+
+    const _getListUser = () => {
+        userApi.list().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setUserList(response.data.users);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+    /**
      * on click button edit
      */
     const _onEdit = (id) => {
@@ -96,6 +127,11 @@ export default function UserListScreen() {
         navigate(LinkName.USER_UPDATE);
     }
 
+    /**
+     * 
+     * @param {*} data 
+     * click button search
+     */
     const _onSearch = (data) => {
         userApi.search(data).then(
             (response) => {
@@ -118,28 +154,27 @@ export default function UserListScreen() {
         );
     }
 
-    useEffect(() => {
-        const _getListUser = () => {
-            userApi.list().then(
-                (response) => {
-                    if (response.status === Common.HTTP_STATUS.OK) {
-                        setUserList(response.data.users);
-                    }
-                    else {
-                        setMessage(response.data.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
-                        toggleModalError();
-                    }
-                },
-                (error) => {
-                    if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
-                        navigate(LinkName.LOGIN);
-                    } else {
-                        setMessage(error.response?.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
-                        toggleModalError();
-                    }
-                }
-            );
+    /**
+     * click button reset
+     */
+    const _onReset = () => {
+        _getListUser();
+        setParameterQuery([]);
+    }
+
+    /**
+     * click button delete search
+     */
+    const _onDeleteFillter = (name) => {
+        if (parameterQuery[0][name] || parameterQuery[0][name] === 0) {
+            delete parameterQuery[0][name];
         }
+        _onSearch(parameterQuery[0]);
+    }
+
+    console.log(parameterQuery);
+
+    useEffect(() => {
         if (token) {
             _getListUser();
         } else {
@@ -147,8 +182,6 @@ export default function UserListScreen() {
         }
         // eslint-disable-next-line
     }, [token]);
-
-    console.log(parameterQuery);
 
     /**
      * render template
@@ -168,6 +201,11 @@ export default function UserListScreen() {
                                             onClick={toggleModalUserFillter}
                                         >Tìm kiếm
                                         </button>
+                                        <button
+                                            className="btn btn-secondary btn-sm me-3 mb-3 mt-3 btn-custom"
+                                            onClick={_onReset}
+                                        >Đặt lại
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -176,15 +214,15 @@ export default function UserListScreen() {
                                     {parameterQuery.length <= 0 ?
                                         <span className="badge bg-success mr-5">Tất cả</span> :
                                         (
-                                            parameterQuery.map((item) => (
-                                                <>
-                                                {item.fullname && <span className="badge bg-success mr-5">Họ và tên : {item.fullname} <TiDelete/></span>}
-                                                {(item.role || item.role === TypeCode.USER.ROLE.STAFF)  && <span className="badge bg-success mr-5">Loại tài khoản: {TypeCode.USER.ROLE_MAPPING[item.role]} <TiDelete/></span>}
-                                                {(item.position || item.position === TypeCode.USER.POSITION.OTHER) && <span className="badge bg-success mr-5">Chức vụ: {TypeCode.USER.POSITION_MAPPING[item.position]} <TiDelete/></span>}
-                                                {(item.experience || item.experience === TypeCode.USER.EXPERIENCE.OTHER) && <span className="badge bg-success mr-5">Chức vụ khác: {TypeCode.USER.EXPERIENCE_MAPPING[item.experience]} <TiDelete/></span>}
-                                                {(item.gender || item.gender === TypeCode.USER.GENDER.OTHER) && <span className="badge bg-success mr-5">Giới tính: {TypeCode.USER.GENDER_MAPPING[item.gender]} <TiDelete/></span>}
-                                                {(item.workform || item.workform === TypeCode.USER.WORKFORM.OTHER) && <span className="badge bg-success mr-5">Hình thức làm việc: {TypeCode.USER.WORKFORM_MAPPING[item.workform]} <TiDelete/></span>}
-                                                </>
+                                            parameterQuery.map((item, idx) => (
+                                                <div key={idx}>
+                                                    {item.fullname && <span className="badge bg-success mr-5">Họ và tên : {item.fullname} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('fullname')} /></span>}
+                                                    {(item.role || item.role === TypeCode.USER.ROLE.STAFF) && <span className="badge bg-success mr-5">Loại tài khoản: {TypeCode.USER.ROLE_MAPPING[item.role]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('role')} /></span>}
+                                                    {(item.position || item.position === TypeCode.USER.POSITION.OTHER) && <span className="badge bg-success mr-5">Chức vụ: {TypeCode.USER.POSITION_MAPPING[item.position]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('position')} /></span>}
+                                                    {(item.experience || item.experience === TypeCode.USER.EXPERIENCE.OTHER) && <span className="badge bg-success mr-5">Chức vụ khác: {TypeCode.USER.EXPERIENCE_MAPPING[item.experience]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('experience')} /></span>}
+                                                    {(item.gender || item.gender === TypeCode.USER.GENDER.OTHER) && <span className="badge bg-success mr-5">Giới tính: {TypeCode.USER.GENDER_MAPPING[item.gender]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('gender')} /></span>}
+                                                    {(item.workform || item.workform === TypeCode.USER.WORKFORM.OTHER) && <span className="badge bg-success mr-5">Hình thức làm việc: {TypeCode.USER.WORKFORM_MAPPING[item.workform]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('workform')} /></span>}
+                                                </div>
                                             ))
                                         )
                                     }

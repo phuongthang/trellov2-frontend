@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Packet
 import { Modal, FormFeedback } from "reactstrap";
@@ -47,9 +47,8 @@ export default function UserFillterComponent(props) {
             delete_flag: 0
         }
 
-        let arrParameter = [];
         Object.entries(params).forEach(([key, value]) => {
-            if (value || value === 0) {
+            if ((value || value === 0) && value !== TypeCode.FILLTER.ALL) {
                 data[key] = value;
             }
         });
@@ -57,6 +56,18 @@ export default function UserFillterComponent(props) {
         await _onSearch(data);
         toggle();
     }
+
+    useEffect(()=> {
+        if(parameterQuery.length > 0){
+            setValue('fullname', parameterQuery[0].fullname ? parameterQuery[0].fullname : '' );
+            setValue('role', (parameterQuery[0].role || parameterQuery[0].role === TypeCode.USER.ROLE.STAFF) ? ''+parameterQuery[0].role : TypeCode.FILLTER.ALL);
+            setValue('room', (parameterQuery[0].room || parameterQuery[0].room === TypeCode.USER.ROOM.OTHER) ? ''+parameterQuery[0].room : TypeCode.FILLTER.ALL);
+            setValue('position', (parameterQuery[0].position || parameterQuery[0].position === TypeCode.USER.POSITION.OTHER) ? ''+parameterQuery[0].position : TypeCode.FILLTER.ALL);
+            setValue('experience', (parameterQuery[0].experience || parameterQuery[0].experience === TypeCode.USER.EXPERIENCE.OTHER) ? ''+parameterQuery[0].experience : TypeCode.FILLTER.ALL);
+            setValue('gender', (parameterQuery[0].gender || parameterQuery[0].gender === TypeCode.USER.GENDER.OTHER) ? ''+parameterQuery[0].gender : TypeCode.FILLTER.ALL);
+            setValue('workform', (parameterQuery[0].workform || parameterQuery[0].workform === TypeCode.USER.WORKFORM.OTHER) ? ''+parameterQuery[0].workform : TypeCode.FILLTER.ALL);
+        }
+    }, []);
 
     /**
      * render template
@@ -145,6 +156,7 @@ export default function UserFillterComponent(props) {
                                                                                 className="form-check-input form-check-primary"
                                                                                 id="all"
                                                                                 defaultChecked
+                                                                                value={TypeCode.FILLTER.ALL}
                                                                                 {...register(
                                                                                     "role",
                                                                                 )} />
@@ -164,7 +176,7 @@ export default function UserFillterComponent(props) {
                                                     <select className="choices form-select"
                                                         {...register("room")}
                                                     >
-                                                        <option>Tất cả</option>
+                                                        <option value={TypeCode.FILLTER.ALL}>Tất cả</option>
                                                         <option value={TypeCode.USER.ROOM.OUTSOURCE}>{TypeCode.USER.ROOM_MAPPING[TypeCode.USER.ROOM.OUTSOURCE]}</option>
                                                         <option value={TypeCode.USER.ROOM.PRODUCT}>{TypeCode.USER.ROOM_MAPPING[TypeCode.USER.ROOM.PRODUCT]}</option>
                                                         <option value={TypeCode.USER.ROOM.OTHER}>{TypeCode.USER.ROOM_MAPPING[TypeCode.USER.ROOM.OTHER]}</option>
@@ -177,7 +189,7 @@ export default function UserFillterComponent(props) {
                                                             <select className="choices form-select"
                                                                 {...register("position")}
                                                             >
-                                                                <option>Tất cả</option>
+                                                                <option value={TypeCode.FILLTER.ALL}>Tất cả</option>
                                                                 <option value={TypeCode.USER.POSITION.DEVELOPER}>{TypeCode.USER.POSITION_MAPPING[TypeCode.USER.POSITION.DEVELOPER]}</option>
                                                                 <option value={TypeCode.USER.POSITION.TESTER}>{TypeCode.USER.POSITION_MAPPING[TypeCode.USER.POSITION.TESTER]}</option>
                                                                 <option value={TypeCode.USER.POSITION.COMTOR}>{TypeCode.USER.POSITION_MAPPING[TypeCode.USER.POSITION.COMTOR]}</option>
@@ -195,7 +207,7 @@ export default function UserFillterComponent(props) {
                                                             <select className="choices form-select"
                                                                 {...register("experience")}
                                                             >
-                                                                <option>Tất cả</option>
+                                                                <option value={TypeCode.FILLTER.ALL}>Tất cả</option>
                                                                 <option value={TypeCode.USER.EXPERIENCE.STAFF}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.STAFF]}</option>
                                                                 <option value={TypeCode.USER.EXPERIENCE.LEADER}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.LEADER]}</option>
                                                                 <option value={TypeCode.USER.EXPERIENCE.PROJECT_MANAGER}>{TypeCode.USER.EXPERIENCE_MAPPING[TypeCode.USER.EXPERIENCE.PROJECT_MANAGER]}</option>
@@ -262,6 +274,7 @@ export default function UserFillterComponent(props) {
                                                                             <input type="radio"
                                                                                 className="form-check-input form-check-primary"
                                                                                 id="gender_all"
+                                                                                value={TypeCode.FILLTER.ALL}
                                                                                 defaultChecked
                                                                                 {...register(
                                                                                     "gender",
@@ -332,7 +345,8 @@ export default function UserFillterComponent(props) {
                                                                             <input type="radio"
                                                                                 className="form-check-input form-check-primary"
                                                                                 id="workform_all"
-                                                                                value={TypeCode.USER.WORKFORM.OTHER}
+                                                                                value={TypeCode.FILLTER.ALL}
+                                                                                defaultChecked
                                                                                 {...register(
                                                                                     "workform",
                                                                                 )} />
