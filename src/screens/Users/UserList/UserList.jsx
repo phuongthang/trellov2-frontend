@@ -53,7 +53,7 @@ export default function UserListScreen() {
     const [userList, setUserList] = useState([]);
     const [keyWord, setKeyWord] = useState();
     const [userId, setUserId] = useState();
-    const [parameterQuery, setParameterQuery] = useState([]);
+    const [parameterQuery, setParameterQuery] = useState({});
 
     /**
      * 
@@ -159,17 +159,17 @@ export default function UserListScreen() {
      */
     const _onReset = () => {
         _getListUser();
-        setParameterQuery([]);
+        setParameterQuery({});
     }
 
     /**
      * click button delete search
      */
     const _onDeleteFillter = (name) => {
-        if (parameterQuery[0][name] || parameterQuery[0][name] === 0) {
-            delete parameterQuery[0][name];
+        if (parameterQuery[name] || parameterQuery[name] === 0) {
+            delete parameterQuery[name];
         }
-        _onSearch(parameterQuery[0]);
+        _onSearch(parameterQuery);
     }
 
     console.log(parameterQuery);
@@ -211,20 +211,17 @@ export default function UserListScreen() {
                             </div>
                             <div className="card-content">
                                 <div className="badges px-3 pb-3">
-                                    {parameterQuery.length <= 0 ?
+                                    {isEmpty(parameterQuery) ?
                                         <span className="badge bg-success mr-5">Tất cả</span> :
-                                        (
-                                            parameterQuery.map((item, idx) => (
-                                                <div key={idx}>
-                                                    {item.fullname && <span className="badge bg-success mr-5">Họ và tên : {item.fullname} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('fullname')} /></span>}
-                                                    {(item.role || item.role === TypeCode.USER.ROLE.STAFF) && <span className="badge bg-success mr-5">Loại tài khoản: {TypeCode.USER.ROLE_MAPPING[item.role]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('role')} /></span>}
-                                                    {(item.position || item.position === TypeCode.USER.POSITION.OTHER) && <span className="badge bg-success mr-5">Chức vụ: {TypeCode.USER.POSITION_MAPPING[item.position]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('position')} /></span>}
-                                                    {(item.experience || item.experience === TypeCode.USER.EXPERIENCE.OTHER) && <span className="badge bg-success mr-5">Chức vụ khác: {TypeCode.USER.EXPERIENCE_MAPPING[item.experience]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('experience')} /></span>}
-                                                    {(item.gender || item.gender === TypeCode.USER.GENDER.OTHER) && <span className="badge bg-success mr-5">Giới tính: {TypeCode.USER.GENDER_MAPPING[item.gender]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('gender')} /></span>}
-                                                    {(item.workform || item.workform === TypeCode.USER.WORKFORM.OTHER) && <span className="badge bg-success mr-5">Hình thức làm việc: {TypeCode.USER.WORKFORM_MAPPING[item.workform]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('workform')} /></span>}
-                                                </div>
-                                            ))
-                                        )
+                                        <>
+                                            <> {parameterQuery.fullname && <span className="badge bg-success mr-5">Họ và tên : {parameterQuery.fullname} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('fullname')} /></span>} </>
+                                            <> {(parameterQuery.role || parameterQuery.role === TypeCode.USER.ROLE.STAFF) && <span className="badge bg-success mr-5">Loại tài khoản: {TypeCode.USER.ROLE_MAPPING[parameterQuery.role]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('role')} /></span>}</>
+                                            <>{(parameterQuery.room || parameterQuery.room === TypeCode.USER.ROOM.OTHER) && <span className="badge bg-success mr-5">Phòng ban: {TypeCode.USER.ROOM_MAPPING[parameterQuery.room]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('room')} /></span>}</>
+                                            <>{(parameterQuery.position || parameterQuery.position === TypeCode.USER.POSITION.OTHER) && <span className="badge bg-success mr-5">Chức vụ: {TypeCode.USER.POSITION_MAPPING[parameterQuery.position]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('position')} /></span>}</>
+                                            <>{(parameterQuery.experience || parameterQuery.experience === TypeCode.USER.EXPERIENCE.OTHER) && <span className="badge bg-success mr-5">Chức vụ khác: {TypeCode.USER.EXPERIENCE_MAPPING[parameterQuery.experience]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('experience')} /></span>}</>
+                                            <>{(parameterQuery.gender || parameterQuery.gender === TypeCode.USER.GENDER.OTHER) && <span className="badge bg-success mr-5">Giới tính: {TypeCode.USER.GENDER_MAPPING[parameterQuery.gender]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('gender')} /></span>}</>
+                                            <>{(parameterQuery.workform || parameterQuery.workform === TypeCode.USER.WORKFORM.OTHER) && <span className="badge bg-success mr-5">Hình thức làm việc: {TypeCode.USER.WORKFORM_MAPPING[parameterQuery.workform]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('workform')} /></span>}</>
+                                        </>
                                     }
 
                                 </div>
@@ -287,6 +284,7 @@ export default function UserListScreen() {
                     _onSearch={_onSearch}
                     parameterQuery={parameterQuery}
                     setParameterQuery={setParameterQuery}
+                    userList = {userList}
                 />
             }
             {

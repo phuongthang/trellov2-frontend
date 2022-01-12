@@ -7,6 +7,7 @@ import { replaceString } from "../../../utils/helpers";
 import Message from "../../../constants/message";
 import Validation from "../../../constants/validation";
 import TypeCode from "../../../constants/typeCode";
+import { isEmpty } from 'underscore';
 
 export default function UserFillterComponent(props) {
     /**
@@ -43,29 +44,27 @@ export default function UserFillterComponent(props) {
             workform: parseInt(getValues('workform', 10))
         }
 
-        const data = {
-            delete_flag: 0
-        }
+        const data = {}
 
         Object.entries(params).forEach(([key, value]) => {
             if ((value || value === 0) && value !== TypeCode.FILLTER.ALL) {
                 data[key] = value;
             }
         });
-        setParameterQuery([data]);
+        setParameterQuery(data);
         await _onSearch(data);
         toggle();
     }
 
     useEffect(()=> {
-        if(parameterQuery.length > 0){
-            setValue('fullname', parameterQuery[0].fullname ? parameterQuery[0].fullname : '' );
-            setValue('role', (parameterQuery[0].role || parameterQuery[0].role === TypeCode.USER.ROLE.STAFF) ? ''+parameterQuery[0].role : TypeCode.FILLTER.ALL);
-            setValue('room', (parameterQuery[0].room || parameterQuery[0].room === TypeCode.USER.ROOM.OTHER) ? ''+parameterQuery[0].room : TypeCode.FILLTER.ALL);
-            setValue('position', (parameterQuery[0].position || parameterQuery[0].position === TypeCode.USER.POSITION.OTHER) ? ''+parameterQuery[0].position : TypeCode.FILLTER.ALL);
-            setValue('experience', (parameterQuery[0].experience || parameterQuery[0].experience === TypeCode.USER.EXPERIENCE.OTHER) ? ''+parameterQuery[0].experience : TypeCode.FILLTER.ALL);
-            setValue('gender', (parameterQuery[0].gender || parameterQuery[0].gender === TypeCode.USER.GENDER.OTHER) ? ''+parameterQuery[0].gender : TypeCode.FILLTER.ALL);
-            setValue('workform', (parameterQuery[0].workform || parameterQuery[0].workform === TypeCode.USER.WORKFORM.OTHER) ? ''+parameterQuery[0].workform : TypeCode.FILLTER.ALL);
+        if(!isEmpty(parameterQuery)){
+            setValue('fullname', parameterQuery.fullname ? parameterQuery.fullname : '' );
+            setValue('role', (parameterQuery.role || parameterQuery.role === TypeCode.USER.ROLE.STAFF) ? ''+parameterQuery.role : TypeCode.FILLTER.ALL);
+            setValue('room', (parameterQuery.room || parameterQuery.room === TypeCode.USER.ROOM.OTHER) ? ''+parameterQuery.room : TypeCode.FILLTER.ALL);
+            setValue('position', (parameterQuery.position || parameterQuery.position === TypeCode.USER.POSITION.OTHER) ? ''+parameterQuery.position : TypeCode.FILLTER.ALL);
+            setValue('experience', (parameterQuery.experience || parameterQuery.experience === TypeCode.USER.EXPERIENCE.OTHER) ? ''+parameterQuery.experience : TypeCode.FILLTER.ALL);
+            setValue('gender', (parameterQuery.gender || parameterQuery.gender === TypeCode.USER.GENDER.OTHER) ? ''+parameterQuery.gender : TypeCode.FILLTER.ALL);
+            setValue('workform', (parameterQuery.workform || parameterQuery.workform === TypeCode.USER.WORKFORM.OTHER) ? ''+parameterQuery.workform : TypeCode.FILLTER.ALL);
         }
     }, []);
 
