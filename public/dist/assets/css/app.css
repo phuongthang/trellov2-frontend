@@ -143,13 +143,20 @@ header{
 .widget-todo-item .widget-todo-title{
     min-width: 300px;
 }
+.widget-todo-left {
+    border-left: 1px solid #dee2e6;
+}
+
+.widget-todo-right {
+    border-right: 1px solid #dee2e6;
+}
 
 .category .widget-todo-item .widget-todo-title{
     min-width: 200px;
 }
 .widget-todo-list-wrapper{
     height: 320px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .form-check-custom{
     width: 1.7rem;
@@ -265,4 +272,8 @@ input[type="radio"]:disabled{
     display: flex;
     margin: auto;
     text-align: left;
+}
+.item-fullname{
+    font-weight: 700 !important;
+    color: #25396f !important;
 }

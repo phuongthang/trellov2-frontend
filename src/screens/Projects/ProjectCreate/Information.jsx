@@ -37,15 +37,15 @@ export default function InformationComponent(props) {
                                     {
                                         required: {
                                             value: true,
-                                            message: replaceString(Message.REQUIRE, ["Dự án"]),
+                                            message: replaceString(Message.TEXT.REQUIRED, ["Dự án"]),
                                         },
                                         maxLength: {
-                                            value: Validation.TEXT_MAX_LENGTH,
-                                            message: replaceString(Message.TEXT_MAX_LENGTH, ["Dự án", Validation.TEXT_MAX_LENGTH]),
+                                            value: Validation.TEXT.MAX_LENGTH,
+                                            message: replaceString(Message.TEXT.MAX_LENGTH, ["Dự án", Validation.TEXT.MAX_LENGTH]),
                                         },
                                         minLength: {
-                                            value: Validation.TEXT_MIN_LENGTH,
-                                            message: replaceString(Message.TEXT_MIN_LENGTH, ["Dự án", Validation.TEXT_MIN_LENGTH]),
+                                            value: Validation.TEXT.MIN_LENGTH,
+                                            message: replaceString(Message.TEXT.MIN_LENGTH, ["Dự án", Validation.TEXT.MIN_LENGTH]),
                                         },
                                     }
                                 )}
@@ -76,7 +76,7 @@ export default function InformationComponent(props) {
                                     {
                                         required: {
                                             value: true,
-                                            message: replaceString(Message.REQUIRE, ["Ngày bắt đầu"]),
+                                            message: replaceString(Message.TEXT.REQUIRED, ["Ngày bắt đầu"]),
                                         },
                                     }
                                 )}
@@ -102,7 +102,7 @@ export default function InformationComponent(props) {
                                     {
                                         required: {
                                             value: true,
-                                            message: replaceString(Message.REQUIRE, ["Ngày kết thúc"]),
+                                            message: replaceString(Message.TEXT.REQUIRED, ["Ngày kết thúc"]),
                                         },
                                     }
                                 )}

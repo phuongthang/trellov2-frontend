@@ -22,11 +22,32 @@ export function replaceString(message, newValue = []) {
  * @param {*} dateString 
  * @returns 
  */
-export function formatDate(dateString){
+export function formatDate(dateString) {
     let dateFormat = '';
     if (dateString) {
         dateFormat = moment(dateString).format("YYYY.MM.DD HH:mm");
     }
 
     return dateFormat;
+}
+
+/**
+ * fillter user from experience
+ */
+export function fillterUserFromExperience(userList, experience) {
+    return userList.filter(item => item.experience === experience);
+}
+
+/**
+ * fillter user from _id
+ */
+export function fillterUserFromExceptId(userList, _id) {
+    return userList.filter(item => item._id !== _id);
+}
+
+/**
+ * fillter user from _id
+ */
+export function fillterUserFromId(userList, _id) {
+    return userList.filter(item => item._id === _id);
 }

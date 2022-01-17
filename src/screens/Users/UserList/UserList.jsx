@@ -172,8 +172,6 @@ export default function UserListScreen() {
         _onSearch(parameterQuery);
     }
 
-    console.log(parameterQuery);
-
     useEffect(() => {
         if (token) {
             _getListUser();
