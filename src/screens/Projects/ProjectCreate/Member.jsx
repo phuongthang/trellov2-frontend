@@ -11,12 +11,12 @@ import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-import { filterUserFromExceptId, filterUserFromExperience, findUserFromId, filterUserMember } from "../../../utils/helpers";
+import { filterUserFromExceptId, findUserFromId, filterUserMember } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {
 
     const { usersMemberList } = props;
-    const { register, getValues, formState: { errors } } = useFormContext();
+    const { register, getValues, watch, formState: { errors } } = useFormContext();
     const [userMemberList, setUserMemberList] = useState([]);
     const [userSelectedList, setUserSelectedList] = useState([]);
 
@@ -29,6 +29,7 @@ export default function MemberComponent(props) {
         }
     };
 
+    let watchPosition = watch('position');
 
     /**
      * 
@@ -57,13 +58,17 @@ export default function MemberComponent(props) {
     /**
      * filter user list
      */
-    const _onFillter = () => {
+    const _onFillter = (conditionList) => {
         const userIdSelectedList = [];
         userSelectedList.forEach((item) => {
             userIdSelectedList.push(item._id);
         })
-        setUserMemberList(filterUserMember(usersMemberList,userIdSelectedList,getValues('position')));
+        setUserMemberList(filterUserMember(usersMemberList,userIdSelectedList,conditionList));
     }
+
+    useEffect(() => {
+        _onFillter(watchPosition);
+    },[watchPosition]);
 
     useEffect(()=>{
         if(usersMemberList){
@@ -90,7 +95,7 @@ export default function MemberComponent(props) {
                                         <ul className="list-unstyled mb-0 d-flex justify-content-around">
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
+                                                    <div className="custom-control custom-checkbox">
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -109,7 +114,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
+                                                    <div className="custom-control custom-checkbox">
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -128,7 +133,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
+                                                    <div className="custom-control custom-checkbox">
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -147,7 +152,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
+                                                    <div className="custom-control custom-checkbox">
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -166,7 +171,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
+                                                    <div className="custom-control custom-checkbox">
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -185,7 +190,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
+                                                    <div className="custom-control custom-checkbox">
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"

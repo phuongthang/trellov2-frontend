@@ -56,7 +56,6 @@ export function findUserFromId(userList, _id) {
  * filter user member
  */
 export function filterUserMember(usersMemberList, userIdSelectedList, conditionList) {
-    console.log("conditionList", conditionList);
     const userMemberList = usersMemberList.filter(item =>  !userIdSelectedList.includes(item._id));
     return userMemberList.filter(item => conditionList.includes(''+item.position));
 }
