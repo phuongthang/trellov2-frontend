@@ -158,6 +158,9 @@ header{
     height: 320px;
     overflow-y: auto;
 }
+.widget-todo-list-wrapper-custom{
+    height: 350px !important;
+}
 .form-check-custom{
     width: 1.7rem;
     height: 1.7rem;

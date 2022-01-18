@@ -1,7 +1,11 @@
 //icon
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import TypeCode from "../../../constants/typeCode";
+import { useFormContext } from 'react-hook-form';
 
 export default function StatusComponent(props) {
+
+    const { register, getValues, formState: { errors } } = useFormContext();
+
     /**
      * render template
      */
@@ -19,7 +23,7 @@ export default function StatusComponent(props) {
                                     </h4>
                                 </div>
                                 <div className="card-body px-0 py-1">
-                                    <ul className="widget-todo-list-wrapper" id="widget-todo-list">
+                                    <ul className="widget-todo-list-wrapper widget-todo-list-wrapper-custom" id="widget-todo-list">
                                         <li className="widget-todo-item mt-2">
                                             <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
                                                 <div className="widget-todo-title-area d-flex align-items-center">
@@ -27,12 +31,18 @@ export default function StatusComponent(props) {
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-custom"
-                                                            id="checkbox1"
+                                                            id="new"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.NEW}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+
                                                         />
-                                                        <label htmlFor="checkbox1" />
+                                                        <label htmlFor="new" />
                                                     </div>
                                                     <span className="widget-todo-title px-3">
-                                                        Phương Công Thắng
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.NEW]}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -44,12 +54,17 @@ export default function StatusComponent(props) {
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-custom"
-                                                            id="checkbox1"
+                                                            id="inprogress"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.INPROGRESS}
+                                                            {...register(
+                                                                "status"
+                                                            )}
                                                         />
-                                                        <label htmlFor="checkbox1" />
+                                                        <label htmlFor="inprogress" />
                                                     </div>
                                                     <span className="widget-todo-title px-3">
-                                                        Nguyễn Thị Chinh
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.INPROGRESS]}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -61,12 +76,151 @@ export default function StatusComponent(props) {
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-custom"
-                                                            id="checkbox1"
+                                                            id="pending"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.PENDING}
+                                                            {...register(
+                                                                "status"
+                                                            )}
                                                         />
-                                                        <label htmlFor="checkbox1" />
+                                                        <label htmlFor="pending" />
                                                     </div>
                                                     <span className="widget-todo-title px-3">
-                                                        Phạm Thị Ngân
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.PENDING]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item mt-2">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="feedback"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.FEEDBACK}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+
+                                                        />
+                                                        <label htmlFor="feedback" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.FEEDBACK]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="waitting_review"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.WAITTING_REVIEW}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+                                                        />
+                                                        <label htmlFor="waitting_review" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.WAITTING_REVIEW]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="resolved"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.RESOLVED}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+                                                        />
+                                                        <label htmlFor="resolved" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.RESOLVED]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item mt-2">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="closed"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.CLOSED}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+
+                                                        />
+                                                        <label htmlFor="closed" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.CLOSED]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="reject"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.REJECT}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+                                                        />
+                                                        <label htmlFor="reject" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.REJECT]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="other"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.STATUS.OTHER}
+                                                            {...register(
+                                                                "status"
+                                                            )}
+                                                        />
+                                                        <label htmlFor="other" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.STATUS_MAPPING[TypeCode.PROJECT.STATUS.OTHER]}</span>
                                                     </span>
                                                 </div>
                                             </div>

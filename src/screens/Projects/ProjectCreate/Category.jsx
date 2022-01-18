@@ -1,7 +1,10 @@
 //icon
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import TypeCode from "../../../constants/typeCode";
+import { useFormContext } from 'react-hook-form';
 
 export default function CategoryComponent(props) {
+
+    const { register, getValues, formState: { errors } } = useFormContext();
     /**
      * render template
      */
@@ -27,12 +30,18 @@ export default function CategoryComponent(props) {
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-custom"
-                                                            id="checkbox1"
+                                                            id="feature"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.CATEGORY.FEATURE}
+                                                            {...register(
+                                                                "category"
+                                                            )}
+
                                                         />
-                                                        <label htmlFor="checkbox1" />
+                                                        <label htmlFor="feature" />
                                                     </div>
                                                     <span className="widget-todo-title px-3">
-                                                        Phương Công Thắng
+                                                        <span className="item-fullname">{TypeCode.PROJECT.CATEGORY_MAPPING[TypeCode.PROJECT.CATEGORY.FEATURE]}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -44,12 +53,17 @@ export default function CategoryComponent(props) {
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-custom"
-                                                            id="checkbox1"
+                                                            id="bug"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.CATEGORY.BUG}
+                                                            {...register(
+                                                                "category"
+                                                            )}
                                                         />
-                                                        <label htmlFor="checkbox1" />
+                                                        <label htmlFor="bug" />
                                                     </div>
                                                     <span className="widget-todo-title px-3">
-                                                        Nguyễn Thị Chinh
+                                                        <span className="item-fullname">{TypeCode.PROJECT.CATEGORY_MAPPING[TypeCode.PROJECT.CATEGORY.BUG]}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -61,12 +75,62 @@ export default function CategoryComponent(props) {
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-custom"
-                                                            id="checkbox1"
+                                                            id="qa"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.CATEGORY.QA}
+                                                            {...register(
+                                                                "category"
+                                                            )}
                                                         />
-                                                        <label htmlFor="checkbox1" />
+                                                        <label htmlFor="qa" />
                                                     </div>
                                                     <span className="widget-todo-title px-3">
-                                                        Phạm Thị Ngân
+                                                        <span className="item-fullname">{TypeCode.PROJECT.CATEGORY_MAPPING[TypeCode.PROJECT.CATEGORY.QA]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item mt-2">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="update"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.CATEGORY.UPDATE}
+                                                            {...register(
+                                                                "category"
+                                                            )}
+
+                                                        />
+                                                        <label htmlFor="update" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.CATEGORY_MAPPING[TypeCode.PROJECT.CATEGORY.UPDATE]}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="widget-todo-item">
+                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
+                                                <div className="widget-todo-title-area d-flex align-items-center">
+                                                    <div className="checkbox checkbox-shadow">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input form-check-custom"
+                                                            id="other"
+                                                            defaultChecked
+                                                            value={TypeCode.PROJECT.CATEGORY.OTHER}
+                                                            {...register(
+                                                                "category"
+                                                            )}
+                                                        />
+                                                        <label htmlFor="other" />
+                                                    </div>
+                                                    <span className="widget-todo-title px-3">
+                                                        <span className="item-fullname">{TypeCode.PROJECT.CATEGORY_MAPPING[TypeCode.PROJECT.CATEGORY.OTHER]}</span>
                                                     </span>
                                                 </div>
                                             </div>
