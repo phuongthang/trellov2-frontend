@@ -32,22 +32,31 @@ export function formatDate(dateString) {
 }
 
 /**
- * fillter user from experience
+ * filter user from experience
  */
-export function fillterUserFromExperience(userList, listExperience) {
-    return userList.filter(item => listExperience.includes(item.experience));
+export function filterUserFromExperience(userList, conditionList) {
+    return userList.filter(item => conditionList.includes(item.experience));
 }
 
 /**
- * fillter user from _id
+ * filter user from _id
  */
-export function fillterUserFromExceptId(userList, _id) {
+export function filterUserFromExceptId(userList, _id) {
     return userList.filter(item => item._id !== _id);
 }
 
 /**
- * fillter user from _id
+ * filter user from _id
  */
 export function findUserFromId(userList, _id) {
     return userList.find(item => item._id === _id);
+}
+
+/**
+ * filter user member
+ */
+export function filterUserMember(usersMemberList, userIdSelectedList, conditionList) {
+    console.log("conditionList", conditionList);
+    const userMemberList = usersMemberList.filter(item =>  !userIdSelectedList.includes(item._id));
+    return userMemberList.filter(item => conditionList.includes(''+item.position));
 }

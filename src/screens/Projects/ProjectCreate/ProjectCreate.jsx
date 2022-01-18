@@ -15,7 +15,7 @@ import userApi from "../../../api/userApi";
 import LinkName from "../../../constants/linkName";
 import { useNavigate } from 'react-router-dom';
 import { getTokenFromLocalStorage } from "../../../utils/utils";
-import { fillterUserFromExperience, replaceString } from "../../../utils/helpers";
+import { filterUserFromExperience, replaceString } from "../../../utils/helpers";
 import TypeCode from "../../../constants/typeCode";
 import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
@@ -34,7 +34,8 @@ export default function ProjectCreateScreen() {
      * define state 
      */
     const [userList, setUserList] = useState([]);
-    const [listProjectManager, setProjectManager] = useState([]);
+    const [projectManagerList, setProjectManagerList] = useState([]);
+    const [usersMemberList, setUsersMemberList] = useState([]);
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
@@ -83,7 +84,8 @@ export default function ProjectCreateScreen() {
 
     useEffect(() => {
         if (userList) {
-            setProjectManager(fillterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.PROJECT_MANAGER]));
+            setProjectManagerList(filterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.PROJECT_MANAGER]));
+            setUsersMemberList(filterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.STAFF, TypeCode.USER.EXPERIENCE.LEADER, TypeCode.USER.EXPERIENCE.OTHER]));
         }
     }, [userList]);
 
@@ -154,7 +156,7 @@ export default function ProjectCreateScreen() {
                                                             <select className="choices form-select"
                                                                 {...register("project_manager")}
                                                             >
-                                                                {listProjectManager.length > 0 && listProjectManager.map((item, idx) => (
+                                                                {projectManagerList.length > 0 && projectManagerList.map((item, idx) => (
                                                                     <option key={idx} value={item.fullname}>{item.fullname}</option>
                                                                 ))}
                                                             </select>
@@ -194,7 +196,7 @@ export default function ProjectCreateScreen() {
                                                 <StatusComponent />
                                             </div>
                                             <MemberComponent
-                                                userList={userList}
+                                                usersMemberList={usersMemberList}
                                             />
                                             <div className="row">
                                                 <div className="col-12 d-flex justify-content-center">

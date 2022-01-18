@@ -11,14 +11,14 @@ import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-import { fillterUserFromExceptId, fillterUserFromExperience, findUserFromId  } from "../../../utils/helpers";
+import { filterUserFromExceptId, filterUserFromExperience, findUserFromId, filterUserMember } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {
 
-    const { userList } = props;
+    const { usersMemberList } = props;
     const { register, getValues, formState: { errors } } = useFormContext();
-    const [userFillter, setUserFillter] = useState([]);
-    const [userSelected, setUserSelected] = useState([]);
+    const [userMemberList, setUserMemberList] = useState([]);
+    const [userSelectedList, setUserSelectedList] = useState([]);
 
     const defaultOptions = {
         loop: true,
@@ -34,26 +34,43 @@ export default function MemberComponent(props) {
      * 
      */
     const _onSelected = (id) => {
-        setUserSelected(oldArrUserSelected => [...oldArrUserSelected, findUserFromId(userFillter, id)]);
-        setUserFillter(fillterUserFromExceptId(userFillter, id));
+        setUserSelectedList(oldArrUserSelected => [...oldArrUserSelected, findUserFromId(userMemberList, id)]);
+        setUserMemberList(filterUserFromExceptId(userMemberList, id));
     }
 
     /**
      * reset user list
      */
     const _onReset = () => {
-        setUserSelected([]);
-        setUserFillter(fillterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.STAFF, TypeCode.USER.EXPERIENCE.LEADER, TypeCode.USER.EXPERIENCE.OTHER]));
+        setUserSelectedList([]);
+        setUserMemberList(usersMemberList);
     }
 
     /**
-     * fillter user
+     * remove user list
      */
-    useEffect(() => {
-        if(userList){
-            setUserFillter(fillterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.STAFF, TypeCode.USER.EXPERIENCE.LEADER, TypeCode.USER.EXPERIENCE.OTHER]));
+    const _onRemove = (id) => {
+        setUserMemberList(oldArrUserFillter => [...oldArrUserFillter, findUserFromId(userSelectedList, id)]);
+        setUserSelectedList(filterUserFromExceptId(userSelectedList, id));
+    }
+
+    /**
+     * filter user list
+     */
+    const _onFillter = () => {
+        const userIdSelectedList = [];
+        userSelectedList.forEach((item) => {
+            userIdSelectedList.push(item._id);
+        })
+        setUserMemberList(filterUserMember(usersMemberList,userIdSelectedList,getValues('position')));
+    }
+
+    useEffect(()=>{
+        if(usersMemberList){
+            setUserMemberList(usersMemberList);
         }
-    }, [userList]);
+    },[usersMemberList]);
+
     /**
      * render template
      */
@@ -73,7 +90,7 @@ export default function MemberComponent(props) {
                                         <ul className="list-unstyled mb-0 d-flex justify-content-around">
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox">
+                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -92,7 +109,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox">
+                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -111,7 +128,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox">
+                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -130,7 +147,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox">
+                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -149,7 +166,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block me-2 mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox">
+                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -168,7 +185,7 @@ export default function MemberComponent(props) {
                                             </li>
                                             <li className="d-inline-block mb-1">
                                                 <div className="form-check">
-                                                    <div className="custom-control custom-checkbox">
+                                                    <div className="custom-control custom-checkbox" onClick={_onFillter}>
                                                         <input
                                                             type="checkbox"
                                                             className="form-check-input form-check-primary"
@@ -192,11 +209,11 @@ export default function MemberComponent(props) {
                             <div className="card-body px-0 py-1 widget-todo-right">
                                 <ul className="widget-todo-list-wrapper" id="widget-todo-list">
                                     {
-                                        userFillter.length > 0 && userFillter.map((item, idx) => (
+                                        userMemberList.length > 0 && userMemberList.map((item, idx) => (
                                             <li className="widget-todo-item mt-2" key={idx}>
                                                 <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
                                                     <div className="widget-todo-title-area d-flex align-items-center">
-                                                        <div onClick={()=>_onSelected(item._id)} className="checkbox checkbox-shadow">
+                                                        <div onClick={() => _onSelected(item._id)} className="checkbox checkbox-shadow">
                                                             <Lottie options={defaultOptions}
                                                                 height={35}
                                                                 width={35} />
@@ -215,7 +232,7 @@ export default function MemberComponent(props) {
                                         ))
                                     }
                                     {
-                                        userFillter.length <= 0 &&
+                                        userMemberList.length <= 0 &&
                                         <div className="text-center mt-5">
                                             <h6>Không có thông tin vui lòng chọn !</h6>
                                         </div>
@@ -238,7 +255,7 @@ export default function MemberComponent(props) {
                             <div className="card-body px-0 py-1 widget-todo-left">
                                 <ul className="widget-todo-list-wrapper" id="widget-todo-list">
                                     {
-                                        userSelected.length > 0 && userSelected.map((item, idx) => (
+                                        userSelectedList.length > 0 && userSelectedList.map((item, idx) => (
                                             <li className="widget-todo-item mt-2" key={idx}>
                                                 <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
                                                     <div className="widget-todo-title-area d-flex align-items-center">
@@ -250,14 +267,14 @@ export default function MemberComponent(props) {
                                                         <span className="widget-todo-title px-3">
                                                             <span className="item-fullname">{item.fullname}</span>
                                                         </span>
-                                                        <RiDeleteBin5Fill />
+                                                        <RiDeleteBin5Fill className="cursor-pointer" onClick={()=>_onRemove(item._id)}/>
                                                     </div>
                                                 </div>
                                             </li>
                                         ))
                                     }
                                     {
-                                        userSelected.length <= 0 &&
+                                        userSelectedList.length <= 0 &&
                                         <div className="text-center mt-5">
                                             <h6>Không có thông tin vui lòng chọn !</h6>
                                         </div>
