@@ -10,7 +10,7 @@ export default function CategoryComponent(props) {
             <div className="row">
                 <section className="category">
                     <div className="row">
-                        <div className="col-lg-6">
+                        <div className="col-lg-12">
                             <div className="card widget-todo">
                                 <div className="card-header border-bottom d-flex justify-content-between align-items-center">
                                     <h4 className="card-title d-flex">
@@ -69,49 +69,6 @@ export default function CategoryComponent(props) {
                                                         Phạm Thị Ngân
                                                     </span>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6">
-                            <div className="card widget-todo">
-                                <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                    <h4 className="card-title d-flex">
-                                        <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                        Phân loại được chọn
-                                    </h4>
-                                </div>
-                                <div className="card-body px-0 py-1">
-                                    <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                        <li className="widget-todo-item mt-2">
-                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                    <span className="widget-todo-title px-3">
-                                                        Phương Công Thắng
-                                                    </span>
-                                                    <RiDeleteBin5Fill />
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className="widget-todo-item">
-                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                    <span className="widget-todo-title px-3">
-                                                        Nguyễn Thị Chinh
-                                                    </span>
-                                                    <RiDeleteBin5Fill />
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className="widget-todo-item">
-                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                    <span className="widget-todo-title px-3">
-                                                        Phạm Thị Ngân
-                                                    </span>
-                                                    <RiDeleteBin5Fill />                                                                                </div>
                                             </div>
                                         </li>
                                     </ul>
