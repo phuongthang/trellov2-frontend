@@ -34,8 +34,8 @@ export function formatDate(dateString) {
 /**
  * fillter user from experience
  */
-export function fillterUserFromExperience(userList, experience) {
-    return userList.filter(item => item.experience === experience);
+export function fillterUserFromExperience(userList, listExperience) {
+    return userList.filter(item => listExperience.includes(item.experience));
 }
 
 /**
@@ -48,6 +48,6 @@ export function fillterUserFromExceptId(userList, _id) {
 /**
  * fillter user from _id
  */
-export function fillterUserFromId(userList, _id) {
-    return userList.filter(item => item._id === _id);
+export function findUserFromId(userList, _id) {
+    return userList.find(item => item._id === _id);
 }

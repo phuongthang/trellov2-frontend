@@ -11,7 +11,7 @@ import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-import { fillterUserFromExceptId, fillterUserFromExperience, fillterUserFromId  } from "../../../utils/helpers";
+import { fillterUserFromExceptId, fillterUserFromExperience, findUserFromId  } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {
 
@@ -34,20 +34,25 @@ export default function MemberComponent(props) {
      * 
      */
     const _onSelected = (id) => {
+        setUserSelected(oldArrUserSelected => [...oldArrUserSelected, findUserFromId(userFillter, id)]);
         setUserFillter(fillterUserFromExceptId(userFillter, id));
     }
-
-    console.log(userSelected);
 
     /**
      * reset user list
      */
     const _onReset = () => {
         setUserSelected([]);
+        setUserFillter(fillterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.STAFF, TypeCode.USER.EXPERIENCE.LEADER, TypeCode.USER.EXPERIENCE.OTHER]));
     }
 
+    /**
+     * fillter user
+     */
     useEffect(() => {
-        setUserFillter(fillterUserFromExperience(userList, TypeCode.USER.EXPERIENCE.STAFF));
+        if(userList){
+            setUserFillter(fillterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.STAFF, TypeCode.USER.EXPERIENCE.LEADER, TypeCode.USER.EXPERIENCE.OTHER]));
+        }
     }, [userList]);
     /**
      * render template

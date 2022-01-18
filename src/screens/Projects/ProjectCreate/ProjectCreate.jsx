@@ -15,6 +15,10 @@ import userApi from "../../../api/userApi";
 import LinkName from "../../../constants/linkName";
 import { useNavigate } from 'react-router-dom';
 import { getTokenFromLocalStorage } from "../../../utils/utils";
+import { fillterUserFromExperience, replaceString } from "../../../utils/helpers";
+import TypeCode from "../../../constants/typeCode";
+import Validation from "../../../constants/validation";
+import Message from "../../../constants/message";
 
 
 export default function ProjectCreateScreen() {
@@ -30,6 +34,7 @@ export default function ProjectCreateScreen() {
      * define state 
      */
     const [userList, setUserList] = useState([]);
+    const [listProjectManager, setProjectManager] = useState([]);
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
@@ -76,6 +81,12 @@ export default function ProjectCreateScreen() {
         // eslint-disable-next-line
     }, [token]);
 
+    useEffect(() => {
+        if (userList) {
+            setProjectManager(fillterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.PROJECT_MANAGER]));
+        }
+    }, [userList]);
+
     /**
      * render template
      */
@@ -106,9 +117,13 @@ export default function ProjectCreateScreen() {
                                                                         <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
                                                                                 className="form-check-input form-check-primary"
-                                                                                name="customCheck" id="customColorCheck1" />
+                                                                                id="public"
+                                                                                value={TypeCode.PROJECT.MODE.PUBLIC}
+                                                                                {...register(
+                                                                                    "mode",
+                                                                                )} />
                                                                             <label className="form-check-label"
-                                                                                htmlFor="customColorCheck1"><h6>Công khai</h6></label>
+                                                                                htmlFor="public"><h6>Công khai</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -116,10 +131,15 @@ export default function ProjectCreateScreen() {
                                                                     <div className="form-check">
                                                                         <div className="custom-control custom-checkbox">
                                                                             <input type="radio"
-                                                                                className="form-check-input form-check-secondary"
-                                                                                name="customCheck" id="customColorCheck2" />
+                                                                                className="form-check-input form-check-primary"
+                                                                                id="security"
+                                                                                defaultChecked
+                                                                                value={TypeCode.PROJECT.MODE.SECURITY}
+                                                                                {...register(
+                                                                                    "mode",
+                                                                                )} />
                                                                             <label className="form-check-label"
-                                                                                htmlFor="customColorCheck2"><h6>Bảo mật</h6></label>
+                                                                                htmlFor="security"><h6>Bảo mật</h6></label>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -131,14 +151,12 @@ export default function ProjectCreateScreen() {
                                                     <div className="form-group">
                                                         <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
                                                         <div className="position-relative">
-                                                            <select className="choices form-select">
-                                                                <option value="square">Rectangle</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
+                                                            <select className="choices form-select"
+                                                                {...register("project_manager")}
+                                                            >
+                                                                {listProjectManager.length > 0 && listProjectManager.map((item, idx) => (
+                                                                    <option key={idx} value={item.fullname}>{item.fullname}</option>
+                                                                ))}
                                                             </select>
                                                         </div>
                                                     </div>
@@ -153,8 +171,20 @@ export default function ProjectCreateScreen() {
                                                                 type="text"
                                                                 rows={5}
                                                                 className="form-control"
-                                                                id="first-name-icon"
+                                                                {...register(
+                                                                    "description",
+                                                                    {
+                                                                        minLength: {
+                                                                            value: Validation.TEXT.MIN_LENGTH,
+                                                                            message: replaceString(Message.TEXT.MIN_LENGTH, ["Mô tả", Validation.TEXT.MIN_LENGTH]),
+                                                                        },
+                                                                    }
+                                                                )}
+                                                                onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
                                                             />
+                                                            {errors.description && (
+                                                                <FormFeedback className="d-block">{errors.description.message}</FormFeedback>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,8 +193,8 @@ export default function ProjectCreateScreen() {
                                                 <CategoryComponent />
                                                 <StatusComponent />
                                             </div>
-                                            <MemberComponent 
-                                                userList = {userList}
+                                            <MemberComponent
+                                                userList={userList}
                                             />
                                             <div className="row">
                                                 <div className="col-12 d-flex justify-content-center">
