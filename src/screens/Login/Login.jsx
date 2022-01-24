@@ -145,10 +145,10 @@ export default function LoginScreen() {
                                                 value: true,
                                                 message: replaceString(Message.TEXT.REQUIRED, ["Mật khẩu"]),
                                             },
-                                            // pattern: {
-                                            //     value: new RegExp(Validation.PASSWORD.PATTERN),
-                                            //     message: Message.PASSWORD.PATTERN
-                                            // },
+                                            pattern: {
+                                                value: new RegExp(Validation.PASSWORD.PATTERN),
+                                                message: Message.PASSWORD.PATTERN
+                                            },
                                             minLength: {
                                                 value: Validation.PASSWORD.MIN_LENGTH,
                                                 message: replaceString(Message.PASSWORD.MIN_LENGTH, ["Mật khẩu", Validation.PASSWORD.MIN_LENGTH]),

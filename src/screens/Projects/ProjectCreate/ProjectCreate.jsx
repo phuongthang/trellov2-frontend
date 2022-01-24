@@ -15,7 +15,7 @@ import userApi from "../../../api/userApi";
 import LinkName from "../../../constants/linkName";
 import { useNavigate } from 'react-router-dom';
 import { getTokenFromLocalStorage } from "../../../utils/utils";
-import { filterUserFromExperience, replaceString } from "../../../utils/helpers";
+import { filterUserFromExperience, replaceString, getUserIdFromListUserSelected } from "../../../utils/helpers";
 import TypeCode from "../../../constants/typeCode";
 import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
@@ -36,6 +36,7 @@ export default function ProjectCreateScreen() {
     const [userList, setUserList] = useState([]);
     const [projectManagerList, setProjectManagerList] = useState([]);
     const [usersMemberList, setUsersMemberList] = useState([]);
+    const [userSelectedList, setUserSelectedList] = useState([]);
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
@@ -73,6 +74,21 @@ export default function ProjectCreateScreen() {
         );
     }
 
+    const _onSubmit = () => {
+        const data = {
+            project_name: getValues('project_name'),
+            project_start_date: getValues('project_start_date'),
+            project_end_date: getValues('project_end_date'),
+            project_manager: getValues('project_manager') ? getValues('project_manager') : projectManagerList[0]._id,
+            mode: getValues('mode'),
+            description: getValues('description'),
+            category: getValues('category'),
+            status: getValues('status'),
+            member: userSelectedList ? getUserIdFromListUserSelected(userSelectedList) : []
+        }
+        console.log(data);
+    }
+
     useEffect(() => {
         if (token) {
             _getListUser();
@@ -103,7 +119,7 @@ export default function ProjectCreateScreen() {
                         <div className="card-content">
                             <div className="card-body">
                                 <FormProvider {...methods}>
-                                    <form className="form form-vertical">
+                                    <form className="form form-vertical" onSubmit={handleSubmit(_onSubmit)}>
                                         <div className="form-body">
                                             <InformationComponent
                                                 _onBlur={_onBlur}
@@ -157,7 +173,7 @@ export default function ProjectCreateScreen() {
                                                                 {...register("project_manager")}
                                                             >
                                                                 {projectManagerList.length > 0 && projectManagerList.map((item, idx) => (
-                                                                    <option key={idx} value={item.fullname}>{item.fullname}</option>
+                                                                    <option key={idx} value={item._id}>{item.fullname}</option>
                                                                 ))}
                                                             </select>
                                                         </div>
@@ -197,10 +213,12 @@ export default function ProjectCreateScreen() {
                                             </div>
                                             <MemberComponent
                                                 usersMemberList={usersMemberList}
+                                                userSelectedList = {userSelectedList}
+                                                setUserSelectedList = {setUserSelectedList}
                                             />
                                             <div className="row">
                                                 <div className="col-12 d-flex justify-content-center">
-                                                    <button type="button" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
+                                                    <button type="submit" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
                                                     <button type="button" className="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom">Hủy</button>
                                                 </div>
                                             </div>

@@ -59,3 +59,15 @@ export function filterUserMember(usersMemberList, userIdSelectedList, conditionL
     const userMemberList = usersMemberList.filter(item =>  !userIdSelectedList.includes(item._id));
     return userMemberList.filter(item => conditionList.includes(''+item.position));
 }
+
+
+/**
+ * get user id from list user selected
+ */
+ export function getUserIdFromListUserSelected(userSelectedList){
+    const member = [];
+    userSelectedList.forEach((item) => {
+        member.push(item._id);
+    });
+    return member;
+}
