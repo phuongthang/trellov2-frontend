@@ -19,6 +19,8 @@ import { filterUserFromExperience, replaceString, getUserIdFromListUserSelected 
 import TypeCode from "../../../constants/typeCode";
 import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
+import projectApi from "../../../api/projectApi";
+import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
 
 
 export default function ProjectCreateScreen() {
@@ -40,6 +42,10 @@ export default function ProjectCreateScreen() {
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
+    }
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
     }
     const [message, setMessage] = useState('');
 
@@ -84,9 +90,29 @@ export default function ProjectCreateScreen() {
             description: getValues('description'),
             category: getValues('category'),
             status: getValues('status'),
-            member: userSelectedList ? getUserIdFromListUserSelected(userSelectedList) : []
+            members: userSelectedList ? getUserIdFromListUserSelected(userSelectedList) : []
         }
-        console.log(data);
+
+        projectApi.create(data).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Đăng kí dự án thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Đăng kí dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Đăng kí dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
     }
 
     useEffect(() => {
@@ -213,8 +239,8 @@ export default function ProjectCreateScreen() {
                                             </div>
                                             <MemberComponent
                                                 usersMemberList={usersMemberList}
-                                                userSelectedList = {userSelectedList}
-                                                setUserSelectedList = {setUserSelectedList}
+                                                userSelectedList={userSelectedList}
+                                                setUserSelectedList={setUserSelectedList}
                                             />
                                             <div className="row">
                                                 <div className="col-12 d-flex justify-content-center">
@@ -235,6 +261,15 @@ export default function ProjectCreateScreen() {
                 <ModalErrorComponent
                     modal={modalError}
                     toggle={toggleModalError}
+                    message={message}
+                />
+            }
+
+            {
+                modalSuccess &&
+                <ModalSuccessComponent
+                    modal={modalSuccess}
+                    toggle={toggleModalSuccess}
                     message={message}
                 />
             }

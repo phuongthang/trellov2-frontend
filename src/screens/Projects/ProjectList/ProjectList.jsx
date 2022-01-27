@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 //Component
 import ProjectUpdateScreen from './../ProjectUpdate/ProjectUpdate';
@@ -8,8 +8,18 @@ import ModalConfirmDeleteProjectComponent from '../../../components/Modal/ModalC
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { BsPinAngleFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import projectApi from '../../../api/projectApi';
+import { useNavigate } from 'react-router-dom';
+import { getTokenFromLocalStorage } from '../../../utils/utils';
+import Common from '../../../constants/common';
+import LinkName from '../../../constants/linkName';
+import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
+import TypeCode from '../../../constants/typeCode';
 
 export default function ProjectListScreen() {
+
+    let navigate = useNavigate();
+    const token = getTokenFromLocalStorage();
     /**
      * open/close modal project update
      */
@@ -25,6 +35,48 @@ export default function ProjectListScreen() {
     const toggleModalConfirmDeleteProject = () => {
         setModalConfirmDeleteProject(!modalConfirmDeleteProject);
     }
+    const [projectList, setProjectList] = useState([]);
+    const [modalError, setModalError] = useState(false);
+    const toggleModalError = () => {
+        setModalError(!modalError);
+    }
+    const [message, setMessage] = useState('');
+
+    /**
+     * 
+     * @param {*} get list project
+     */
+
+    const _getProjectList = () => {
+        projectApi.list().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setProjectList(response.data.projects);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    useEffect(() => {
+        if (token) {
+            _getProjectList();
+        } else {
+            navigate(LinkName.LOGIN);
+        }
+        // eslint-disable-next-line
+    }, [token]);
 
     /**
      * render template
@@ -62,76 +114,60 @@ export default function ProjectListScreen() {
                                                 <th>STT</th>
                                                 <th>Dự án</th>
                                                 <th>Quản lý dự án</th>
-                                                <th>Trạng thái</th>
+                                                <th>Chế độ</th>
                                                 <th>Thành viên</th>
                                                 <th>Thao tác</th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-center">
-                                            <tr>
-                                                <td className="text-bold-500">1</td>
-                                                <td>LandMark</td>
-                                                <td className="text-bold-500">
-                                                    <div className="avatar me-3">
-                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
+                                            {
+                                                projectList.length > 0 && projectList.map((item, idx) => (
+                                                    <tr key={idx}>
+                                                        <td className="text-bold-500">{idx + 1}</td>
+                                                        <td>{item.project_name}</td>
+                                                        <td className="text-bold-500">
+                                                            <div className="avatar me-3">
+                                                                <img src={Common.ENV + item.project_manager.avatar} alt="" srcSet="" />
+                                                            </div>
+                                                            {item.project_manager.fullname}
+                                                        </td>
+                                                        <td>
+                                                            {TypeCode.PROJECT.MODE_MAPPING[item.mode]}
+                                                        </td>
+                                                        <td>
+                                                            <ul className="list-unstyled order-list m-b-0">
+                                                                {
+                                                                    item.members.length > 0 && (
+                                                                        <>
+                                                                        {item.members[0] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[0].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[0].fullname} /></li>}
+                                                                        {item.members[1] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[1].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[1].fullname} /></li>}
+                                                                        {item.members[2] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[2].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[2].fullname} /></li>}
+                                                                        </>
+                                                                    )
+                                                                }
+                                                                {
+                                                                    item.members.length - 3 > 0 && <li className="avatars avatars-sm"><span className="badge badge-primary">{item.members.length - 3}</span></li>
+                                                                }
+                                                            </ul>
+                                                        </td>
+                                                        <td>
+                                                            <div className="d-flex justify-content-center">
+                                                                <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
+                                                                <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteProject} /></span>
+                                                                <span className='px-1'><BsPinAngleFill /></span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
+                                            {
+                                                projectList.length <= 0 && (
+                                                    <div className="text-center mt-5">
+                                                        <h6>Không có dự án nào !</h6>
                                                     </div>
-                                                    Phương Công Thắng
-                                                </td>
-                                                <td>
-                                                    <div className="progress progress-success progress-sm">
-                                                        <div className="progress-bar progress-label progress-bar-striped" role="progressbar" style={{ width: '35%' }}
-                                                            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <ul className="list-unstyled order-list m-b-0">
-                                                        <li className="team-member team-member-sm"><img className="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" /></li>
-                                                        <li className="team-member team-member-sm"><img className="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="user" data-toggle="tooltip" title="" data-original-title="John Deo" /></li>
-                                                        <li className="team-member team-member-sm"><img className="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="user" data-toggle="tooltip" title="" data-original-title="Sarah Smith" /></li>
-                                                        <li className="avatars avatars-sm"><span className="badge badge-primary">+4</span></li>
-                                                    </ul>
-                                                </td>
-                                                <td>
-                                                    <div className="d-flex justify-content-center">
-                                                        <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
-                                                        <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteProject} /></span>
-                                                        <span className='px-1'><BsPinAngleFill /></span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="text-bold-500">2</td>
-                                                <td>Kondate</td>
-                                                <td className="text-bold-500">
-                                                    <div className="avatar me-3">
-                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
-                                                    </div>
-                                                    Phương Công Thắng
-                                                </td>
-                                                <td>
-                                                    <div className="progress progress-success progress-sm">
-                                                        <div className="progress-bar progress-label progress-bar-striped" role="progressbar" style={{ width: '35%' }}
-                                                            aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <ul className="list-unstyled order-list m-b-0">
-                                                        <li className="team-member team-member-sm"><img className="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="user" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian" /></li>
-                                                        <li className="team-member team-member-sm"><img className="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="user" data-toggle="tooltip" title="" data-original-title="John Deo" /></li>
-                                                        <li className="team-member team-member-sm"><img className="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="user" data-toggle="tooltip" title="" data-original-title="Sarah Smith" /></li>
-                                                        <li className="avatar avatar-sm"><span className="badge badge-primary">+4</span></li>
-                                                    </ul>
-                                                </td>
-                                                <td>
-                                                    <div className="d-flex justify-content-center">
-                                                        <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
-                                                        <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteProject} /></span>
-                                                        <span className='px-1'><BsPinAngleFill /></span>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                )
+
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,6 +188,14 @@ export default function ProjectListScreen() {
                 <ModalConfirmDeleteProjectComponent
                     modal={modalConfirmDeleteProject}
                     toggle={toggleModalConfirmDeleteProject}
+                />
+            }
+            {
+                modalError &&
+                <ModalErrorComponent
+                    modal={modalError}
+                    toggle={toggleModalError}
+                    message={message}
                 />
             }
         </>
