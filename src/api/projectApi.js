@@ -39,11 +39,11 @@ const projectApi = {
     },
 
     /**
-     * [POST] update user
+     * [POST] update project
      * @returns 
      */
     update(params){
-        const url = `/user/update`;
+        const url = `/project/update`;
         return axiosClient.put(url,params);
     },
 

@@ -73,6 +73,8 @@ export default function ProjectUpdateScreen(props) {
         setValue('description', data.description ? data.description : '');
         setValue('category', data.category ? data.category : []);
         setValue('status', data.status ? data.status : []);
+        setValue('project_manager', data.project_manager ? data.project_manager : projectManagerList[0]._id);
+        setUserSelectedList(data.members);
     }
 
     const _getListUser = () => {
@@ -121,6 +123,7 @@ export default function ProjectUpdateScreen(props) {
 
     const _onSubmit = () => {
         const data = {
+            _id: id,
             project_name: getValues('project_name'),
             project_start_date: getValues('project_start_date'),
             project_end_date: getValues('project_end_date'),
@@ -133,14 +136,14 @@ export default function ProjectUpdateScreen(props) {
             members: userSelectedList ? getUserIdFromListUserSelected(userSelectedList) : []
         }
 
-        projectApi.create(data).then(
+        projectApi.update(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setMessage(response.data.message || 'Đăng kí dự án thành công !');
+                    setMessage(response.data.message || 'Cập nhật thông tin dự án thành công !');
                     toggleModalSuccess();
                 }
                 else {
-                    setMessage(response.data.message || 'Đăng kí dự án thất bại. Vui lòng thử lại !');
+                    setMessage(response.data.message || 'Cập nhật thông tin dự án thất bại. Vui lòng thử lại !');
                     toggleModalError();
                 }
             },
@@ -148,7 +151,7 @@ export default function ProjectUpdateScreen(props) {
                 if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
                     navigate(LinkName.LOGIN);
                 } else {
-                    setMessage(error.response?.message || 'Đăng kí dự án thất bại. Vui lòng thử lại !');
+                    setMessage(error.response?.message || 'Cập nhật thông tin dự án thất bại. Vui lòng thử lại !');
                     toggleModalError();
                 }
             }

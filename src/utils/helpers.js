@@ -56,18 +56,26 @@ export function findUserFromId(userList, _id) {
  * filter user member
  */
 export function filterUserMember(usersMemberList, userIdSelectedList, conditionList) {
-    const userMemberList = usersMemberList.filter(item =>  !userIdSelectedList.includes(item._id));
-    return userMemberList.filter(item => conditionList.includes(''+item.position));
+    const userMemberList = usersMemberList.filter(item => !userIdSelectedList.includes(item._id));
+    return userMemberList.filter(item => conditionList.includes('' + item.position));
 }
 
 
 /**
  * get user id from list user selected
  */
- export function getUserIdFromListUserSelected(userSelectedList){
+export function getUserIdFromListUserSelected(userSelectedList) {
     const member = [];
     userSelectedList.forEach((item) => {
         member.push(item._id);
     });
     return member;
+}
+
+
+/**
+ * filter user member
+ */
+export function onLoadUserMember(usersMemberList, userIdSelectedList) {
+    return usersMemberList.filter(item => !userIdSelectedList.includes(item._id));
 }

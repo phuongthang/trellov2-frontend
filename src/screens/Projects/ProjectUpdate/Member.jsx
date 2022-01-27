@@ -11,11 +11,11 @@ import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-import { filterUserFromExceptId, findUserFromId, filterUserMember } from "../../../utils/helpers";
+import { filterUserFromExceptId, findUserFromId, filterUserMember, onLoadUserMember } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {
 
-    const { usersMemberList, userSelectedList, setUserSelectedList  } = props;
+    const { usersMemberList, userSelectedList, setUserSelectedList } = props;
     const { register, getValues, watch, formState: { errors } } = useFormContext();
     const [userMemberList, setUserMemberList] = useState([]);
 
@@ -62,18 +62,22 @@ export default function MemberComponent(props) {
         userSelectedList.forEach((item) => {
             userIdSelectedList.push(item._id);
         })
-        setUserMemberList(filterUserMember(usersMemberList,userIdSelectedList,conditionList));
+        setUserMemberList(filterUserMember(usersMemberList, userIdSelectedList, conditionList));
     }
 
     useEffect(() => {
         _onFillter(watchPosition);
-    },[watchPosition]);
+    }, [watchPosition]);
 
-    useEffect(()=>{
-        if(usersMemberList){
-            setUserMemberList(usersMemberList);
+    useEffect(() => {
+        if (usersMemberList && userSelectedList) {
+            const userIdSelectedList = [];
+            userSelectedList.forEach((item) => {
+                userIdSelectedList.push(item._id);
+            })
+            setUserMemberList(onLoadUserMember(usersMemberList,userIdSelectedList));
         }
-    },[usersMemberList]);
+    }, [usersMemberList, userSelectedList]);
 
     /**
      * render template
@@ -271,7 +275,7 @@ export default function MemberComponent(props) {
                                                         <span className="widget-todo-title px-3">
                                                             <span className="item-fullname">{item.fullname}</span>
                                                         </span>
-                                                        <RiDeleteBin5Fill className="cursor-pointer" onClick={()=>_onRemove(item._id)}/>
+                                                        <RiDeleteBin5Fill className="cursor-pointer" onClick={() => _onRemove(item._id)} />
                                                     </div>
                                                 </div>
                                             </li>
