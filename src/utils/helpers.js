@@ -25,7 +25,7 @@ export function replaceString(message, newValue = []) {
 export function formatDate(dateString) {
     let dateFormat = '';
     if (dateString) {
-        dateFormat = moment(dateString).format("YYYY.MM.DD HH:mm");
+        dateFormat = moment(dateString).format("DD/MM/YYYY");
     }
 
     return dateFormat;

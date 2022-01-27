@@ -17,6 +17,7 @@ import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError
 import TypeCode from '../../../constants/typeCode';
 import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
 import { useForm } from 'react-hook-form';
+import { formatDate } from '../../../utils/helpers';
 
 export default function ProjectListScreen() {
 
@@ -193,6 +194,8 @@ export default function ProjectListScreen() {
                                                 <th>STT</th>
                                                 <th>Dự án</th>
                                                 <th>Quản lý dự án</th>
+                                                <th>Ngày bắt đầu</th>
+                                                <th>Ngày kết thúc</th>
                                                 <th>Chế độ</th>
                                                 <th>Thành viên</th>
                                                 <th>Thao tác</th>
@@ -204,12 +207,14 @@ export default function ProjectListScreen() {
                                                     <tr key={idx}>
                                                         <td className="text-bold-500">{idx + 1}</td>
                                                         <td>{item.project_name}</td>
-                                                        <td className="text-bold-500">
+                                                        <td className="text-bold-500" style={{textAlign: 'left'}}>
                                                             <div className="avatar me-3">
                                                                 <img src={Common.ENV + item.project_manager.avatar} alt="" srcSet="" />
                                                             </div>
                                                             {item.project_manager.fullname}
                                                         </td>
+                                                        <td>{formatDate(item.project_start_date)}</td>
+                                                        <td>{formatDate(item.project_end_date)}</td>
                                                         <td>
                                                             {TypeCode.PROJECT.MODE_MAPPING[item.mode]}
                                                         </td>
