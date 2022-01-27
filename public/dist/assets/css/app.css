@@ -276,7 +276,7 @@ input[type="radio"]:disabled{
 .table-striped .td-name{
     display: flex;
     margin: auto;
-    text-align: left;
+    text-align: center;
 }
 .item-fullname{
     font-weight: 700 !important;

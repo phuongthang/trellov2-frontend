@@ -73,6 +73,7 @@ export default function ProjectUpdateScreen(props) {
         setValue('description', data.description ? data.description : '');
         setValue('category', data.category ? data.category : []);
         setValue('status', data.status ? data.status : []);
+        setValue('type',(data.type || data.type === TypeCode.PROJECT.TYPE.OTHER) ? '' + data.type : TypeCode.PROJECT.TYPE.OTHER)
         setValue('project_manager', data.project_manager ? data.project_manager : projectManagerList[0]._id);
         setUserSelectedList(data.members);
     }

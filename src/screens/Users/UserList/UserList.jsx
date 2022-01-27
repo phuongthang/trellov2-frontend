@@ -244,7 +244,7 @@ export default function UserListScreen() {
                                                     <tr key={user._id}>
                                                         <td className="text-bold-500">#{idx + 1}</td>
                                                         <td className="text-bold-500">
-                                                            <div className='td-name'>
+                                                            <div>
                                                                 <div className="avatar me-3">
                                                                     <img src={Common.ENV + user.avatar} alt="" srcSet="" />
                                                                 </div>

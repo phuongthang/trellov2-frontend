@@ -85,6 +85,7 @@ export default function ProjectCreateScreen() {
             project_end_date: getValues('project_end_date'),
             project_manager: getValues('project_manager') ? getValues('project_manager') : projectManagerList[0]._id,
             mode: getValues('mode'),
+            type: getValues('type'),
             project_status: getValues('project_status'),
             description: getValues('description'),
             category: getValues('category'),

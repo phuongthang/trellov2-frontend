@@ -196,6 +196,7 @@ export default function ProjectListScreen() {
                                                 <th>Quản lý dự án</th>
                                                 <th>Ngày bắt đầu</th>
                                                 <th>Ngày kết thúc</th>
+                                                <th>Loại</th>
                                                 <th>Chế độ</th>
                                                 <th>Thành viên</th>
                                                 <th>Thao tác</th>
@@ -206,8 +207,8 @@ export default function ProjectListScreen() {
                                                 projectList.length > 0 && projectList.map((item, idx) => (
                                                     <tr key={idx}>
                                                         <td className="text-bold-500">{idx + 1}</td>
-                                                        <td>{item.project_name}</td>
-                                                        <td className="text-bold-500" style={{textAlign: 'left'}}>
+                                                        <td style={{width:'300px'}}>{item.project_name}</td>
+                                                        <td className="text-bold-500" style={{textAlign: 'center'}}>
                                                             <div className="avatar me-3">
                                                                 <img src={Common.ENV + item.project_manager.avatar} alt="" srcSet="" />
                                                             </div>
@@ -215,6 +216,7 @@ export default function ProjectListScreen() {
                                                         </td>
                                                         <td>{formatDate(item.project_start_date)}</td>
                                                         <td>{formatDate(item.project_end_date)}</td>
+                                                        <td>{TypeCode.PROJECT.TYPE_MAPPING[item.type]}</td>
                                                         <td>
                                                             {TypeCode.PROJECT.MODE_MAPPING[item.mode]}
                                                         </td>
