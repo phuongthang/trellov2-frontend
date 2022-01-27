@@ -87,6 +87,7 @@ export default function ProjectCreateScreen() {
             project_end_date: getValues('project_end_date'),
             project_manager: getValues('project_manager') ? getValues('project_manager') : projectManagerList[0]._id,
             mode: getValues('mode'),
+            project_status: getValues('project_status'),
             description: getValues('description'),
             category: getValues('category'),
             status: getValues('status'),
@@ -151,7 +152,7 @@ export default function ProjectCreateScreen() {
                                                 _onBlur={_onBlur}
                                             />
                                             <div className="row">
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
+                                                <div className="col-xl-4 col-md-4 col-xs-4">
                                                     <div className="form-group has-icon-left">
                                                         <label htmlFor="first-name-icon text-bold-500"><h6>Chế độ :</h6></label>
                                                         <div className="position-relative">
@@ -191,7 +192,47 @@ export default function ProjectCreateScreen() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
+                                                <div className="col-xl-4 col-md-4 col-xs-4">
+                                                    <div className="form-group has-icon-left">
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Trạng thái :</h6></label>
+                                                        <div className="position-relative">
+                                                            <ul className="list-unstyled mb-0 pt-1">
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-primary"
+                                                                                id="opened"
+                                                                                defaultChecked
+                                                                                value={TypeCode.PROJECT.PROJECT_STATUS.OPENED}
+                                                                                {...register(
+                                                                                    "project_status",
+                                                                                )} />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="opened"><h6>Đang mở</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-primary"
+                                                                                id="closed"
+                                                                                value={TypeCode.PROJECT.PROJECT_STATUS.CLOSED}
+                                                                                {...register(
+                                                                                    "project_status",
+                                                                                )} />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="closed"><h6>Đã đóng</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-xl-4 col-md-4 col-xs-4">
                                                     <div className="form-group">
                                                         <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
                                                         <div className="position-relative">

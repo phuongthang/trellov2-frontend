@@ -15,11 +15,19 @@ import Common from '../../../constants/common';
 import LinkName from '../../../constants/linkName';
 import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 import TypeCode from '../../../constants/typeCode';
+import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
+import { useForm } from 'react-hook-form';
 
 export default function ProjectListScreen() {
 
     let navigate = useNavigate();
     const token = getTokenFromLocalStorage();
+
+    const methods = useForm({
+        mode: 'all',
+        reValidateMode: 'all',
+    });
+    const { register, watch, getValues, formState: { errors } } = methods;
     /**
      * open/close modal project update
      */
@@ -32,7 +40,9 @@ export default function ProjectListScreen() {
      * open/close modal confirm delete project
      */
     const [modalConfirmDeleteProject, setModalConfirmDeleteProject] = useState(false);
-    const toggleModalConfirmDeleteProject = () => {
+    const toggleModalConfirmDeleteProject = (id, keyWord) => {
+        setProjectId(id);
+        setKeyWord(keyWord);
         setModalConfirmDeleteProject(!modalConfirmDeleteProject);
     }
     const [projectList, setProjectList] = useState([]);
@@ -41,6 +51,42 @@ export default function ProjectListScreen() {
         setModalError(!modalError);
     }
     const [message, setMessage] = useState('');
+    const [keyWord, setKeyWord] = useState();
+    const [projectId, setProjectId] = useState();
+
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
+    }
+    const watchProjectStatus = watch('project_status');
+
+    /**
+     * 
+     * @param {*} id 
+     * click button delete
+     */
+    const _onDelete = (id) => {
+        projectApi.delete(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Xóa dự án thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Xóa dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Xóa dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
 
     /**
      * 
@@ -69,6 +115,40 @@ export default function ProjectListScreen() {
         );
     }
 
+    const _onSearch = (data) => {
+        projectApi.search(data).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setProjectList(response.data.projects);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh sách dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh sách dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    useEffect(() => {
+        if(watchProjectStatus){
+            if(+watchProjectStatus === TypeCode.FILLTER.ALL){
+                _getProjectList();
+            }else{
+                _onSearch({project_status: parseInt(getValues('project_status'), 10)});
+            }
+        }
+        
+        // eslint-disable-next-line
+    }, [watchProjectStatus]);
+
     useEffect(() => {
         if (token) {
             _getProjectList();
@@ -94,14 +174,12 @@ export default function ProjectListScreen() {
                                 <div className="col-sm-3">
                                     <h6>Trạng thái :</h6>
                                     <div className="position-relative">
-                                        <select className="choices form-select">
-                                            <option value="square">Rectangle</option>
-                                            <option value="rectangle">Rectangle</option>
-                                            <option value="rombo">Rombo</option>
-                                            <option value="romboid">Romboid</option>
-                                            <option value="trapeze">Trapeze</option>
-                                            <option value="traible">Triangle</option>
-                                            <option value="polygon">Polygon</option>
+                                        <select className="choices form-select"
+                                            {...register("project_status")}
+                                        >
+                                            <option value={TypeCode.FILLTER.ALL}>Tất cả</option>
+                                            <option value={TypeCode.PROJECT.PROJECT_STATUS.OPENED}>Đang mở</option>
+                                            <option value={TypeCode.PROJECT.PROJECT_STATUS.CLOSED}>Đã đóng</option>
                                         </select>
                                     </div>
                                 </div>
@@ -139,9 +217,9 @@ export default function ProjectListScreen() {
                                                                 {
                                                                     item.members.length > 0 && (
                                                                         <>
-                                                                        {item.members[0] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[0].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[0].fullname} /></li>}
-                                                                        {item.members[1] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[1].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[1].fullname} /></li>}
-                                                                        {item.members[2] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[2].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[2].fullname} /></li>}
+                                                                            {item.members[0] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[0].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[0].fullname} /></li>}
+                                                                            {item.members[1] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[1].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[1].fullname} /></li>}
+                                                                            {item.members[2] && <li className="team-member team-member-sm"><img className="rounded-circle" src={Common.ENV + item.members[2].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[2].fullname} /></li>}
                                                                         </>
                                                                     )
                                                                 }
@@ -152,24 +230,24 @@ export default function ProjectListScreen() {
                                                         </td>
                                                         <td>
                                                             <div className="d-flex justify-content-center">
-                                                                <span className='px-1'><MdEdit onClick={toggleModalProjectUpdate} /></span>
-                                                                <span className='px-1'><RiDeleteBin5Fill onClick={toggleModalConfirmDeleteProject} /></span>
-                                                                <span className='px-1'><BsPinAngleFill /></span>
+                                                                <span className='px-1 cursor-pointer'><MdEdit onClick={toggleModalProjectUpdate} /></span>
+                                                                <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={() => toggleModalConfirmDeleteProject(item._id, item.project_name)} /></span>
+                                                                <span className='px-1 cursor-pointer'><BsPinAngleFill /></span>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 ))
                                             }
-                                            {
-                                                projectList.length <= 0 && (
-                                                    <div className="text-center mt-5">
-                                                        <h6>Không có dự án nào !</h6>
-                                                    </div>
-                                                )
-
-                                            }
                                         </tbody>
                                     </table>
+                                    {
+                                        projectList.length <= 0 && (
+                                            <div className="text-center mt-5">
+                                                <h6>Không có dự án nào !</h6>
+                                            </div>
+                                        )
+
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -188,6 +266,9 @@ export default function ProjectListScreen() {
                 <ModalConfirmDeleteProjectComponent
                     modal={modalConfirmDeleteProject}
                     toggle={toggleModalConfirmDeleteProject}
+                    keyWord={keyWord}
+                    _onCallback={_onDelete}
+                    id={projectId}
                 />
             }
             {
@@ -195,6 +276,15 @@ export default function ProjectListScreen() {
                 <ModalErrorComponent
                     modal={modalError}
                     toggle={toggleModalError}
+                    message={message}
+                />
+            }
+
+            {
+                modalSuccess &&
+                <ModalSuccessComponent
+                    modal={modalSuccess}
+                    toggle={toggleModalSuccess}
                     message={message}
                 />
             }

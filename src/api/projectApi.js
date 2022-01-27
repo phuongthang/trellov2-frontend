@@ -3,7 +3,7 @@ import axiosClient from '../api/axiosClients';
 const projectApi = {
 
     /**
-     * [GET] list user
+     * [GET] list project
      * @returns 
      */
     list(){
@@ -12,11 +12,11 @@ const projectApi = {
     },
 
     /**
-     * [POST] list user
+     * [POST] list project
      * @returns 
      */
     search(params){
-        const url = `/user/search`;
+        const url = `/project/search`;
         return axiosClient.post(url, params);
     },
 
@@ -52,7 +52,7 @@ const projectApi = {
      * @returns 
      */
     delete(params){
-        const url = `/user/delete/${params}`;
+        const url = `/project/delete/${params}`;
         return axiosClient.delete(url);
     },
 
