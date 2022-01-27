@@ -32,7 +32,8 @@ export default function ProjectListScreen() {
      * open/close modal project update
      */
     const [modalProjectUpdate, setModalProjectUpdate] = useState(false);
-    const toggleModalProjectUpdate = () => {
+    const toggleModalProjectUpdate = (id) => {
+        setProjectId(id);
         setModalProjectUpdate(!modalProjectUpdate);
     }
 
@@ -230,7 +231,7 @@ export default function ProjectListScreen() {
                                                         </td>
                                                         <td>
                                                             <div className="d-flex justify-content-center">
-                                                                <span className='px-1 cursor-pointer'><MdEdit onClick={toggleModalProjectUpdate} /></span>
+                                                                <span className='px-1 cursor-pointer'><MdEdit onClick={()=>toggleModalProjectUpdate(item._id)} /></span>
                                                                 <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={() => toggleModalConfirmDeleteProject(item._id, item.project_name)} /></span>
                                                                 <span className='px-1 cursor-pointer'><BsPinAngleFill /></span>
                                                             </div>
@@ -259,6 +260,7 @@ export default function ProjectListScreen() {
                 <ProjectUpdateScreen
                     modal={modalProjectUpdate}
                     toggle={toggleModalProjectUpdate}
+                    id={projectId}
                 />
             }
             {

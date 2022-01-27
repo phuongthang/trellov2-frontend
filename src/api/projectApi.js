@@ -25,7 +25,7 @@ const projectApi = {
      * @returns 
      */
     detail(params){
-        const url = `/user/detail/${params}`;
+        const url = `/project/detail/${params}`;
         return axiosClient.get(url);
     },
 

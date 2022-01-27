@@ -1,16 +1,176 @@
 //Packet
 import { Modal } from "reactstrap";
 
-//icon
-import { DiAndroid } from "react-icons/di";
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import { useState, useEffect } from "react";
+
+//packet
+import { FormProvider, useForm } from 'react-hook-form';
+import { FormFeedback } from "reactstrap";
+import InformationComponent from "./Information";
+import MemberComponent from "./Member";
+import CategoryComponent from "./Category";
+import StatusComponent from "./Status";
+import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
+import Common from "../../../constants/common";
+import userApi from "../../../api/userApi";
+import LinkName from "../../../constants/linkName";
+import { useNavigate } from 'react-router-dom';
+import { getTokenFromLocalStorage } from "../../../utils/utils";
+import { filterUserFromExperience, replaceString, getUserIdFromListUserSelected } from "../../../utils/helpers";
+import TypeCode from "../../../constants/typeCode";
+import Validation from "../../../constants/validation";
+import Message from "../../../constants/message";
+import projectApi from "../../../api/projectApi";
+import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
 
 
 export default function ProjectUpdateScreen(props) {
     /**
      * get property
      */
-    const { modal, toggle } = props;
+    const { modal, toggle, id } = props;
+
+    const methods = useForm({
+        mode: 'all',
+        reValidateMode: 'all',
+    });
+    const { register, handleSubmit, getValues, setValue, formState: { errors } } = methods;
+    let navigate = useNavigate();
+    const token = getTokenFromLocalStorage();
+
+    /**
+     * define state 
+     */
+    const [userList, setUserList] = useState([]);
+    const [projectManagerList, setProjectManagerList] = useState([]);
+    const [usersMemberList, setUsersMemberList] = useState([]);
+    const [userSelectedList, setUserSelectedList] = useState([]);
+    const [modalError, setModalError] = useState(false);
+    const toggleModalError = () => {
+        setModalError(!modalError);
+    }
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
+    }
+    const [message, setMessage] = useState('');
+
+    /**
+     * trim string
+     * @param {*} name 
+     * @param {*} value 
+     */
+    const _onBlur = (name, value) => {
+        setValue(name, value.trim(), { shouldValidate: true });
+    }
+
+    const setValueFormInput = (data) => {
+        setValue('project_name', data.project_name ? data.project_name : '');
+        setValue('project_start_date', data.project_start_date ? data.project_start_date : '');
+        setValue('project_end_date', data.project_end_date ? data.project_end_date : '');
+        setValue('mode', data.mode ? '' + data.mode : '' + TypeCode.PROJECT.MODE.PUBLIC);
+        setValue('project_status', (data.project_status || data.project_status === TypeCode.PROJECT.PROJECT_STATUS.CLOSED) ? '' + data.project_status : TypeCode.PROJECT.PROJECT_STATUS.CLOSED);
+        setValue('description', data.description ? data.description : '');
+        setValue('category', data.category ? data.category : []);
+        setValue('status', data.status ? data.status : []);
+    }
+
+    const _getListUser = () => {
+        userApi.list().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setUserList(response.data.users);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    const _onDetail = (id) => {
+        projectApi.detail(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setValueFormInput(response.data.project);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy thông tin dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy thông tin dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    const _onSubmit = () => {
+        const data = {
+            project_name: getValues('project_name'),
+            project_start_date: getValues('project_start_date'),
+            project_end_date: getValues('project_end_date'),
+            project_manager: getValues('project_manager') ? getValues('project_manager') : projectManagerList[0]._id,
+            mode: getValues('mode'),
+            project_status: getValues('project_status'),
+            description: getValues('description'),
+            category: getValues('category'),
+            status: getValues('status'),
+            members: userSelectedList ? getUserIdFromListUserSelected(userSelectedList) : []
+        }
+
+        projectApi.create(data).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Đăng kí dự án thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Đăng kí dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Đăng kí dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    useEffect(() => {
+        if (token) {
+            _getListUser();
+            _onDetail(id);
+        } else {
+            navigate(LinkName.LOGIN);
+        }
+        // eslint-disable-next-line
+    }, [token]);
+
+    useEffect(() => {
+        if (userList) {
+            setProjectManagerList(filterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.PROJECT_MANAGER]));
+            setUsersMemberList(filterUserFromExperience(userList, [TypeCode.USER.EXPERIENCE.STAFF, TypeCode.USER.EXPERIENCE.LEADER, TypeCode.USER.EXPERIENCE.OTHER]));
+        }
+    }, [userList]);
 
     /**
      * render template
@@ -28,517 +188,175 @@ export default function ProjectUpdateScreen(props) {
                             </div>
                             <div className="card-content">
                                 <div className="card-body">
-                                    <form className="form form-vertical">
-                                        <div className="form-body">
-                                            <div className="row">
-                                                <div className="col-xl-12 col-md-12 col-xs-12">
-                                                    <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500">
-                                                            <h6 className="required">Dự án:</h6>
-                                                        </label>
-                                                        <div className="position-relative">
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                id="first-name-icon"
-                                                            />
-                                                            <div className="form-control-icon">
-                                                                <DiAndroid />
+                                    <FormProvider {...methods}>
+                                        <form className="form form-vertical" onSubmit={handleSubmit(_onSubmit)}>
+                                            <div className="form-body">
+                                                <InformationComponent
+                                                    _onBlur={_onBlur}
+                                                />
+                                                <div className="row">
+                                                    <div className="col-xl-4 col-md-4 col-xs-4">
+                                                        <div className="form-group has-icon-left">
+                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Chế độ :</h6></label>
+                                                            <div className="position-relative">
+                                                                <ul className="list-unstyled mb-0 pt-1">
+                                                                    <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                        <div className="form-check">
+                                                                            <div className="custom-control custom-checkbox">
+                                                                                <input type="radio"
+                                                                                    className="form-check-input form-check-primary"
+                                                                                    id="public"
+                                                                                    value={TypeCode.PROJECT.MODE.PUBLIC}
+                                                                                    {...register(
+                                                                                        "mode",
+                                                                                    )} />
+                                                                                <label className="form-check-label"
+                                                                                    htmlFor="public"><h6>Công khai</h6></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                        <div className="form-check">
+                                                                            <div className="custom-control custom-checkbox">
+                                                                                <input type="radio"
+                                                                                    className="form-check-input form-check-primary"
+                                                                                    id="security"
+                                                                                    defaultChecked
+                                                                                    value={TypeCode.PROJECT.MODE.SECURITY}
+                                                                                    {...register(
+                                                                                        "mode",
+                                                                                    )} />
+                                                                                <label className="form-check-label"
+                                                                                    htmlFor="security"><h6>Bảo mật</h6></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-xl-4 col-md-4 col-xs-4">
+                                                        <div className="form-group has-icon-left">
+                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Trạng thái :</h6></label>
+                                                            <div className="position-relative">
+                                                                <ul className="list-unstyled mb-0 pt-1">
+                                                                    <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                        <div className="form-check">
+                                                                            <div className="custom-control custom-checkbox">
+                                                                                <input type="radio"
+                                                                                    className="form-check-input form-check-primary"
+                                                                                    id="opened"
+                                                                                    defaultChecked
+                                                                                    value={TypeCode.PROJECT.PROJECT_STATUS.OPENED}
+                                                                                    {...register(
+                                                                                        "project_status",
+                                                                                    )} />
+                                                                                <label className="form-check-label"
+                                                                                    htmlFor="opened"><h6>Đang mở</h6></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                        <div className="form-check">
+                                                                            <div className="custom-control custom-checkbox">
+                                                                                <input type="radio"
+                                                                                    className="form-check-input form-check-primary"
+                                                                                    id="closed"
+                                                                                    value={TypeCode.PROJECT.PROJECT_STATUS.CLOSED}
+                                                                                    {...register(
+                                                                                        "project_status",
+                                                                                    )} />
+                                                                                <label className="form-check-label"
+                                                                                    htmlFor="closed"><h6>Đã đóng</h6></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-xl-4 col-md-4 col-xs-4">
+                                                        <div className="form-group">
+                                                            <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
+                                                            <div className="position-relative">
+                                                                <select className="choices form-select"
+                                                                    {...register("project_manager")}
+                                                                >
+                                                                    {projectManagerList.length > 0 && projectManagerList.map((item, idx) => (
+                                                                        <option key={idx} value={item._id}>{item.fullname}</option>
+                                                                    ))}
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
-                                                    <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">
-                                                            <h6 className="required">Ngày bắt đầu :</h6>
-                                                        </label>
-                                                        <div className="position-relative">
-                                                            <input
-                                                                type="date"
-                                                                className="form-control"
-                                                                id="first-name-icon"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
-                                                    <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500">
-                                                            <h6 className="required">Ngày kết thúc :</h6>
-                                                        </label>
-                                                        <div className="position-relative">
-                                                            <input
-                                                                type="date"
-                                                                className="form-control"
-                                                                id="first-name-icon"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
-                                                    <div className="form-group has-icon-left">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Chế độ :</h6></label>
-                                                        <div className="position-relative">
-                                                            <ul className="list-unstyled mb-0 pt-1">
-                                                                <li className="d-inline-block me-5 mb-1 mt-2">
-                                                                    <div className="form-check">
-                                                                        <div className="custom-control custom-checkbox">
-                                                                            <input type="radio"
-                                                                                className="form-check-input form-check-primary"
-                                                                                name="customCheck" id="customColorCheck1" />
-                                                                            <label className="form-check-label"
-                                                                                for="customColorCheck1"><h6>Công khai</h6></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                                <li className="d-inline-block me-5 mb-1 mt-2">
-                                                                    <div className="form-check">
-                                                                        <div className="custom-control custom-checkbox">
-                                                                            <input type="radio"
-                                                                                className="form-check-input form-check-secondary"
-                                                                                name="customCheck" id="customColorCheck2" />
-                                                                            <label className="form-check-label"
-                                                                                for="customColorCheck2"><h6>Bảo mật</h6></label>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-xl-6 col-md-6 col-xs-6">
-                                                    <div className="form-group">
-                                                        <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
-                                                        <div className="position-relative">
-                                                            <select className="choices form-select">
-                                                                <option value="square">Rectangle</option>
-                                                                <option value="rectangle">Rectangle</option>
-                                                                <option value="rombo">Rombo</option>
-                                                                <option value="romboid">Romboid</option>
-                                                                <option value="trapeze">Trapeze</option>
-                                                                <option value="traible">Triangle</option>
-                                                                <option value="polygon">Polygon</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-xl-12 col-md-12 col-xs-12">
-                                                    <div className="form-group">
-                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Mô tả:</h6></label>
-                                                        <div className="position-relative">
-                                                            <textarea
-                                                                type="text"
-                                                                rows={5}
-                                                                className="form-control"
-                                                                id="first-name-icon"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-6">
-                                                    <div className="row">
-                                                        <section className="category">
-                                                            <div className="row">
-                                                                <div className="col-lg-6">
-                                                                    <div className="card widget-todo">
-                                                                        <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                                                            <h4 className="card-title d-flex">
-                                                                                <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                                                                Phân loại
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div className="card-body px-0 py-1">
-                                                                            <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                                                                <li className="widget-todo-item mt-2">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <div className="checkbox checkbox-shadow">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-check-input form-check-custom"
-                                                                                                    id="checkbox1"
-                                                                                                />
-                                                                                                <label htmlFor="checkbox1" />
-                                                                                            </div>
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phương Công Thắng
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <div className="checkbox checkbox-shadow">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-check-input form-check-custom"
-                                                                                                    id="checkbox1"
-                                                                                                />
-                                                                                                <label htmlFor="checkbox1" />
-                                                                                            </div>
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Nguyễn Thị Chinh
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <div className="checkbox checkbox-shadow">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-check-input form-check-custom"
-                                                                                                    id="checkbox1"
-                                                                                                />
-                                                                                                <label htmlFor="checkbox1" />
-                                                                                            </div>
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phạm Thị Ngân
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-lg-6">
-                                                                    <div className="card widget-todo">
-                                                                        <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                                                            <h4 className="card-title d-flex">
-                                                                                <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                                                                Phân loại được chọn
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div className="card-body px-0 py-1">
-                                                                            <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                                                                <li className="widget-todo-item mt-2">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phương Công Thắng
-                                                                                            </span>
-                                                                                            <RiDeleteBin5Fill />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Nguyễn Thị Chinh
-                                                                                            </span>
-                                                                                            <RiDeleteBin5Fill />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phạm Thị Ngân
-                                                                                            </span>
-                                                                                            <RiDeleteBin5Fill />                                                                                </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </section>
-                                                    </div>
-                                                </div>
-                                                <div className="col-6">
-                                                    <div className="row">
-                                                        <section className="category">
-                                                            <div className="row">
-                                                                <div className="col-lg-6">
-                                                                    <div className="card widget-todo">
-                                                                        <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                                                            <h4 className="card-title d-flex">
-                                                                                <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                                                                Trạng thái
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div className="card-body px-0 py-1">
-                                                                            <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                                                                <li className="widget-todo-item mt-2">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <div className="checkbox checkbox-shadow">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-check-input form-check-custom"
-                                                                                                    id="checkbox1"
-                                                                                                />
-                                                                                                <label htmlFor="checkbox1" />
-                                                                                            </div>
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phương Công Thắng
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <div className="checkbox checkbox-shadow">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-check-input form-check-custom"
-                                                                                                    id="checkbox1"
-                                                                                                />
-                                                                                                <label htmlFor="checkbox1" />
-                                                                                            </div>
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Nguyễn Thị Chinh
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <div className="checkbox checkbox-shadow">
-                                                                                                <input
-                                                                                                    type="checkbox"
-                                                                                                    className="form-check-input form-check-custom"
-                                                                                                    id="checkbox1"
-                                                                                                />
-                                                                                                <label htmlFor="checkbox1" />
-                                                                                            </div>
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phạm Thị Ngân
-                                                                                            </span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-lg-6">
-                                                                    <div className="card widget-todo">
-                                                                        <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                                                            <h4 className="card-title d-flex">
-                                                                                <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                                                                Trạng thái được chọn
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div className="card-body px-0 py-1">
-                                                                            <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                                                                <li className="widget-todo-item mt-2">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phương Công Thắng
-                                                                                            </span>
-                                                                                            <RiDeleteBin5Fill />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Nguyễn Thị Chinh
-                                                                                            </span>
-                                                                                            <RiDeleteBin5Fill />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li className="widget-todo-item">
-                                                                                    <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                        <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                            <span className="widget-todo-title px-3">
-                                                                                                Phạm Thị Ngân
-                                                                                            </span>
-                                                                                            <RiDeleteBin5Fill />                                                                                </div>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </section>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <section className="tasks">
-                                                    <div className="row">
-                                                        <div className="col-lg-6">
-                                                            <div className="card widget-todo">
-                                                                <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                                                    <h4 className="card-title d-flex">
-                                                                        <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                                                        Thành viên
-                                                                    </h4>
-                                                                </div>
-                                                                <div className="card-body px-0 py-1">
-                                                                    <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                                                        <li className="widget-todo-item mt-2">
-                                                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                    <div className="checkbox checkbox-shadow">
-                                                                                        <input
-                                                                                            type="checkbox"
-                                                                                            className="form-check-input form-check-custom"
-                                                                                            id="checkbox1"
-                                                                                        />
-                                                                                        <label htmlFor="checkbox1" />
-                                                                                    </div>
-                                                                                    <div className="widget-todo-item-action d-flex align-items-center px-3">
-                                                                                        <div className="avatar bg-warning">
-                                                                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <span className="widget-todo-title px-3">
-                                                                                        Phương Công Thắng
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li className="widget-todo-item">
-                                                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                    <div className="checkbox checkbox-shadow">
-                                                                                        <input
-                                                                                            type="checkbox"
-                                                                                            className="form-check-input form-check-custom"
-                                                                                            id="checkbox1"
-                                                                                        />
-                                                                                        <label htmlFor="checkbox1" />
-                                                                                    </div>
-                                                                                    <div className="widget-todo-item-action d-flex align-items-center px-3">
-                                                                                        <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <span className="widget-todo-title px-3">
-                                                                                        Nguyễn Thị Chinh
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li className="widget-todo-item">
-                                                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                    <div className="checkbox checkbox-shadow">
-                                                                                        <input
-                                                                                            type="checkbox"
-                                                                                            className="form-check-input form-check-custom"
-                                                                                            id="checkbox1"
-                                                                                        />
-                                                                                        <label htmlFor="checkbox1" />
-                                                                                    </div>
-                                                                                    <div className="widget-todo-item-action d-flex align-items-center px-3">
-                                                                                        <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <span className="widget-todo-title px-3">
-                                                                                        Phạm Thị Ngân
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-lg-6">
-                                                            <div className="card widget-todo">
-                                                                <div className="card-header border-bottom d-flex justify-content-between align-items-center">
-                                                                    <h4 className="card-title d-flex">
-                                                                        <i className="bx bx-check font-medium-5 pl-25 pr-75" />
-                                                                        Thành viên được chọn
-                                                                    </h4>
-                                                                </div>
-                                                                <div className="card-body px-0 py-1">
-                                                                    <ul className="widget-todo-list-wrapper" id="widget-todo-list">
-                                                                        <li className="widget-todo-item mt-2">
-                                                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                    <div className="widget-todo-item-action d-flex align-items-center">
-                                                                                        <div className="avatar bg-warning">
-                                                                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <span className="widget-todo-title px-3">
-                                                                                        Phương Công Thắng
-                                                                                    </span>
-                                                                                    <RiDeleteBin5Fill />
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li className="widget-todo-item">
-                                                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                    <div className="widget-todo-item-action d-flex align-items-center">
-                                                                                        <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <span className="widget-todo-title px-3">
-                                                                                        Nguyễn Thị Chinh
-                                                                                    </span>
-                                                                                    <RiDeleteBin5Fill />
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li className="widget-todo-item">
-                                                                            <div className="widget-todo-title-wrapper d-flex justify-content-start align-items-center mb-2">
-                                                                                <div className="widget-todo-title-area d-flex align-items-center">
-                                                                                    <div className="widget-todo-item-action d-flex align-items-center">
-                                                                                        <div className="avatar bg-warning">
-                                                                                            <img src="https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1" alt="" srcSet="" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <span className="widget-todo-title px-3">
-                                                                                        Phạm Thị Ngân
-                                                                                    </span>
-                                                                                    <RiDeleteBin5Fill />
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
+                                                <div className="row">
+                                                    <div className="col-xl-12 col-md-12 col-xs-12">
+                                                        <div className="form-group">
+                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Mô tả:</h6></label>
+                                                            <div className="position-relative">
+                                                                <textarea
+                                                                    type="text"
+                                                                    rows={5}
+                                                                    className="form-control"
+                                                                    {...register(
+                                                                        "description",
+                                                                        {
+                                                                            minLength: {
+                                                                                value: Validation.TEXT.MIN_LENGTH,
+                                                                                message: replaceString(Message.TEXT.MIN_LENGTH, ["Mô tả", Validation.TEXT.MIN_LENGTH]),
+                                                                            },
+                                                                        }
+                                                                    )}
+                                                                    onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
+                                                                />
+                                                                {errors.description && (
+                                                                    <FormFeedback className="d-block">{errors.description.message}</FormFeedback>
+                                                                )}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </section>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-12 d-flex justify-content-center">
-                                                    <button type="button" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom"
-                                                        onClick={toggle}
-                                                    >Hủy</button>
+                                                </div>
+                                                <div className="row">
+                                                    <CategoryComponent />
+                                                    <StatusComponent />
+                                                </div>
+                                                <MemberComponent
+                                                    usersMemberList={usersMemberList}
+                                                    userSelectedList={userSelectedList}
+                                                    setUserSelectedList={setUserSelectedList}
+                                                />
+                                                <div className="row">
+                                                    <div className="col-12 d-flex justify-content-center">
+                                                        <button type="submit" className="btn btn-primary btn-sm me-3 mb-3 mt-3 btn-custom">Lưu</button>
+                                                        <button type="button" className="btn btn-light-secondary btn-sm me-3 mb-3 mt-3 btn-custom" onClick={toggle}>Hủy</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </FormProvider>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {
+                    modalError &&
+                    <ModalErrorComponent
+                        modal={modalError}
+                        toggle={toggleModalError}
+                        message={message}
+                    />
+                }
+
+                {
+                    modalSuccess &&
+                    <ModalSuccessComponent
+                        modal={modalSuccess}
+                        toggle={toggleModalSuccess}
+                        message={message}
+                    />
+                }
             </section>
         </Modal>
     );

@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-//icon
-import { RiDeleteBin5Fill } from "react-icons/ri";
 
 //packet
 import { FormProvider, useForm } from 'react-hook-form';
