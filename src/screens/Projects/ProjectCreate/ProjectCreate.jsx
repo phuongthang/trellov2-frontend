@@ -3,22 +3,31 @@ import { useState, useEffect } from "react";
 //packet
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormFeedback } from "reactstrap";
+import { useNavigate } from 'react-router-dom';
+
+//component
 import InformationComponent from "./Information";
 import MemberComponent from "./Member";
 import CategoryComponent from "./Category";
 import StatusComponent from "./Status";
 import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
+import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
+
+//constant
 import Common from "../../../constants/common";
-import userApi from "../../../api/userApi";
 import LinkName from "../../../constants/linkName";
-import { useNavigate } from 'react-router-dom';
-import { getTokenFromLocalStorage } from "../../../utils/utils";
-import { filterUserFromExperience, replaceString, getUserIdFromListUserSelected } from "../../../utils/helpers";
 import TypeCode from "../../../constants/typeCode";
 import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
+
+//utils
+import { getTokenFromLocalStorage } from "../../../utils/utils";
+import { filterUserFromExperience, replaceString, getUserIdFromListUserSelected } from "../../../utils/helpers";
+
+//api
+import userApi from "../../../api/userApi";
 import projectApi from "../../../api/projectApi";
-import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
+
 
 
 export default function ProjectCreateScreen() {

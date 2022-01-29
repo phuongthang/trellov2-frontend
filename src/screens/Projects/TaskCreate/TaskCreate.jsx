@@ -1,7 +1,35 @@
 //icon
 import { DiAndroid } from "react-icons/di";
+import projectApi from './../../../api/projectApi';
 
 export default function TaskCreateScreen() {
+
+    /**
+     * 
+     * @param {*} get list project
+     */
+
+    const _getProjectList = () => {
+        projectApi.list().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setProjectList(response.data.projects);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
     /**
      * render template
      */
@@ -189,7 +217,7 @@ export default function TaskCreateScreen() {
                                                 <div className="row">
                                                     <div className="col-xl-6 col-md-6 col-xs-6">
                                                         <div className="form-group">
-                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Thời gian :</h6></label>
+                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Thời gian ước tính :</h6></label>
                                                             <div className="position-relative">
                                                                 <input
                                                                     type="text"
@@ -201,10 +229,10 @@ export default function TaskCreateScreen() {
                                                     </div>
                                                     <div className="col-xl-6 col-md-6 col-xs-6">
                                                         <div className="form-group">
-                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Ngày kết thúc :</h6></label>
+                                                            <label htmlFor="first-name-icon text-bold-500"><h6>Thời gian thực tế :</h6></label>
                                                             <div className="position-relative">
                                                                 <input
-                                                                    type="date"
+                                                                    type="text"
                                                                     className="form-control"
                                                                     id="first-name-icon"
                                                                 />
