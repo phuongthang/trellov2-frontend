@@ -138,10 +138,12 @@ export default function TaskCreateScreen() {
             category: getValues('category') ? getValues('category') : taskCategoryList[0],
             status: getValues('status') ? getValues('status') : taskStatusList[0],
             title: getValues('title'),
+            parent_task: getValues('parent_task') ? getValues('parent_task') : '',
             description: getValues('description'),
             priority: getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW,
             estimate_time: getValues('estimate_time'),
             actual_time: getValues('actual_time'),
+            assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id
 
         }
 

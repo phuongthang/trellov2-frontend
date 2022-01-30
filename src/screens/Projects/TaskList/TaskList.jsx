@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 //Component
 import TaskUpdateScreen from '../TaskUpdate/TaskUpdate';
@@ -9,12 +9,29 @@ import { MdBookmarkAdded } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
 
 //packet
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //Constants
+import { getTokenFromLocalStorage } from '../../../utils/utils';
+import { useForm } from 'react-hook-form';
+import taskApi from './../../../api/taskApi';
+import Common from '../../../constants/common';
 import LinkName from '../../../constants/linkName';
+import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
+import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
+import TypeCode from './../../../constants/typeCode';
+import { formatDate } from '../../../utils/helpers';
 
 export default function TaskListScreen() {
+
+    let navigate = useNavigate();
+    const token = getTokenFromLocalStorage();
+
+    const methods = useForm({
+        mode: 'all',
+        reValidateMode: 'all',
+    });
+    const { register, watch, getValues, formState: { errors } } = methods;
     /**
      * define state
      */
@@ -27,6 +44,57 @@ export default function TaskListScreen() {
     const toggleModalTaskFillter = () => {
         setModalTaskFillter(!modalTaskFillter);
     }
+
+    const [taskList, setTaskList] = useState([]);
+    const [modalError, setModalError] = useState(false);
+    const toggleModalError = () => {
+        setModalError(!modalError);
+    }
+    const [message, setMessage] = useState('');
+    const [keyWord, setKeyWord] = useState();
+    const [projectId, setProjectId] = useState();
+
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
+    }
+
+
+    /**
+     * 
+     * @param {*} get list project
+     */
+
+    const _getTaskList = () => {
+        taskApi.all().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setTaskList(response.data.tasks);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh sách công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh sách công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    useEffect(() => {
+        if (token) {
+            _getTaskList();
+        } else {
+            navigate(LinkName.LOGIN);
+        }
+        // eslint-disable-next-line
+    }, [token]);
 
 
 
@@ -82,58 +150,36 @@ export default function TaskListScreen() {
                                             </tr>
                                         </thead>
                                         <tbody className="text-center">
-                                            <tr>
-                                                <td className="text-bold-500">#1</td>
-                                                <td>LandMark</td>
-                                                <td>Bug</td>
-                                                <td>
-                                                    <button className="btn btn-sm btn-danger rounded-pill">New</button>
-                                                </td>
-                                                <td>
-                                                    <button className="btn btn-sm btn-danger rounded-pill">Cao</button>
-                                                </td>
-                                                <td>
-                                                    Bug KH No.609 - input request (bãi đậu xe) (front)
-                                                </td>
-                                                <td className="text-bold-500">
-                                                    <div className="avatar me-3">
-                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
-                                                    </div>
-                                                    Phương Công Thắng
-                                                </td>
-                                                <td>
-                                                    03/12/2021
-                                                </td>
-                                                <td>
-                                                    <MdBookmarkAdded onClick={toggleModalTaskUpdate} />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="text-bold-500">#2</td>
-                                                <td>LandMark</td>
-                                                <td>Bug</td>
-                                                <td>
-                                                    <button className="btn btn-sm btn-danger rounded-pill">New</button>
-                                                </td>
-                                                <td>
-                                                    <button className="btn btn-sm btn-danger rounded-pill">Cao</button>
-                                                </td>
-                                                <td>
-                                                    Bug KH No.609 - input request (bãi đậu xe) (front)
-                                                </td>
-                                                <td className="text-bold-500">
-                                                    <div className="avatar me-3">
-                                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
-                                                    </div>
-                                                    Phương Công Thắng
-                                                </td>
-                                                <td>
-                                                    03/12/2021
-                                                </td>
-                                                <td>
-                                                    <MdBookmarkAdded onClick={toggleModalTaskUpdate} />
-                                                </td>
-                                            </tr>
+                                            {
+                                                taskList.length > 0 && taskList.map((item, idx) => (
+                                                    <tr>
+                                                        <td className="text-bold-500">#{idx + 1}</td>
+                                                        <td>{item.project.project_name}</td>
+                                                        <td>{TypeCode.PROJECT.CATEGORY_MAPPING[item.category]}</td>
+                                                        <td>
+                                                            <button className="btn btn-sm btn-danger rounded-pill">{TypeCode.PROJECT.STATUS_MAPPING[+item.status]}</button>
+                                                        </td>
+                                                        <td>
+                                                            <button className="btn btn-sm btn-danger rounded-pill">{TypeCode.TASK.PRIORITY_MAPPING[+item.priority]}</button>
+                                                        </td>
+                                                        <td>
+                                                            {item.title}
+                                                        </td>
+                                                        <td className="text-bold-500">
+                                                            <div className="avatar me-3">
+                                                                <img src={Common.ENV + item.assign.avatar} alt="" srcSet="" />
+                                                            </div>
+                                                            {item.assign.fullname}
+                                                        </td>
+                                                        <td>
+                                                            {formatDate(item.update_at)}
+                                                        </td>
+                                                        <td>
+                                                            <MdBookmarkAdded onClick={toggleModalTaskUpdate} />
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -154,6 +200,24 @@ export default function TaskListScreen() {
                 <TaskUpdateScreen
                     modal={modalTaskUpdate}
                     toggle={toggleModalTaskUpdate}
+                />
+            }
+
+            {
+                modalError &&
+                <ModalErrorComponent
+                    modal={modalError}
+                    toggle={toggleModalError}
+                    message={message}
+                />
+            }
+
+            {
+                modalSuccess &&
+                <ModalSuccessComponent
+                    modal={modalSuccess}
+                    toggle={toggleModalSuccess}
+                    message={message}
                 />
             }
         </>

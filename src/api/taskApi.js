@@ -6,8 +6,17 @@ const taskApi = {
      * [GET] list project
      * @returns 
      */
-    list(params){
+    list(params) {
         const url = `/task/list/${params}`;
+        return axiosClient.get(url);
+    },
+
+    /**
+     * [GET] list project
+     * @returns 
+     */
+    all() {
+        const url = `/task/all`;
         return axiosClient.get(url);
     },
 
@@ -15,7 +24,7 @@ const taskApi = {
      * [POST] list project
      * @returns 
      */
-    search(params){
+    search(params) {
         const url = `/project/search`;
         return axiosClient.post(url, params);
     },
@@ -24,7 +33,7 @@ const taskApi = {
      * [GET] detail user
      * @returns 
      */
-    detail(params){
+    detail(params) {
         const url = `/project/detail/${params}`;
         return axiosClient.get(url);
     },
@@ -33,30 +42,30 @@ const taskApi = {
      * [POST] create user
      * @returns 
      */
-    create(params){
+    create(params) {
         const url = `/task/create`;
-        return axiosClient.post(url,params);
+        return axiosClient.post(url, params);
     },
 
     /**
      * [POST] update project
      * @returns 
      */
-    update(params){
+    update(params) {
         const url = `/project/update`;
-        return axiosClient.put(url,params);
+        return axiosClient.put(url, params);
     },
 
     /**
      * [DELETE] delete user
      * @returns 
      */
-    delete(params){
+    delete(params) {
         const url = `/project/delete/${params}`;
         return axiosClient.delete(url);
     },
 
-    
+
 }
 
 export default taskApi;
