@@ -21,6 +21,8 @@ import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError
 import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
 import TypeCode from './../../../constants/typeCode';
 import { formatDate } from '../../../utils/helpers';
+import projectApi from './../../../api/projectApi';
+import userApi from './../../../api/userApi';
 
 export default function TaskListScreen() {
 
@@ -46,13 +48,14 @@ export default function TaskListScreen() {
     }
 
     const [taskList, setTaskList] = useState([]);
+    const [projectList, setProjectList] = useState([]);
+    const [userList, setUserList] = useState([]);
+    const [parameterQuery, setParameterQuery] = useState({});
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
     }
     const [message, setMessage] = useState('');
-    const [keyWord, setKeyWord] = useState();
-    const [projectId, setProjectId] = useState();
 
     const [modalSuccess, setModalSuccess] = useState(false);
     const toggleModalSuccess = () => {
@@ -87,9 +90,94 @@ export default function TaskListScreen() {
         );
     }
 
+    /**
+     * 
+     * @param {*} get list project
+     */
+
+    const _getProjectList = () => {
+        projectApi.list().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setProjectList(response.data.projects);
+                    // _onDetail(response.data.projects[0]._id);
+                    // _getParentTask(response.data.projects[0]._id);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    /**
+     * 
+     * @param {*} get list user
+     */
+
+    const _getListUser = () => {
+        userApi.list().then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setUserList(response.data.users);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    /**
+     * 
+     * @param {*} data 
+     * click button search
+     */
+     const _onSearch = (data) => {
+        taskApi.search(data).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setTaskList(response.data.tasks);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh sách công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh sách công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
     useEffect(() => {
         if (token) {
             _getTaskList();
+            _getProjectList();
+            _getListUser();
         } else {
             navigate(LinkName.LOGIN);
         }
@@ -193,6 +281,11 @@ export default function TaskListScreen() {
                 <TaskFillterComponent
                     modal={modalTaskFillter}
                     toggle={toggleModalTaskFillter}
+                    projectList={projectList}
+                    oldUserList = {userList}
+                    _onSearch = {_onSearch}
+                    parameterQuery={parameterQuery}
+                    setParameterQuery={setParameterQuery}
                 />
             }
             {

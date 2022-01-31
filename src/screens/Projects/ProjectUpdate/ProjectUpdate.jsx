@@ -22,6 +22,7 @@ import Validation from "../../../constants/validation";
 import Message from "../../../constants/message";
 import projectApi from "../../../api/projectApi";
 import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function ProjectUpdateScreen(props) {

@@ -25,7 +25,7 @@ const taskApi = {
      * @returns 
      */
     search(params) {
-        const url = `/project/search`;
+        const url = `/task/search`;
         return axiosClient.post(url, params);
     },
 
