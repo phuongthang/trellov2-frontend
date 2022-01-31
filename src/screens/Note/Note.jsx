@@ -179,7 +179,7 @@ export default function NoteScreen() {
                                             <div className="chat-body">
                                                 <div className="chat-message">
                                                     {item.message}
-                                                    <span className="px-1"><TiDelete  className="cursor-pointer"/></span>
+                                                    <span className="px-1"><TiDelete onClick={()=>_onDelete(item._id)} style={{width:'25px', height: '25px'}}  className="cursor-pointer"/></span>
                                                 </div>
                                                     
                                             </div>

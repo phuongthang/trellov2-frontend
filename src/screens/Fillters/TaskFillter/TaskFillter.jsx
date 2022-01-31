@@ -28,15 +28,10 @@ export default function TaskFillterComponent(props) {
                                     <form className="form form-vertical">
                                         <div className="form-body">
                                             <div className="row px-3 pb-3">
-                                                <div className="col-sm-3">
+                                                <div className="col-sm-6">
                                                     <h6>Dự án :</h6>
                                                     <input className="form-control form-control-sm" type="text"
                                                         placeholder="Dự án" />
-                                                </div>
-                                                <div className="col-sm-3">
-                                                    <h6>ID :</h6>
-                                                    <input className="form-control form-control-sm" type="text"
-                                                        placeholder="ID" />
                                                 </div>
                                                 <div className="col-sm-6">
                                                     <h6>Tiêu đề :</h6>

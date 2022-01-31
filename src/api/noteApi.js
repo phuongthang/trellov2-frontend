@@ -3,7 +3,7 @@ import axiosClient from '../api/axiosClients';
 const noteApi = {
 
     /**
-     * [GET] list project
+     * [GET] list note
      * @returns 
      */
     list(params) {
@@ -12,34 +12,7 @@ const noteApi = {
     },
 
     /**
-     * [GET] list project
-     * @returns 
-     */
-    all() {
-        const url = `/task/all`;
-        return axiosClient.get(url);
-    },
-
-    /**
-     * [POST] list project
-     * @returns 
-     */
-    search(params) {
-        const url = `/project/search`;
-        return axiosClient.post(url, params);
-    },
-
-    /**
-     * [GET] detail user
-     * @returns 
-     */
-    detail(params) {
-        const url = `/project/detail/${params}`;
-        return axiosClient.get(url);
-    },
-
-    /**
-     * [POST] create user
+     * [POST] create note
      * @returns 
      */
     create(params) {
@@ -48,20 +21,11 @@ const noteApi = {
     },
 
     /**
-     * [POST] update project
-     * @returns 
-     */
-    update(params) {
-        const url = `/project/update`;
-        return axiosClient.put(url, params);
-    },
-
-    /**
-     * [DELETE] delete user
+     * [DELETE] delete note
      * @returns 
      */
     delete(params) {
-        const url = `/project/delete/${params}`;
+        const url = `/note/delete/${params}`;
         return axiosClient.delete(url);
     },
 
