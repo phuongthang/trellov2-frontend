@@ -27,7 +27,7 @@ export default function TaskFillterComponent(props) {
     /**
      * get property
      */
-    const { modal, toggle, projectList, oldUserList, _onSearch, parameterQuery, setParameterQuery } = props;
+    const { modal, toggle, projectList, taskList, oldUserList, _onSearch, parameterQuery, setParameterQuery } = props;
 
     const methods = useForm({
         mode: 'all',
@@ -108,13 +108,14 @@ export default function TaskFillterComponent(props) {
 
     useEffect(() => {
         if (!isEmpty(parameterQuery)) {
-            setValue('fullname', parameterQuery.fullname ? parameterQuery.fullname : '');
-            setValue('role', (parameterQuery.role || parameterQuery.role === TypeCode.USER.ROLE.STAFF) ? '' + parameterQuery.role : TypeCode.FILLTER.ALL);
-            setValue('room', (parameterQuery.room || parameterQuery.room === TypeCode.USER.ROOM.OTHER) ? '' + parameterQuery.room : TypeCode.FILLTER.ALL);
-            setValue('position', (parameterQuery.position || parameterQuery.position === TypeCode.USER.POSITION.OTHER) ? '' + parameterQuery.position : TypeCode.FILLTER.ALL);
-            setValue('experience', (parameterQuery.experience || parameterQuery.experience === TypeCode.USER.EXPERIENCE.OTHER) ? '' + parameterQuery.experience : TypeCode.FILLTER.ALL);
-            setValue('gender', (parameterQuery.gender || parameterQuery.gender === TypeCode.USER.GENDER.OTHER) ? '' + parameterQuery.gender : TypeCode.FILLTER.ALL);
-            setValue('workform', (parameterQuery.workform || parameterQuery.workform === TypeCode.USER.WORKFORM.OTHER) ? '' + parameterQuery.workform : TypeCode.FILLTER.ALL);
+            setValue('project', parameterQuery.project ? parameterQuery.project : TypeCode.FILLTER.ALL);
+            setValue('category', (parameterQuery.category || parameterQuery.category === TypeCode.PROJECT.CATEGORY.OTHER) ? '' + parameterQuery.category : TypeCode.FILLTER.ALL);
+            setValue('status', (parameterQuery.status || parameterQuery.status === TypeCode.PROJECT.STATUS.OTHER) ? '' + parameterQuery.status : TypeCode.FILLTER.ALL);
+            setValue('priority', (parameterQuery.priority || parameterQuery.priority === TypeCode.TASK.PRIORITY.OTHER) ? '' + parameterQuery.priority : TypeCode.FILLTER.ALL);
+            setValue('title', parameterQuery.title ? parameterQuery.title : '');
+            setValue('assign', parameterQuery.assign ? parameterQuery.assign : TypeCode.FILLTER.ALL);
+            setValue('task_start_date', parameterQuery.task_start_date ? parameterQuery.task_start_date : '');
+            setValue('task_end_date', parameterQuery.task_end_date ? parameterQuery.task_end_date : '');
         }
     }, []);
 

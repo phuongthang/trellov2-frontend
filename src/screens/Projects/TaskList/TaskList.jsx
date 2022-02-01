@@ -286,6 +286,7 @@ export default function TaskListScreen() {
                     _onSearch = {_onSearch}
                     parameterQuery={parameterQuery}
                     setParameterQuery={setParameterQuery}
+                    taskList = {taskList}
                 />
             }
             {
