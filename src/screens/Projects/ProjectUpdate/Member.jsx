@@ -11,7 +11,7 @@ import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-import { filterUserFromExceptId, findUserFromId, filterUserMember, onLoadUserMember } from "../../../utils/helpers";
+import { filterUserFromExceptId, findFromId, filterUserMember, onLoadUserMember } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {
 
@@ -34,7 +34,7 @@ export default function MemberComponent(props) {
      * 
      */
     const _onSelected = (id) => {
-        setUserSelectedList(oldArrUserSelected => [...oldArrUserSelected, findUserFromId(userMemberList, id)]);
+        setUserSelectedList(oldArrUserSelected => [...oldArrUserSelected, findFromId(userMemberList, id)]);
         setUserMemberList(filterUserFromExceptId(userMemberList, id));
     }
 
@@ -50,7 +50,7 @@ export default function MemberComponent(props) {
      * remove user list
      */
     const _onRemove = (id) => {
-        setUserMemberList(oldArrUserFillter => [...oldArrUserFillter, findUserFromId(userSelectedList, id)]);
+        setUserMemberList(oldArrUserFillter => [...oldArrUserFillter, findFromId(userSelectedList, id)]);
         setUserSelectedList(filterUserFromExceptId(userSelectedList, id));
     }
 

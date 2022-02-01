@@ -23,6 +23,8 @@ import TypeCode from './../../../constants/typeCode';
 import { formatDate } from '../../../utils/helpers';
 import projectApi from './../../../api/projectApi';
 import userApi from './../../../api/userApi';
+import { isEmpty } from 'underscore';
+import { findFromId } from './../../../utils/helpers';
 
 export default function TaskListScreen() {
 
@@ -151,7 +153,7 @@ export default function TaskListScreen() {
      * @param {*} data 
      * click button search
      */
-     const _onSearch = (data) => {
+    const _onSearch = (data) => {
         taskApi.search(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
@@ -171,6 +173,16 @@ export default function TaskListScreen() {
                 }
             }
         );
+    }
+
+    /**
+     * click button delete search
+     */
+    const _onDeleteFillter = (name) => {
+        if (parameterQuery[name] || parameterQuery[name] === 0) {
+            delete parameterQuery[name];
+        }
+        _onSearch(parameterQuery);
     }
 
     useEffect(() => {
@@ -218,9 +230,19 @@ export default function TaskListScreen() {
                             </div>
                             <div className="card-content">
                                 <div className="badges px-3 pb-3">
-                                    <span className="badge bg-success mr-5">LandMark  <TiDelete /></span>
-                                    <span className="badge bg-success mr-5">Đang mở  <TiDelete /></span>
-                                    <span className="badge bg-success">Phương Công Thắng  <TiDelete /></span>
+                                    {isEmpty(parameterQuery) ?
+                                        <span className="badge bg-success mr-5">Tất cả</span> :
+                                        <>
+                                            <> {parameterQuery.project && <span className="badge bg-success mr-5">Dự án: {findFromId(projectList,parameterQuery.project).project_name} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('project')} /></span>} </>
+                                            <> {parameterQuery.assign && <span className="badge bg-success mr-5">Phân công cho: {findFromId(userList,parameterQuery.assign).fullname} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('assign')} /></span>} </>
+                                            <> {(parameterQuery.category || parameterQuery.category === TypeCode.PROJECT.CATEGORY.OTHER) && <span className="badge bg-success mr-5">Phân loại: {TypeCode.PROJECT.CATEGORY_MAPPING[parameterQuery.category]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('category')} /></span>}</>
+                                            <>{(parameterQuery.status || parameterQuery.status === TypeCode.PROJECT.STATUS.OTHER) && <span className="badge bg-success mr-5">Trạng thái: {TypeCode.PROJECT.STATUS_MAPPING[parameterQuery.status]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('status')} /></span>}</>
+                                            <>{(parameterQuery.priority || parameterQuery.priority === TypeCode.TASK.PRIORITY.OTHER) && <span className="badge bg-success mr-5">Độ ưu tiên: {TypeCode.TASK.PRIORITY_MAPPING[parameterQuery.priority]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('priority')} /></span>}</>
+                                            <>{(parameterQuery.title) && <span className="badge bg-success mr-5">Tiêu đề: {parameterQuery.title} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('title')} /></span>}</>
+                                            <>{(parameterQuery.task_start_date) && <span className="badge bg-success mr-5">Ngày bắt đầu: {formatDate(parameterQuery.task_start_date)} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('task_start_date')} /></span>}</>
+                                            <>{(parameterQuery.task_end_date) && <span className="badge bg-success mr-5">Ngày kết thúc: {formatDate(parameterQuery.task_end_date)} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('task_end_date')} /></span>}</>
+                                        </>
+                                    }
                                 </div>
                                 <div className="table-responsive px-3 pb-3 table-task-list">
                                     <table className="table table-striped mb-0">
@@ -282,11 +304,11 @@ export default function TaskListScreen() {
                     modal={modalTaskFillter}
                     toggle={toggleModalTaskFillter}
                     projectList={projectList}
-                    oldUserList = {userList}
-                    _onSearch = {_onSearch}
+                    oldUserList={userList}
+                    _onSearch={_onSearch}
                     parameterQuery={parameterQuery}
                     setParameterQuery={setParameterQuery}
-                    taskList = {taskList}
+                    taskList={taskList}
                 />
             }
             {

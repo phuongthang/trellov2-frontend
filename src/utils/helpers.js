@@ -48,8 +48,8 @@ export function filterUserFromExceptId(userList, _id) {
 /**
  * filter user from _id
  */
-export function findUserFromId(userList, _id) {
-    return userList.find(item => item._id === _id);
+export function findFromId(conditionList, _id) {
+    return conditionList.find(item => item._id === _id);
 }
 
 /**
