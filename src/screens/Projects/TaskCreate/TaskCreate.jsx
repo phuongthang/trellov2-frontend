@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LinkName from "../../../constants/linkName";
 import { FormProvider, useForm } from 'react-hook-form';
-import { getTokenFromLocalStorage } from "../../../utils/utils";
+import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from "../../../utils/utils";
 import TypeCode from './../../../constants/typeCode';
 import Message from './../../../constants/message';
 import Validation from "../../../constants/validation";
@@ -33,6 +33,8 @@ export default function TaskCreateScreen() {
     }
 
     const [projectList, setProjectList] = useState([]);
+    const [userData, setUserData] = useState({});
+
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
@@ -143,7 +145,8 @@ export default function TaskCreateScreen() {
             priority: getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW,
             estimate_time: getValues('estimate_time'),
             actual_time: getValues('actual_time'),
-            assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id
+            assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id,
+            user_create: userData._id
 
         }
 
@@ -181,6 +184,7 @@ export default function TaskCreateScreen() {
     useEffect(() => {
         if (token) {
             _getProjectList();
+            setUserData(getUserDataFromLocalStorage);
         } else {
             navigate(LinkName.LOGIN);
         }

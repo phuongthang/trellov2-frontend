@@ -34,7 +34,7 @@ const taskApi = {
      * @returns 
      */
     detail(params) {
-        const url = `/project/detail/${params}`;
+        const url = `/task/detail/${params}`;
         return axiosClient.get(url);
     },
 

@@ -1,15 +1,89 @@
 //Component
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TaskUpdateScreen from './../TaskUpdate/TaskUpdate';
+import { useNavigate } from 'react-router-dom';
+import { getTokenFromLocalStorage } from '../../../utils/utils';
+import { useForm } from 'react-hook-form';
+import Common from '../../../constants/common';
+import LinkName from '../../../constants/linkName';
+import taskApi from './../../../api/taskApi';
+import { formatDate } from '../../../utils/helpers';
+import TypeCode from './../../../constants/typeCode';
 
-export default function TaskDetailScreen() {
+export default function TaskDetailScreen(props) {
+
+    /**
+     * get property
+     */
+     const { id } = props;
+
+    let navigate = useNavigate();
+    const token = getTokenFromLocalStorage();
+
+    const methods = useForm({
+        mode: 'all',
+        reValidateMode: 'all',
+    });
+    const { register, handleSubmit, getValues, watch, setValue, formState: { errors } } = methods;
     /**
      * define state
      */
+    const [taskInfo, setTaskInfo] = useState({});
+
     const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
     const toggleModalTaskUpdate = () => {
         setModalTaskUpdate(!modalTaskUpdate);
     }
+
+    const [modalError, setModalError] = useState(false);
+    const toggleModalError = () => {
+        setModalError(!modalError);
+    }
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const toggleModalSuccess = () => {
+        setModalSuccess(!modalSuccess);
+    }
+    const [message, setMessage] = useState('');
+
+    /**
+     * trim string
+     * @param {*} name 
+     * @param {*} value 
+     */
+    const _onBlur = (name, value) => {
+        setValue(name, value.trim(), { shouldValidate: true });
+    }
+
+    const _onDetail = (id) => {
+        taskApi.detail(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setTaskInfo(response.data.data.task);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy thông tin dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy thông tin dự án thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    useEffect(() => {
+        if (token) {
+            _onDetail("61fa38eb414d04a188b81a7f");
+        } else {
+            navigate(LinkName.LOGIN);
+        }
+        // eslint-disable-next-line
+    }, [token]);
 
     /**
      * render template
@@ -27,14 +101,14 @@ export default function TaskDetailScreen() {
                                     </div>
                                 </div>
                                 <ul className="list-group list-group-flush">
-                                    <h6 className="list-group-item">Dự án: LandMark</h6>
-                                    <h6 className="list-group-item">Ngày bắt đầu: 01/01/2021</h6>
-                                    <h6 className="list-group-item">Ngày kết thúc: 01/01/2022</h6>
+                                    <h6 className="list-group-item">Dự án: {taskInfo?.project?.project_name}</h6>
+                                    <h6 className="list-group-item">Ngày bắt đầu: {formatDate(taskInfo?.project?.project_start_date)}</h6>
+                                    <h6 className="list-group-item">Ngày kết thúc: {formatDate(taskInfo?.project?.project_end_date)}</h6>
                                     <h6 className="list-group-item">Quản lý:
                                         <div className="avatar avatar-sm px-2">
-                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
+                                            <img src={Common.ENV + taskInfo?.project?.project_manager?.avatar} alt="" srcSet="" />
                                         </div>
-                                        Phương Công Thắng
+                                        {taskInfo?.project?.project_manager?.fullname}
                                     </h6>
                                     <li className="list-group-item"></li>
                                 </ul>
@@ -53,17 +127,17 @@ export default function TaskDetailScreen() {
                                     </div>
                                 </div>
                                 <ul className="list-group list-group-flush">
-                                    <h6 className="list-group-item">Tiêu đề: QA 550 - Bug Khách Hàng No.555 TOP mới</h6>
+                                    <h6 className="list-group-item">Tiêu đề: {taskInfo.title}</h6>
                                     <h6 className="list-group-item">Người tạo:
                                         <div className="avatar avatar-sm px-2">
-                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
+                                            <img src={Common.ENV + taskInfo?.user_create?.avatar} alt="" srcSet="" />
                                         </div>
-                                        Phương Công Thắng</h6>
-                                    <h6 className="list-group-item">Trạng thái: New - Mức độ ưu tiên: Normal</h6>
-                                    <h6 className="list-group-item">Chỉnh sửa lần cuối: 08:00 01/01/2021 <div className="avatar avatar-sm px-2">
-                                        <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
+                                        {taskInfo?.user_create?.fullname}</h6>
+                                    <h6 className="list-group-item">Trạng thái: {TypeCode.PROJECT.STATUS_MAPPING[taskInfo.status]} - Mức độ ưu tiên: {TypeCode.TASK.PRIORITY_MAPPING[taskInfo.priority]}</h6>
+                                    <h6 className="list-group-item">Chỉnh sửa lần cuối: {formatDate(taskInfo.update_at)} <div className="avatar avatar-sm px-2">
+                                        <img src={Common.ENV + taskInfo?.user_create?.avatar} alt="" srcSet="" />
                                     </div>
-                                        Phương Công Thắng</h6>
+                                        {taskInfo?.user_create?.fullname}</h6>
                                     <li className="list-group-item"></li>
                                 </ul>
                             </div>
@@ -84,11 +158,11 @@ export default function TaskDetailScreen() {
                                 <ul className="list-group list-group-flush">
                                     <h6 className="list-group-item">Phân công cho:
                                         <div className="avatar avatar-sm px-2">
-                                            <img src="https://scontent-sin6-3.xx.fbcdn.net/v/t1.6435-9/64944343_2170617459897007_8832957907625574400_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=174925&_nc_ohc=pW-lz2bqCPgAX9crA9K&_nc_ht=scontent-sin6-3.xx&oh=00_AT-a1jmIGLlEaoU4P4NrXLcZHDGv0mfU8vYYS5cWopcj_g&oe=61E48F55" alt="" srcSet="" />
+                                            <img src={Common.ENV + taskInfo?.assign?.avatar} alt="" srcSet="" />
                                         </div>
-                                        Phương Công Thắng</h6>
-                                    <h6 className="list-group-item">Ngày bắt đầu: 01/01/2021</h6>
-                                    <h6 className="list-group-item">Ngày kết thúc: 01/01/2022</h6>
+                                        {taskInfo?.assign?.fullname}</h6>
+                                    <h6 className="list-group-item">Ngày bắt đầu: {formatDate(taskInfo.task_start_date)}</h6>
+                                    <h6 className="list-group-item">Ngày kết thúc: {formatDate(taskInfo.task_end_date)}</h6>
                                     <li className="list-group-item"></li>
                                 </ul>
                             </div>
@@ -100,7 +174,7 @@ export default function TaskDetailScreen() {
                                         <h5 className="card-title">Mô tả:</h5>
                                     </div>
                                     <div>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl tincidunt eget nullam non. Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa. Commodo odio aenean sed adipiscing diam donec adipiscing tristique. Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit. Ornare arcu dui vivamus arcu felis. Egestas integer eget aliquet nibh praesent. In hac habitasse platea dictumst quisque sagittis purus. Pulvinar elementum integer enim neque volutpat ac.
+                                        {taskInfo.description}
                                     </div>
                                 </div>
                             </div>
