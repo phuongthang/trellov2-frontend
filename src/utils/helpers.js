@@ -32,6 +32,20 @@ export function formatDate(dateString) {
 }
 
 /**
+ * format date
+ * @param {*} dateString 
+ * @returns 
+ */
+ export function formatDateTime(dateString) {
+    let dateFormat = '';
+    if (dateString) {
+        dateFormat = moment(dateString).format("DD/MM/YYYY HH:mm:ss");
+    }
+
+    return dateFormat;
+}
+
+/**
  * filter user from experience
  */
 export function filterUserFromExperience(userList, conditionList) {
