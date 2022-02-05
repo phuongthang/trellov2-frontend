@@ -417,6 +417,7 @@ export default function TaskDetailScreen(props) {
                     modal={modalTaskUpdate}
                     toggle={toggleModalTaskUpdate}
                     taskInfo = {taskInfo}
+                    taskId = {taskId}
                 />
             }
             {

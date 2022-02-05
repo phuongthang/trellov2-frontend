@@ -52,7 +52,7 @@ const taskApi = {
      * @returns 
      */
     update(params) {
-        const url = `/project/update`;
+        const url = `/task/update`;
         return axiosClient.put(url, params);
     },
 

@@ -1,5 +1,4 @@
 //icon
-import { DiAndroid } from "react-icons/di";
 import Common from "../../../constants/common";
 import projectApi from './../../../api/projectApi';
 import { useState, useEffect } from 'react';
