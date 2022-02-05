@@ -21,6 +21,7 @@ import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalS
 
 //Packet
 import { Modal } from "reactstrap";
+import commentApi from './../../../api/commentApi';
 
 export default function TaskUpdateScreen(props) {
     /**
@@ -159,6 +160,37 @@ export default function TaskUpdateScreen(props) {
         );
     }
 
+    const _createComment = () => {
+        const data = {
+            comment: getValues('comment'),
+            task: taskId,
+            user_create: userData._id,
+            user_edit: userData._id
+
+        }
+
+        commentApi.create(data).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Đăng kí bình luận thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Đăng kí bình luận thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Đăng kí công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
     const _onSubmit = () => {
         const data = {
             project: getValues('project'),
@@ -180,8 +212,14 @@ export default function TaskUpdateScreen(props) {
         taskApi.update(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setMessage(response.data.message || 'Cập nhật công việc thành công !');
-                    toggleModalSuccess();
+                    if (getValues('comment')) {
+                        _createComment();
+                    } else {
+                        setMessage(response.data.message || 'Cập nhật công việc thành công !');
+                        toggleModalSuccess();
+
+
+                    }
                 }
                 else {
                     setMessage(response.data.message || 'Cập nhật công việc thất bại. Vui lòng thử lại !');
@@ -539,8 +577,24 @@ export default function TaskUpdateScreen(props) {
                                                                 type="text"
                                                                 rows={5}
                                                                 className="form-control"
-                                                                id="first-name-icon"
+                                                                {...register(
+                                                                    "comment",
+                                                                    {
+                                                                        maxLength: {
+                                                                            value: Validation.TEXT.MAX_LENGTH,
+                                                                            message: replaceString(Message.TEXT.MAX_LENGTH, ["Bình luận", Validation.TEXT.MAX_LENGTH]),
+                                                                        },
+                                                                        minLength: {
+                                                                            value: Validation.TEXT.MIN_LENGTH,
+                                                                            message: replaceString(Message.TEXT.MIN_LENGTH, ["Bình luận", Validation.TEXT.MIN_LENGTH]),
+                                                                        },
+                                                                    }
+                                                                )}
+                                                                onBlur={(e) => { _onBlur(e.currentTarget.name, e.currentTarget.value) }}
                                                             />
+                                                            {errors.comment && (
+                                                                <FormFeedback className="d-block">{errors.comment.message}</FormFeedback>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -553,7 +607,6 @@ export default function TaskUpdateScreen(props) {
                                                             <input
                                                                 type="file"
                                                                 className="form-control"
-                                                                id="first-name-icon"
                                                             />
                                                         </div>
                                                     </div>
