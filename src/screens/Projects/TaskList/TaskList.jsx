@@ -174,6 +174,10 @@ export default function TaskListScreen() {
             }
         );
     }
+    
+    const _onNavigate = (url, id) => {
+        navigate(url, {state : {taskId : id} });
+    }
 
     /**
      * click button delete search
@@ -262,9 +266,9 @@ export default function TaskListScreen() {
                                         <tbody className="text-center">
                                             {
                                                 taskList.length > 0 && taskList.map((item, idx) => (
-                                                    <tr>
+                                                    <tr key={idx}>
                                                         <td className="text-bold-500">#{idx + 1}</td>
-                                                        <td>{item.project.project_name}</td>
+                                                        <td>{item?.project?.project_name}</td>
                                                         <td>{TypeCode.PROJECT.CATEGORY_MAPPING[item.category]}</td>
                                                         <td>
                                                             <button className="btn btn-sm btn-danger rounded-pill">{TypeCode.PROJECT.STATUS_MAPPING[+item.status]}</button>
@@ -272,14 +276,14 @@ export default function TaskListScreen() {
                                                         <td>
                                                             <button className="btn btn-sm btn-danger rounded-pill">{TypeCode.TASK.PRIORITY_MAPPING[+item.priority]}</button>
                                                         </td>
-                                                        <td>
+                                                        <td className="cursor-pointer" onClick={()=> {_onNavigate(LinkName.TASK_DETAIL, item._id)}}>
                                                             {item.title}
                                                         </td>
                                                         <td className="text-bold-500">
                                                             <div className="avatar me-3">
-                                                                <img src={Common.ENV + item.assign.avatar} alt="" srcSet="" />
+                                                                <img src={Common.ENV + item?.assign?.avatar} alt="" srcSet="" />
                                                             </div>
-                                                            {item.assign.fullname}
+                                                            {item?.assign?.fullname}
                                                         </td>
                                                         <td>
                                                             {formatDate(item.update_at)}

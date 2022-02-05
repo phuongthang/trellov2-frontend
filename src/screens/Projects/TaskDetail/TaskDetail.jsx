@@ -1,7 +1,7 @@
 //Component
 import { useState, useEffect } from 'react';
 import TaskUpdateScreen from './../TaskUpdate/TaskUpdate';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
 import { useForm } from 'react-hook-form';
 import Common from '../../../constants/common';
@@ -24,7 +24,8 @@ export default function TaskDetailScreen(props) {
     /**
      * get property
      */
-    const { id } = props;
+    const { state } = useLocation();
+    const taskId = state.taskId;
 
     let navigate = useNavigate();
     const token = getTokenFromLocalStorage();
@@ -152,7 +153,7 @@ export default function TaskDetailScreen(props) {
     const _onSubmit = () => {
         const data = {
             comment: getValues('comment'),
-            task: "61fa38eb414d04a188b81a7f",
+            task: taskId,
             user_create: userData._id,
             user_edit: userData._id
 
@@ -182,8 +183,8 @@ export default function TaskDetailScreen(props) {
 
     useEffect(() => {
         if (token) {
-            _onDetail("61fa38eb414d04a188b81a7f");
-            _getCommentList("61fa38eb414d04a188b81a7f");
+            _onDetail(taskId);
+            _getCommentList(taskId);
             setUserData(getUserDataFromLocalStorage);
         } else {
             navigate(LinkName.LOGIN);
@@ -415,6 +416,7 @@ export default function TaskDetailScreen(props) {
                 <TaskUpdateScreen
                     modal={modalTaskUpdate}
                     toggle={toggleModalTaskUpdate}
+                    taskInfo = {taskInfo}
                 />
             }
             {
