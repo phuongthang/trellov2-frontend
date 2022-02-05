@@ -25,7 +25,7 @@ const commentApi = {
      * @returns 
      */
     delete(params) {
-        const url = `/note/delete/${params}`;
+        const url = `/comment/delete/${params}`;
         return axiosClient.delete(url);
     },
 

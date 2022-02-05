@@ -16,8 +16,8 @@ import { replaceString } from './../../../utils/helpers';
 import commentApi from '../../../api/commentApi';
 import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
-import { TiDelete } from "react-icons/ti";
 import { formatDateTime } from './../../../utils/helpers';
+import ModalConfirmDeleteCommentComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 
 export default function TaskDetailScreen(props) {
 
@@ -55,6 +55,46 @@ export default function TaskDetailScreen(props) {
         setModalSuccess(!modalSuccess);
     }
     const [message, setMessage] = useState('');
+    const [keyWord, setKeyWord] = useState();
+    const [commentId, setCommentId] = useState();
+
+    /**
+     * 
+     * @param {*} id 
+     * click button delete
+     */
+    const _onDelete = (id) => {
+        commentApi.delete(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Xóa bình luận thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Xóa bình luận thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Xóa bình luận thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
+    /**
+     * open/close modal confirm delete user
+     */
+    const [modalConfirmDeleteComment, setModalConfirmDeleteComment] = useState(false);
+    const toggleModalConfirmDeleteComment = (id, keyWord) => {
+        setCommentId(id);
+        setKeyWord(keyWord);
+        setModalConfirmDeleteComment(!modalConfirmDeleteComment);
+    }
 
     /**
      * trim string
@@ -258,39 +298,39 @@ export default function TaskDetailScreen(props) {
                             <div className="card-content px-3 pb-3">
                                 {
                                     commentList.length > 0 && commentList.map((item, idx) => (
-                                        <>
-                                            <div className="row" key={idx}>
-                                                <div className="col-12">
-                                                    <div className="card">
-                                                        <div className="media d-flex align-items-center">
-                                                            <div className="avatar me-3">
-                                                                <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
-                                                                <span className="avatar-status bg-success" />
-                                                            </div>
-                                                            <div className="name flex-grow-1">
-                                                                <h6 className="mb-0">{item.user_create.fullname}</h6>
-                                                                <div className="d-flex justify-content-between">
-                                                                    <span className="text-xs">{formatDateTime(item.created_at)}</span>
-                                                                    <div className="d-flex justify-content-center">
-                                                                        <span className="px-2 cursor-pointer"><i class="bi bi-pencil-fill"></i></span>
-                                                                        <span className="px-2 cursor-pointer"><i class="bi bi-trash-fill"></i></span>
-                                                                    </div>
+                                        <div className="row" key={idx}>
+                                            <div className="col-12">
+                                                <div className="card">
+                                                    <div className="media d-flex align-items-center">
+                                                        <div className="avatar me-3">
+                                                            <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
+                                                            <span className="avatar-status bg-success" />
+                                                        </div>
+                                                        <div className="name flex-grow-1">
+                                                            <h6 className="mb-0">{item.user_create.fullname}</h6>
+                                                            <div className="d-flex justify-content-between">
+                                                                <span className="text-xs">{formatDateTime(item.created_at)}</span>
+                                                                <div className="d-flex justify-content-center">
+                                                                    <span className="px-2 cursor-pointer"><i className="bi bi-pencil-fill"></i></span>
+                                                                    <span onClick={() => toggleModalConfirmDeleteComment(item._id, item?.user_create?.fullname)} className="px-2 cursor-pointer"><i className="bi bi-trash-fill"></i></span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="bg-grey pt-4">
-                                                            <div className="chat-message">
-                                                                {item.comment}
-                                                            </div>
+                                                    </div>
+                                                    <div className="bg-grey pt-4">
+                                                        <div className="chat-message">
+                                                            {item.comment}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <hr />
-                                        </>
+                                        </div>
                                     ))
                                 }
-                                <h6>Không có lịch sử hoạt động nào gần đây !</h6>
+                                {
+                                    commentList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
+                                }
                             </div>
                         </div>
                     </div>
@@ -392,6 +432,17 @@ export default function TaskDetailScreen(props) {
                     modal={modalSuccess}
                     toggle={toggleModalSuccess}
                     message={message}
+                />
+            }
+
+            {
+                modalConfirmDeleteComment &&
+                <ModalConfirmDeleteCommentComponent
+                    modal={modalConfirmDeleteComment}
+                    toggle={toggleModalConfirmDeleteComment}
+                    keyWord={keyWord}
+                    _onCallback={_onDelete}
+                    id={commentId}
                 />
             }
         </>
