@@ -1,23 +1,29 @@
-//Component
 import { useState, useEffect } from 'react';
+
+//Component
 import TaskUpdateScreen from './../TaskUpdate/TaskUpdate';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
-import { useForm } from 'react-hook-form';
-import Common from '../../../constants/common';
-import LinkName from '../../../constants/linkName';
-import taskApi from './../../../api/taskApi';
-import { formatDate } from '../../../utils/helpers';
-import TypeCode from './../../../constants/typeCode';
-import Message from './../../../constants/message';
-import { FormFeedback } from 'reactstrap';
-import Validation from '../../../constants/validation';
-import { replaceString } from './../../../utils/helpers';
-import commentApi from '../../../api/commentApi';
 import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
-import { formatDateTime } from './../../../utils/helpers';
 import ModalConfirmDeleteCommentComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
+
+//packet
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { FormFeedback } from 'reactstrap';
+
+//constant
+import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
+import LinkName from '../../../constants/linkName';
+import Common from '../../../constants/common';
+import { formatDate, replaceString, formatDateTime } from '../../../utils/helpers';
+import TypeCode from './../../../constants/typeCode';
+import Message from './../../../constants/message';
+import Validation from '../../../constants/validation';
+
+//api
+import taskApi from './../../../api/taskApi';
+import commentApi from '../../../api/commentApi';
+
 
 export default function TaskDetailScreen(props) {
 
@@ -34,7 +40,7 @@ export default function TaskDetailScreen(props) {
         mode: 'all',
         reValidateMode: 'all',
     });
-    const { register, handleSubmit, getValues, watch, setValue, formState: { errors } } = methods;
+    const { register, handleSubmit, getValues, setValue, formState: { errors } } = methods;
     /**
      * define state
      */
@@ -88,7 +94,7 @@ export default function TaskDetailScreen(props) {
     }
 
     /**
-     * open/close modal confirm delete user
+     * open/close modal confirm delete comment
      */
     const [modalConfirmDeleteComment, setModalConfirmDeleteComment] = useState(false);
     const toggleModalConfirmDeleteComment = (id, keyWord) => {

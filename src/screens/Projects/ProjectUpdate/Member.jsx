@@ -16,7 +16,7 @@ import { filterUserFromExceptId, findFromId, filterUserMember, onLoadUserMember 
 export default function MemberComponent(props) {
 
     const { usersMemberList, userSelectedList, setUserSelectedList } = props;
-    const { register, getValues, watch, formState: { errors } } = useFormContext();
+    const { register, watch, formState: { errors } } = useFormContext();
     const [userMemberList, setUserMemberList] = useState([]);
 
     const defaultOptions = {

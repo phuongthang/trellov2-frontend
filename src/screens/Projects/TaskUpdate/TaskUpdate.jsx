@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from "react";
 
-//icon
-import Common from "../../../constants/common";
-import projectApi from './../../../api/projectApi';
+//component
+import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
+import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
+
+//packet
 import { useNavigate } from 'react-router-dom';
-import LinkName from "../../../constants/linkName";
 import { FormProvider, useForm, Controller } from 'react-hook-form';
+import { FormFeedback } from 'reactstrap';
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Modal } from "reactstrap";
+
+//constant
+import Common from "../../../constants/common";
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from "../../../utils/utils";
 import TypeCode from './../../../constants/typeCode';
 import Message from './../../../constants/message';
 import Validation from "../../../constants/validation";
-import { FormFeedback } from 'reactstrap';
+import LinkName from "../../../constants/linkName";
 import { replaceString } from './../../../utils/helpers';
-import moment from "moment";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import taskApi from './../../../api/taskApi';
-import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
-import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
 
-//Packet
-import { Modal } from "reactstrap";
+//api
+import projectApi from './../../../api/projectApi';
+import taskApi from './../../../api/taskApi';
 import commentApi from './../../../api/commentApi';
 
 export default function TaskUpdateScreen(props) {

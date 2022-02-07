@@ -1,17 +1,24 @@
-//icon
-import Common from "../../../constants/common";
-import projectApi from './../../../api/projectApi';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import LinkName from "../../../constants/linkName";
-import { FormProvider, useForm } from 'react-hook-form';
+
+//constant
+import Common from "../../../constants/common";
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from "../../../utils/utils";
+import LinkName from "../../../constants/linkName";
 import TypeCode from './../../../constants/typeCode';
 import Message from './../../../constants/message';
 import Validation from "../../../constants/validation";
-import { FormFeedback } from 'reactstrap';
 import { replaceString } from './../../../utils/helpers';
+
+//packet
+import { useNavigate } from 'react-router-dom';
+import { FormProvider, useForm } from 'react-hook-form';
+import { FormFeedback } from 'reactstrap';
+
+//api
 import taskApi from './../../../api/taskApi';
+import projectApi from './../../../api/projectApi';
+
+//component
 import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
 import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
 

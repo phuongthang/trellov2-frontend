@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 
 export default function StatusComponent(props) {
 
-    const { register, getValues, formState: { errors } } = useFormContext();
+    const { register, formState: { errors } } = useFormContext();
 
     /**
      * render template

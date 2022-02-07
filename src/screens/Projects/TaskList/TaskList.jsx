@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 //Component
 import TaskUpdateScreen from '../TaskUpdate/TaskUpdate';
 import TaskFillterComponent from '../../Fillters/TaskFillter/TaskFillter';
+import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
+import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
 
 //icon
 import { MdBookmarkAdded } from "react-icons/md";
@@ -10,21 +12,20 @@ import { TiDelete } from "react-icons/ti";
 
 //packet
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { isEmpty } from 'underscore';
 
 //Constants
 import { getTokenFromLocalStorage } from '../../../utils/utils';
-import { useForm } from 'react-hook-form';
-import taskApi from './../../../api/taskApi';
 import Common from '../../../constants/common';
 import LinkName from '../../../constants/linkName';
-import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
-import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
 import TypeCode from './../../../constants/typeCode';
-import { formatDate } from '../../../utils/helpers';
+import { formatDate, formatDateTime, findFromId } from '../../../utils/helpers';
+
+//api
+import taskApi from './../../../api/taskApi';
 import projectApi from './../../../api/projectApi';
 import userApi from './../../../api/userApi';
-import { isEmpty } from 'underscore';
-import { findFromId } from './../../../utils/helpers';
 
 export default function TaskListScreen() {
 
@@ -35,7 +36,7 @@ export default function TaskListScreen() {
         mode: 'all',
         reValidateMode: 'all',
     });
-    const { register, watch, getValues, formState: { errors } } = methods;
+    const { formState: { errors } } = methods;
     /**
      * define state
      */
@@ -102,8 +103,6 @@ export default function TaskListScreen() {
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
                     setProjectList(response.data.projects);
-                    // _onDetail(response.data.projects[0]._id);
-                    // _getParentTask(response.data.projects[0]._id);
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
@@ -174,9 +173,9 @@ export default function TaskListScreen() {
             }
         );
     }
-    
+
     const _onNavigate = (url, id) => {
-        navigate(url, {state : {taskId : id} });
+        navigate(url, { state: { taskId: id } });
     }
 
     /**
@@ -237,8 +236,8 @@ export default function TaskListScreen() {
                                     {isEmpty(parameterQuery) ?
                                         <span className="badge bg-success mr-5">Tất cả</span> :
                                         <>
-                                            <> {parameterQuery.project && <span className="badge bg-success mr-5">Dự án: {findFromId(projectList,parameterQuery.project).project_name} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('project')} /></span>} </>
-                                            <> {parameterQuery.assign && <span className="badge bg-success mr-5">Phân công cho: {findFromId(userList,parameterQuery.assign).fullname} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('assign')} /></span>} </>
+                                            <> {parameterQuery.project && <span className="badge bg-success mr-5">Dự án: {findFromId(projectList, parameterQuery.project).project_name} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('project')} /></span>} </>
+                                            <> {parameterQuery.assign && <span className="badge bg-success mr-5">Phân công cho: {findFromId(userList, parameterQuery.assign).fullname} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('assign')} /></span>} </>
                                             <> {(parameterQuery.category || parameterQuery.category === TypeCode.PROJECT.CATEGORY.OTHER) && <span className="badge bg-success mr-5">Phân loại: {TypeCode.PROJECT.CATEGORY_MAPPING[parameterQuery.category]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('category')} /></span>}</>
                                             <>{(parameterQuery.status || parameterQuery.status === TypeCode.PROJECT.STATUS.OTHER) && <span className="badge bg-success mr-5">Trạng thái: {TypeCode.PROJECT.STATUS_MAPPING[parameterQuery.status]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('status')} /></span>}</>
                                             <>{(parameterQuery.priority || parameterQuery.priority === TypeCode.TASK.PRIORITY.OTHER) && <span className="badge bg-success mr-5">Độ ưu tiên: {TypeCode.TASK.PRIORITY_MAPPING[parameterQuery.priority]} <TiDelete className="cursor-pointer" onClick={() => _onDeleteFillter('priority')} /></span>}</>
@@ -269,14 +268,16 @@ export default function TaskListScreen() {
                                                     <tr key={idx}>
                                                         <td className="text-bold-500">#{idx + 1}</td>
                                                         <td>{item?.project?.project_name}</td>
-                                                        <td>{TypeCode.PROJECT.CATEGORY_MAPPING[item.category]}</td>
                                                         <td>
-                                                            <button className="btn btn-sm btn-danger rounded-pill">{TypeCode.PROJECT.STATUS_MAPPING[+item.status]}</button>
+                                                            <button className={`btn btn-sm ${TypeCode.COLOR.COLOR_CATEGORY_MAPPING[+item.category]} rounded-pill`}>{TypeCode.PROJECT.CATEGORY_MAPPING[+item.category]}</button>
                                                         </td>
                                                         <td>
-                                                            <button className="btn btn-sm btn-danger rounded-pill">{TypeCode.TASK.PRIORITY_MAPPING[+item.priority]}</button>
+                                                            <button className={`btn btn-sm ${TypeCode.COLOR.COLOR_STATUS_MAPPING[+item.status]} rounded-pill`}>{TypeCode.PROJECT.STATUS_MAPPING[+item.status]}</button>
                                                         </td>
-                                                        <td className="cursor-pointer" onClick={()=> {_onNavigate(LinkName.TASK_DETAIL, item._id)}}>
+                                                        <td>
+                                                            <button className={`btn btn-sm ${TypeCode.COLOR.COLOR_PRIORITY_MAPPING[+item.priority]} rounded-pill`}>{TypeCode.TASK.PRIORITY_MAPPING[+item.priority]}</button>
+                                                        </td>
+                                                        <td className="cursor-pointer" onClick={() => { _onNavigate(LinkName.TASK_DETAIL, item._id) }}>
                                                             {item.title}
                                                         </td>
                                                         <td className="text-bold-500">
@@ -286,7 +287,7 @@ export default function TaskListScreen() {
                                                             {item?.assign?.fullname}
                                                         </td>
                                                         <td>
-                                                            {formatDate(item.update_at)}
+                                                            {formatDateTime(item.update_at)}
                                                         </td>
                                                         <td>
                                                             <MdBookmarkAdded onClick={toggleModalTaskUpdate} />

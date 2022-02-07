@@ -188,6 +188,35 @@ const typeCode = {
 
     FILLTER: {
         ALL: -1
+    },
+
+    COLOR: {
+        COLOR_PRIORITY_MAPPING: {
+            0: 'btn-dark',
+            1: 'btn-secondary',
+            2: 'btn-success',
+            3: 'btn-warning',
+            4: 'btn-danger'
+        },
+
+        COLOR_STATUS_MAPPING: {
+            0: 'btn-dark',
+            1: 'btn-info',
+            2: 'btn-success',
+            3: 'btn-secondary',
+            4: 'btn-info',
+            5: 'btn-primary',
+            6: 'btn-secondary',
+            7: 'btn-secondary',
+            8: 'btn-dark'
+        },
+        COLOR_CATEGORY_MAPPING: {
+            0: 'btn-dark',
+            1: 'btn-primary',
+            2: 'btn-danger',
+            3: 'btn-success',
+            4: 'btn-warning'
+        }
     }
 
 

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
@@ -7,16 +9,17 @@ import add from '../../../assets/lottie/add.json';
 
 //packet
 import { useFormContext } from 'react-hook-form';
+
+
+//constant
 import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
 import { filterUserFromExceptId, findFromId, filterUserMember } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {
 
     const { usersMemberList, userSelectedList, setUserSelectedList  } = props;
-    const { register, getValues, watch, formState: { errors } } = useFormContext();
+    const { register, watch, formState: { errors } } = useFormContext();
     const [userMemberList, setUserMemberList] = useState([]);
 
     const defaultOptions = {
