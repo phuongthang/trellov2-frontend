@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 //constant
 import TypeCode from "../../../constants/typeCode";
 import { formatDate } from "../../../utils/helpers";
@@ -28,7 +26,7 @@ export default function ProjectInformationComponent(props) {
                                 <td>{formatDate(projectInfo.project_start_date)}</td>
                             </tr>
                             <tr>
-                                <td className="text-bold-500">Ngày kết thúc</td>
+                                <td className="text-bold-500">Ngày kết thúc:</td>
                                 <td>{formatDate(projectInfo.project_end_date)}</td>
                             </tr>
                             <tr>
@@ -36,12 +34,16 @@ export default function ProjectInformationComponent(props) {
                                 <td>{projectInfo?.project_manager?.fullname}</td>
                             </tr>
                             <tr>
-                                <td className="text-bold-500">Trạng thái</td>
-                                <td>{TypeCode.PROJECT.PROJECT_STATUS_MAPPING[projectInfo.status]}</td>
+                                <td className="text-bold-500">Trạng thái:</td>
+                                <td>{TypeCode.PROJECT.PROJECT_STATUS_MAPPING[projectInfo.project_status]}</td>
                             </tr>
                             <tr>
-                                <td className="text-bold-500">Chế độ</td>
+                                <td className="text-bold-500">Chế độ:</td>
                                 <td>{TypeCode.PROJECT.MODE_MAPPING[projectInfo.mode]}</td>
+                            </tr>
+                            <tr>
+                                <td className="text-bold-500">Loại:</td>
+                                <td>{TypeCode.PROJECT.TYPE_MAPPING[projectInfo.type]}</td>
                             </tr>
                         </tbody>
                     </table>

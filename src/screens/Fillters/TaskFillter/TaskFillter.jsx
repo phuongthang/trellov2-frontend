@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
 
 //Packet
-import { Modal } from "reactstrap";
-import { useForm } from 'react-hook-form';
-import TypeCode from './../../../constants/typeCode';
+import { Modal, FormFeedback } from "reactstrap";
+import { useForm, Controller } from 'react-hook-form';
 import { isEmpty } from 'underscore';
-import Validation from "../../../constants/validation";
-import { replaceString } from './../../../utils/helpers';
-import Message from "../../../constants/message";
-import { FormFeedback } from "reactstrap";
-import { Controller } from 'react-hook-form';
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import projectApi from './../../../api/projectApi';
+import { useNavigate } from 'react-router-dom';
+
+//Constant
+import TypeCode from './../../../constants/typeCode';
+import Validation from "../../../constants/validation";
+import { replaceString } from './../../../utils/helpers';
+import Message from "../../../constants/message";
 import Common from "../../../constants/common";
+import LinkName from "../../../constants/linkName";
+
+//api
+import projectApi from './../../../api/projectApi';
+
+//component
 import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
 import ModalSuccessComponent from "../../../components/Modal/ModalSuccess/ModalSuccess";
-import { useNavigate } from 'react-router-dom';
-import LinkName from "../../../constants/linkName";
 
 export default function TaskFillterComponent(props) {
 

@@ -151,8 +151,8 @@ const typeCode = {
         },
 
         PROJECT_STATUS_MAPPING: {
-            'Đang mở': 1,
-            'Đã đóng': 0
+            1 : 'Đang mở',
+            0 : 'Đã đóng',
         },
         TYPE: {
             OTHER: 0,

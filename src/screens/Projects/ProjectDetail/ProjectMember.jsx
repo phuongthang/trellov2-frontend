@@ -1,5 +1,6 @@
 export default function ProjectMemberComponent(props) {
     const { projectInfo } = props;
+    console.log(projectInfo);
     /**
      * render template
      */
@@ -14,7 +15,7 @@ export default function ProjectMemberComponent(props) {
             <ul className="list-group list-group-flush">
                 <h6 className="list-group-item">Project Manager: {projectInfo?.project_manager?.fullname}</h6>
                 {
-                    projectInfo?.members.length > 0 && projectInfo.members.map((item, idx) => (
+                    projectInfo?.members?.length > 0 && projectInfo?.members.map((item, idx) => (
                         <h6 key={idx} className="list-group-item">Thành viên: {item.fullname}</h6>
                     ))
                 }

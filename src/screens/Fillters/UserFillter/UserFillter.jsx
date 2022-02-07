@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 
 //Packet
 import { Modal, FormFeedback } from "reactstrap";
 import { useForm } from 'react-hook-form';
+import { isEmpty } from 'underscore';
+
+//constant
 import { replaceString } from "../../../utils/helpers";
 import Message from "../../../constants/message";
 import Validation from "../../../constants/validation";
 import TypeCode from "../../../constants/typeCode";
-import { isEmpty } from 'underscore';
 
 export default function UserFillterComponent(props) {
     /**
