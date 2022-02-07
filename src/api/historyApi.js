@@ -7,7 +7,7 @@ const historyApi = {
      * @returns 
      */
     list(params) {
-        const url = `/comment/list/${params}`;
+        const url = `/history/list/${params}`;
         return axiosClient.get(url);
     },
 

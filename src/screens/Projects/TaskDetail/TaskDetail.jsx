@@ -23,6 +23,7 @@ import Validation from '../../../constants/validation';
 //api
 import taskApi from './../../../api/taskApi';
 import commentApi from '../../../api/commentApi';
+import historyApi from '../../../api/historyApi';
 
 
 export default function TaskDetailScreen(props) {
@@ -47,6 +48,7 @@ export default function TaskDetailScreen(props) {
     const [userData, setUserData] = useState({});
     const [taskInfo, setTaskInfo] = useState({});
     const [commentList, setCommentList] = useState([]);
+    const [historyList, setHistoryList] = useState([]);
 
     const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
     const toggleModalTaskUpdate = () => {
@@ -156,6 +158,28 @@ export default function TaskDetailScreen(props) {
         );
     }
 
+    const _getHistoryList = (id) => {
+        historyApi.list(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setHistoryList(response.data.histories);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
     const _onSubmit = () => {
         const data = {
             comment: getValues('comment'),
@@ -191,6 +215,7 @@ export default function TaskDetailScreen(props) {
         if (token) {
             _onDetail(taskId);
             _getCommentList(taskId);
+            _getHistoryList(taskId);
             setUserData(getUserDataFromLocalStorage);
         } else {
             navigate(LinkName.LOGIN);
