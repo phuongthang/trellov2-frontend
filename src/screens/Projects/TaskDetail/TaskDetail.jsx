@@ -350,7 +350,7 @@ export default function TaskDetailScreen(props) {
                                                             <div className="bg-grey pt-4">
                                                                 <div className="chat-message pre-line">
                                                                     <ul>
-                                                                        {item.project && <li><h6><strong>Dự án</strong> thay đổi từ <strong>{item?.old_project?.project_name + ' - ' + taskInfo?.project.project_name}</strong>.</h6></li>}
+                                                                        {item.project && <li><h6><strong>Dự án</strong> thay đổi từ <strong>{item?.old_project?.project_name + ' - ' + taskInfo?.project?.project_name}</strong>.</h6></li>}
                                                                         {item.title && <li><h6><strong>Tiêu đề</strong> thay đổi từ <strong>{item.old_title + ' - ' + taskInfo.title}</strong>.</h6></li>}
                                                                         {item.description && <li><h6><strong>Mô tả</strong> <strong>đã được cập nhật</strong>.</h6></li>}
                                                                         {item.category && <li><h6><strong>Phân loại</strong> thay đổi từ <strong>{TypeCode.PROJECT.CATEGORY_MAPPING[item.old_category] + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[taskInfo.category]}</strong>.</h6></li>}
