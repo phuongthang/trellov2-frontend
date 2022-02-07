@@ -60,6 +60,7 @@ export default function TaskUpdateScreen(props) {
 
     const [projectList, setProjectList] = useState([]);
     const [userData, setUserData] = useState({});
+    const [isFirstTimeLoad, setFirstTimeLoad] = useState(true);
 
     const [taskCategoryList, setTaskCategoryList] = useState([]);
     const [taskStatusList, setTaskStatusList] = useState([]);
@@ -129,7 +130,10 @@ export default function TaskUpdateScreen(props) {
                     let memberList = response.data.project.members;
                     memberList.push(response.data.project.project_manager);
                     setTaskMemberList(memberList);
-                    setValueFormInput(taskInfo);
+                    if(isFirstTimeLoad){
+                        setValueFormInput(taskInfo);
+                        setFirstTimeLoad(false);
+                    }
                 }
                 else {
                     setMessage(response.data.message || 'Lấy thông tin dự án thất bại. Vui lòng thử lại !');
