@@ -327,42 +327,99 @@ export default function TaskDetailScreen(props) {
                             <div className="card-header">
                                 <h4 className="card-title">LỊCH SỬ HOẠT ĐỘNG</h4>
                             </div>
-                            <div className="card-content px-3 pb-3">
-                                {
-                                    commentList.length > 0 && commentList.map((item, idx) => (
-                                        <div className="row" key={idx}>
-                                            <div className="col-12">
-                                                <div className="card">
-                                                    <div className="media d-flex align-items-center">
-                                                        <div className="avatar me-3">
-                                                            <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
-                                                            <span className="avatar-status bg-success" />
-                                                        </div>
-                                                        <div className="name flex-grow-1">
-                                                            <h6 className="mb-0">{item.user_create.fullname}</h6>
-                                                            <div className="d-flex justify-content-between">
-                                                                <span className="text-xs">{formatDateTime(item.created_at)}</span>
-                                                                <div className="d-flex justify-content-center">
-                                                                    <span className="px-2 cursor-pointer"><i className="bi bi-pencil-fill"></i></span>
-                                                                    <span onClick={() => toggleModalConfirmDeleteComment(item._id, item?.user_create?.fullname)} className="px-2 cursor-pointer"><i className="bi bi-trash-fill"></i></span>
+                            <div className="row">
+                                <div className="col-6">
+                                    <div className="card-content px-3 pb-3">
+                                        {
+                                            historyList.length > 0 && historyList.map((item, idx) => (
+                                                <div className="row" key={idx}>
+                                                    <div className="col-12">
+                                                        <div className="card">
+                                                            <div className="media d-flex align-items-center">
+                                                                <div className="avatar me-3">
+                                                                    <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
+                                                                    <span className="avatar-status bg-success" />
+                                                                </div>
+                                                                <div className="name flex-grow-1">
+                                                                    <h6 className="mb-0">{item.user_create.fullname}</h6>
+                                                                    <div className="d-flex justify-content-between">
+                                                                        <span className="text-xs">{formatDateTime(item.created_at)}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="bg-grey pt-4">
+                                                                <div className="chat-message pre-line">
+                                                                    <ul>
+                                                                        {item.project && <li><h6>Dự án thay đổi từ {item.old_project + ' - ' + taskInfo?.project.project_name}.</h6></li>}
+                                                                        {item.title && <li><h6>Tiêu đề thay đổi từ {item.old_title + ' - ' + taskInfo.title}.</h6></li>}
+                                                                        {item.description && <li><h6>Mô tả đã được cập nhật.</h6></li>}
+                                                                        {item.category && <li><h6>Phân loại thay đổi từ {TypeCode.PROJECT.CATEGORY_MAPPING[item.old_category] + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[taskInfo.category]} </h6></li>}
+                                                                        {item.status && <li><h6>Trạng thái thay đổi từ {TypeCode.PROJECT.STATUS_MAPPING[item.old_status] + ' - ' + TypeCode.PROJECT.STATUS_MAPPING[taskInfo.status]} </h6></li>}
+                                                                        {item.priority && <li><h6>Độ ưu tiên thay đổi từ {TypeCode.TASK.PRIORITY_MAPPING[item.old_priority] + ' - ' + TypeCode.TASK.PRIORITY_MAPPING[taskInfo.priority]} </h6></li>}
+                                                                        {item.task_start_date && <li><h6>Ngày bắt đầu thay đổi từ {formatDate(item.old_task_start_date) + ' - ' + formatDate(taskInfo.task_start_date)}.</h6></li>}
+                                                                        {item.task_end_date && <li><h6>Ngày kết thúc thay đổi từ {formatDate(item.old_task_end_date) + ' - ' + formatDate(taskInfo.task_end_date)}..</h6></li>}
+                                                                        {item.estimate_time && <li><h6>Thời gian dự kiến thay đổi từ {(item.old_estimate_time ? item.old_estimate_time : 0) + 'h - ' + taskInfo.estimate_time}h.</h6></li>}
+                                                                        {item.actual_time && <li><h6>Thời gian thực tế thay đổi từ {(item.old_actual_time ? item.old_actual_time : 0) + 'h - ' + taskInfo.actual_time}h.</h6></li>}
+                                                                        {item.assign && <li><h6>Phân công cho thay đổi từ
+                                                                            <div className="avatar avatar-sm px-2">
+                                                                                <img src={Common.ENV + item?.old_assign?.avatar} alt="" srcSet="" />
+                                                                            </div>
+                                                                            {item?.old_assign?.fullname + ' - '}
+                                                                            <div className="avatar avatar-sm px-2">
+                                                                                <img src={Common.ENV + taskInfo?.assign?.avatar} alt="" srcSet="" />
+                                                                            </div>
+                                                                            {taskInfo?.assign?.fullname}.</h6></li>}
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="bg-grey pt-4">
-                                                        <div className="chat-message pre-line">
-                                                            {item.comment}
+                                                </div>
+                                            ))
+                                        }
+                                        {
+                                            historyList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="col-6">
+                                    <div className="card-content px-3 pb-3">
+                                        {
+                                            commentList.length > 0 && commentList.map((item, idx) => (
+                                                <div className="row" key={idx}>
+                                                    <div className="col-12">
+                                                        <div className="card">
+                                                            <div className="media d-flex align-items-center">
+                                                                <div className="avatar me-3">
+                                                                    <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
+                                                                    <span className="avatar-status bg-success" />
+                                                                </div>
+                                                                <div className="name flex-grow-1">
+                                                                    <h6 className="mb-0">{item.user_create.fullname}</h6>
+                                                                    <div className="d-flex justify-content-between">
+                                                                        <span className="text-xs">{formatDateTime(item.created_at)}</span>
+                                                                        <div className="d-flex justify-content-center">
+                                                                            <span className="px-2 cursor-pointer"><i className="bi bi-pencil-fill"></i></span>
+                                                                            <span onClick={() => toggleModalConfirmDeleteComment(item._id, item?.user_create?.fullname)} className="px-2 cursor-pointer"><i className="bi bi-trash-fill"></i></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="bg-grey pt-4">
+                                                                <div className="chat-message pre-line">
+                                                                    {item.comment}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <hr />
-                                        </div>
-                                    ))
-                                }
-                                {
-                                    commentList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
-                                }
+                                            ))
+                                        }
+                                        {
+                                            commentList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -447,8 +504,8 @@ export default function TaskDetailScreen(props) {
                 <TaskUpdateScreen
                     modal={modalTaskUpdate}
                     toggle={toggleModalTaskUpdate}
-                    taskInfo = {taskInfo}
-                    taskId = {taskId}
+                    taskInfo={taskInfo}
+                    taskId={taskId}
                 />
             }
             {

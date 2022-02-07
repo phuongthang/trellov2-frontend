@@ -44,7 +44,7 @@ export default function TaskUpdateScreen(props) {
     const { register, handleSubmit, getValues, control, watch, setValue, formState: { errors } } = methods;
 
     const arrParameterString = ['title', 'description', 'task_start_date', 'task_end_date', 'estimate_time', 'actual_time'];
-    const arrParameterNumber = ['status', 'category', 'priorty'];
+    const arrParameterNumber = ['status', 'category', 'priority'];
     const arrParameterObject = ['project', 'assign'];
 
     const [modalSuccess, setModalSuccess] = useState(false);
@@ -231,6 +231,7 @@ export default function TaskUpdateScreen(props) {
         let isHistory = false;
         let parameterList = {
             task: taskId,
+            user_create: userData._id,
         }
         arrParameterString.forEach((item) => {
             if (getValues(item) !== taskInfo[item]) {
