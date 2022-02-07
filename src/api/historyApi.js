@@ -15,8 +15,17 @@ const historyApi = {
      * [GET] list note
      * @returns 
      */
+    search(params) {
+        const url = `/history/search/${params}`;
+        return axiosClient.get(url);
+    },
+
+    /**
+     * [GET] list note
+     * @returns 
+     */
     all() {
-        const url = `/comment/all`;
+        const url = `/history/all`;
         return axiosClient.get(url);
     },
 
@@ -27,15 +36,6 @@ const historyApi = {
     create(params) {
         const url = `/history/create`;
         return axiosClient.post(url, params);
-    },
-
-    /**
-     * [DELETE] delete note
-     * @returns 
-     */
-    delete(params) {
-        const url = `/comment/delete/${params}`;
-        return axiosClient.delete(url);
     },
 
 

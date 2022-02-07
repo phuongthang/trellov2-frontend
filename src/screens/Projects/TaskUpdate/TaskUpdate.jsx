@@ -241,8 +241,10 @@ export default function TaskUpdateScreen(props) {
             if (getValues(item) !== taskInfo[item]) {
                 isHistory = true;
                 const oldItem = 'old_' + item;
+                const newItem = 'new_' + item;
                 parameterList[item] = true;
                 parameterList[oldItem] = taskInfo[item];
+                parameterList[newItem] = getValues(item);
             }
         });
 
@@ -251,8 +253,10 @@ export default function TaskUpdateScreen(props) {
                 if (+getValues(item) !== +taskInfo[item]) {
                     isHistory = true;
                     const oldItem = 'old_' + item;
+                    const newItem = 'new_' + item;
                     parameterList[item] = true;
                     parameterList[oldItem] = taskInfo[item];
+                    parameterList[newItem] = parseInt(getValues(item),10);
                 }
             }
         });
@@ -262,8 +266,10 @@ export default function TaskUpdateScreen(props) {
                 if (getValues(item) !== taskInfo[item]._id) {
                     isHistory = true;
                     const oldItem = 'old_' + item;
+                    const newItem = 'new_' + item;
                     parameterList[item] = true;
                     parameterList[oldItem] = taskInfo[item]._id;
+                    parameterList[newItem] = getValues(item);
                 }
             }
         });

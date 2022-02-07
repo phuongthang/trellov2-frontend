@@ -350,25 +350,25 @@ export default function TaskDetailScreen(props) {
                                                             <div className="bg-grey pt-4">
                                                                 <div className="chat-message pre-line">
                                                                     <ul>
-                                                                        {item.project && <li><h6><strong>Dự án</strong> thay đổi từ <strong>{item?.old_project?.project_name + ' - ' + taskInfo?.project?.project_name}</strong>.</h6></li>}
-                                                                        {item.title && <li><h6><strong>Tiêu đề</strong> thay đổi từ <strong>{item.old_title + ' - ' + taskInfo.title}</strong>.</h6></li>}
+                                                                        {item.project && <li><h6><strong>Dự án</strong> thay đổi từ <strong>{item?.old_project?.project_name + ' - ' + item?.new_project?.project_name}</strong>.</h6></li>}
+                                                                        {item.title && <li><h6><strong>Tiêu đề</strong> thay đổi từ <strong>{item.old_title + ' - ' + item.new_title}</strong>.</h6></li>}
                                                                         {item.description && <li><h6><strong>Mô tả</strong> <strong>đã được cập nhật</strong>.</h6></li>}
-                                                                        {item.category && <li><h6><strong>Phân loại</strong> thay đổi từ <strong>{TypeCode.PROJECT.CATEGORY_MAPPING[item.old_category] + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[taskInfo.category]}</strong>.</h6></li>}
-                                                                        {item.status && <li><h6><strong>Trạng thái</strong> thay đổi từ <strong>{TypeCode.PROJECT.STATUS_MAPPING[item.old_status] + ' - ' + TypeCode.PROJECT.STATUS_MAPPING[taskInfo.status]}</strong>.</h6></li>}
-                                                                        {item.priority && <li><h6><strong>Độ ưu tiên</strong> thay đổi từ <strong>{TypeCode.TASK.PRIORITY_MAPPING[item.old_priority] + ' - ' + TypeCode.TASK.PRIORITY_MAPPING[taskInfo.priority]}</strong>.</h6></li>}
-                                                                        {item.task_start_date && <li><h6><strong>Ngày bắt đầu</strong> thay đổi từ <strong>{formatDate(item.old_task_start_date) + ' - ' + formatDate(taskInfo.task_start_date)}</strong>.</h6></li>}
-                                                                        {item.task_end_date && <li><h6><strong>Ngày kết thúc</strong> thay đổi từ <strong>{formatDate(item.old_task_end_date) + ' - ' + formatDate(taskInfo.task_end_date)}</strong>.</h6></li>}
-                                                                        {item.estimate_time && <li><h6><strong>Thời gian dự kiến</strong> thay đổi từ <strong>{(item.old_estimate_time ? item.old_estimate_time : 0) + 'h - ' + taskInfo.estimate_time}h</strong>.</h6></li>}
-                                                                        {item.actual_time && <li><h6><strong>Thời gian thực tế</strong> thay đổi từ <strong>{(item.old_actual_time ? item.old_actual_time : 0) + 'h - ' + taskInfo.actual_time}h</strong>.</h6></li>}
+                                                                        {item.category && <li><h6><strong>Phân loại</strong> thay đổi từ <strong>{TypeCode.PROJECT.CATEGORY_MAPPING[item.old_category] + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[item.new_category]}</strong>.</h6></li>}
+                                                                        {item.status && <li><h6><strong>Trạng thái</strong> thay đổi từ <strong>{TypeCode.PROJECT.STATUS_MAPPING[item.old_status] + ' - ' + TypeCode.PROJECT.STATUS_MAPPING[item.new_status]}</strong>.</h6></li>}
+                                                                        {item.priority && <li><h6><strong>Độ ưu tiên</strong> thay đổi từ <strong>{TypeCode.TASK.PRIORITY_MAPPING[item.old_priority] + ' - ' + TypeCode.TASK.PRIORITY_MAPPING[item.new_priority]}</strong>.</h6></li>}
+                                                                        {item.task_start_date && <li><h6><strong>Ngày bắt đầu</strong> thay đổi từ <strong>{formatDate(item.old_task_start_date) + ' - ' + formatDate(item.new_task_start_date)}</strong>.</h6></li>}
+                                                                        {item.task_end_date && <li><h6><strong>Ngày kết thúc</strong> thay đổi từ <strong>{formatDate(item.old_task_end_date) + ' - ' + formatDate(item.new_task_end_date)}</strong>.</h6></li>}
+                                                                        {item.estimate_time && <li><h6><strong>Thời gian dự kiến</strong> thay đổi từ <strong>{(item.old_estimate_time ? item.old_estimate_time : 0) + 'h - ' + item.new_estimate_time}h</strong>.</h6></li>}
+                                                                        {item.actual_time && <li><h6><strong>Thời gian thực tế</strong> thay đổi từ <strong>{(item.old_actual_time ? item.old_actual_time : 0) + 'h - ' + item.new_actual_time}h</strong>.</h6></li>}
                                                                         {item.assign && <li><h6><strong>Phân công</strong> cho thay đổi từ
                                                                             <div className="avatar avatar-sm px-2">
                                                                                 <img src={Common.ENV + item?.old_assign?.avatar} alt="" srcSet="" />
                                                                             </div>
                                                                             <strong>{item?.old_assign?.fullname + ' - '}</strong>
                                                                             <div className="avatar avatar-sm px-2">
-                                                                                <img src={Common.ENV + taskInfo?.assign?.avatar} alt="" srcSet="" />
+                                                                                <img src={Common.ENV + item?.new_assign?.avatar} alt="" srcSet="" />
                                                                             </div>
-                                                                            <strong>{taskInfo?.assign?.fullname}</strong>.</h6></li>}
+                                                                            <strong>{item?.new_assign?.fullname}</strong>.</h6></li>}
                                                                     </ul>
                                                                 </div>
                                                             </div>

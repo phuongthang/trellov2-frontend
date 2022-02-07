@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import taskApi from "../../api/taskApi";
 import Common from "../../constants/common";
 import ModalErrorComponent from "../../components/Modal/ModalError/ModalError";
+import historyApi from './../../api/historyApi';
 
 export default function HomeScreen() {
 
@@ -20,6 +21,7 @@ export default function HomeScreen() {
      */
     const [userData, setUserData] = useState({});
     const [taskList, setTaskList] = useState([]);
+    const [historyList, setHistoryList] = useState([]);
 
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
@@ -54,6 +56,28 @@ export default function HomeScreen() {
         );
     }
 
+    const _getHistoryList = (id) => {
+        historyApi.search(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setHistoryList(response.data.histories);
+                }
+                else {
+                    setMessage(response.data.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
     /**
      * get infor user from token
      */
@@ -61,6 +85,7 @@ export default function HomeScreen() {
         if (token) {
             setUserData(getUserDataFromLocalStorage);
             _getTaskList({ assign: getUserDataFromLocalStorage()._id });
+            _getHistoryList(getUserDataFromLocalStorage()._id);
         } else {
             navigate(LinkName.LOGIN);
         }
@@ -92,7 +117,7 @@ export default function HomeScreen() {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <ActivityHistoryComponent userData={userData} />
+                        <ActivityHistoryComponent historyList={historyList} />
                     </div>
                 </div>
             </section>
