@@ -8,7 +8,7 @@ import { BsFillCreditCardFill } from "react-icons/bs";
 //packet
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormFeedback } from "reactstrap";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 //Component
 import NameComponent from "./Name";
@@ -38,7 +38,9 @@ export default function UserInformationScreen(props) {
     let navigate = useNavigate();
     const token = getTokenFromLocalStorage();
     const url = window.location.pathname;
-    const id = localStorage.getItem("userId") || getUserDataFromLocalStorage()._id;
+    const { state } = useLocation();
+
+    const id = state?.userId || getUserDataFromLocalStorage()._id;
 
     const methods = useForm({
         mode: 'all',

@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
@@ -9,8 +11,6 @@ import add from '../../../assets/lottie/add.json';
 import { useFormContext } from 'react-hook-form';
 import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
 import { filterUserFromExceptId, findFromId, filterUserMember, onLoadUserMember } from "../../../utils/helpers";
 
 export default function MemberComponent(props) {

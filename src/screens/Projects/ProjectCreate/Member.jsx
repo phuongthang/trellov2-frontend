@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";

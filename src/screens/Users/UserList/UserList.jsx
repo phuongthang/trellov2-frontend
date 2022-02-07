@@ -123,8 +123,7 @@ export default function UserListScreen() {
      * on click button edit
      */
     const _onEdit = (id) => {
-        localStorage.setItem('userId', id);
-        navigate(LinkName.USER_UPDATE);
+        navigate(LinkName.USER_UPDATE, { state: { userId: id } });
     }
 
     /**
