@@ -217,7 +217,7 @@ export default function ProjectListScreen() {
                                                 projectList.length > 0 && projectList.map((item, idx) => (
                                                     <tr key={idx}>
                                                         <td className="text-bold-500">{idx + 1}</td>
-                                                        <td style={{width:'300px'}} className="cursor-pointer" onClick={()=> _onNavigate(LinkName.PROJECT_DETAIL, {projectId : item._id})}>{item.project_name}</td>
+                                                        <td style={{width:'300px'}} className="cursor-pointer" onClick={()=> _onNavigate(LinkName.PROJECT_DETAIL, {projectId: item._id})}>{item.project_name}</td>
                                                         <td className="text-bold-500 cursor-pointer" style={{textAlign: 'center'}} onClick={()=>_onNavigate(LinkName.USER_UPDATE, {userId: item?.project_manager?._id})}>
                                                             <div className="avatar me-3">
                                                                 <img src={Common.ENV + item.project_manager.avatar} alt="" srcSet="" />

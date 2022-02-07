@@ -1,4 +1,5 @@
-export default function ProjectMemberComponent() {
+export default function ProjectMemberComponent(props) {
+    const { projectInfo } = props;
     /**
      * render template
      */
@@ -11,9 +12,12 @@ export default function ProjectMemberComponent() {
                 </div>
             </div>
             <ul className="list-group list-group-flush">
-                <h6 className="list-group-item">Project Manager: Phương Công Thắng</h6>
-                <h6 className="list-group-item">Leader: Nguyễn Thị Chinh</h6>
-                <h6 className="list-group-item">Member: Phạm Thị Ngân</h6>
+                <h6 className="list-group-item">Project Manager: {projectInfo?.project_manager?.fullname}</h6>
+                {
+                    projectInfo?.members.length > 0 && projectInfo.members.map((item, idx) => (
+                        <h6 key={idx} className="list-group-item">Thành viên: {item.fullname}</h6>
+                    ))
+                }
                 <li className="list-group-item"></li>
             </ul>
         </div>

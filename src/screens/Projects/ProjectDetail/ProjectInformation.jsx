@@ -1,4 +1,12 @@
-export default function ProjectInformationComponent() {
+import { useState } from "react";
+
+//constant
+import TypeCode from "../../../constants/typeCode";
+import { formatDate } from "../../../utils/helpers";
+
+export default function ProjectInformationComponent(props) {
+
+    const { projectInfo } = props;
     /**
      * render template
      */
@@ -13,27 +21,27 @@ export default function ProjectInformationComponent() {
                         <tbody>
                             <tr>
                                 <td className="text-bold-500">Dự án:</td>
-                                <td>LandMark</td>
+                                <td>{projectInfo.project_name}</td>
                             </tr>
                             <tr>
                                 <td className="text-bold-500">Ngày bắt đầu:</td>
-                                <td>01/01/2021</td>
+                                <td>{formatDate(projectInfo.project_start_date)}</td>
                             </tr>
                             <tr>
                                 <td className="text-bold-500">Ngày kết thúc</td>
-                                <td>01/01/2022</td>
+                                <td>{formatDate(projectInfo.project_end_date)}</td>
                             </tr>
                             <tr>
                                 <td className="text-bold-500">Quản lí:</td>
-                                <td>Phương Công Thắng</td>
+                                <td>{projectInfo?.project_manager?.fullname}</td>
                             </tr>
                             <tr>
                                 <td className="text-bold-500">Trạng thái</td>
-                                <td>Đang mở</td>
+                                <td>{TypeCode.PROJECT.PROJECT_STATUS_MAPPING[projectInfo.status]}</td>
                             </tr>
                             <tr>
                                 <td className="text-bold-500">Chế độ</td>
-                                <td>Không công khai</td>
+                                <td>{TypeCode.PROJECT.MODE_MAPPING[projectInfo.mode]}</td>
                             </tr>
                         </tbody>
                     </table>
