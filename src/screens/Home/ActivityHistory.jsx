@@ -25,7 +25,7 @@ export default function ActivityHistoryComponent(props) {
                                             <div className="card">
                                                 <div className="media d-flex align-items-center">
                                                     <div className="name flex-grow-1 px-3">
-                                                        <h6 className="mb-0"><strong>#{item?.task?.project?.project_name + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[item.new_category] + ' - ' + item.new_title}</strong></h6>
+                                                        <h6 className="mb-0"><strong>#{item?.task?.project?.project_name + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[item?.task?.category] + ' - ' + item?.task?.title}</strong></h6>
                                                     </div>
                                                 </div>
                                                 <div className="bg-grey pt-4">
