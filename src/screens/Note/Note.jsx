@@ -1,19 +1,29 @@
+import { useState, useEffect } from 'react';
+
 //icon
 import { RiSendPlaneFill } from "react-icons/ri";
+import { TiDelete } from "react-icons/ti";
+
+//packet
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { FormFeedback } from 'reactstrap';
+import { isEmpty } from 'underscore';
+
+//constant
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from "../../utils/utils";
-import { useState, useEffect } from 'react';
 import LinkName from "../../constants/linkName";
 import Common from "../../constants/common";
-import { useForm } from 'react-hook-form';
+import Message from './../../constants/message';
+import { replaceString } from './../../utils/helpers';
+
+//component
 import ModalErrorComponent from "../../components/Modal/ModalError/ModalError";
 import ModalSuccessComponent from "../../components/Modal/ModalSuccess/ModalSuccess";
-import Message from './../../constants/message';
+
+//api
 import noteApi from './../../api/noteApi';
-import { FormFeedback } from 'reactstrap';
-import { replaceString } from './../../utils/helpers';
-import { isEmpty } from 'underscore';
-import { TiDelete } from "react-icons/ti";
+
 
 export default function NoteScreen() {
 
@@ -23,7 +33,7 @@ export default function NoteScreen() {
         mode: 'all',
         reValidateMode: 'all',
     });
-    const { register, handleSubmit, getValues, watch, setValue, formState: { errors } } = methods;
+    const { register, getValues, setValue, formState: { errors } } = methods;
 
     /**
      * define state
@@ -177,7 +187,7 @@ export default function NoteScreen() {
                                     noteList.length > 0 && noteList.map((item, idx) => (
                                         <div className="chat chat-left" key={idx}>
                                             <div className="chat-body">
-                                                <div className="chat-message">
+                                                <div className="chat-message pre-line">
                                                     {item.message}
                                                     <span className="px-1"><TiDelete onClick={()=>_onDelete(item._id)} style={{width:'25px', height: '25px'}}  className="cursor-pointer"/></span>
                                                 </div>
