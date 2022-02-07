@@ -40,6 +40,8 @@ export default function UserInformationScreen(props) {
     const url = window.location.pathname;
     const { state } = useLocation();
 
+    console.log(state?.userId);
+
     const id = state?.userId || getUserDataFromLocalStorage()._id;
 
     const methods = useForm({
