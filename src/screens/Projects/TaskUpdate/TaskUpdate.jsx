@@ -199,7 +199,6 @@ export default function TaskUpdateScreen(props) {
             category: getValues('category') ? getValues('category') : taskCategoryList[0],
             status: getValues('status') ? getValues('status') : taskStatusList[0],
             title: getValues('title'),
-            parent_task: getValues('parent_task') ? getValues('parent_task') : '',
             description: getValues('description'),
             priority: getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW,
             estimate_time: getValues('estimate_time'),
@@ -207,6 +206,10 @@ export default function TaskUpdateScreen(props) {
             assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id,
             _id: taskId,
 
+        }
+
+        if(getValues('parent_task')){
+            data['parent_task'] = getValues('parent_task');
         }
 
         taskApi.update(data).then(

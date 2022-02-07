@@ -280,7 +280,7 @@ export default function TaskDetailScreen(props) {
                                     <div className="card-body">
                                         <h5 className="card-title">Mô tả:</h5>
                                     </div>
-                                    <div>
+                                    <div className="pre-line">
                                         {taskInfo.description}
                                     </div>
                                 </div>
@@ -319,7 +319,7 @@ export default function TaskDetailScreen(props) {
                                                         </div>
                                                     </div>
                                                     <div className="bg-grey pt-4">
-                                                        <div className="chat-message">
+                                                        <div className="chat-message pre-line">
                                                             {item.comment}
                                                         </div>
                                                     </div>

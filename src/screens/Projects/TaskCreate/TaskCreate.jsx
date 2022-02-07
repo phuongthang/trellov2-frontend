@@ -133,13 +133,12 @@ export default function TaskCreateScreen() {
 
     const _onSubmit = () => {
         const data = {
-            project: getValues('project'),
+            project: getValues('project') ? getValues('project') : projectList[0]._id,
             task_start_date: getValues('task_start_date'),
             task_end_date: getValues('task_end_date'),
             category: getValues('category') ? getValues('category') : taskCategoryList[0],
             status: getValues('status') ? getValues('status') : taskStatusList[0],
             title: getValues('title'),
-            parent_task: getValues('parent_task') ? getValues('parent_task') : '',
             description: getValues('description'),
             priority: getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW,
             estimate_time: getValues('estimate_time'),
@@ -147,6 +146,9 @@ export default function TaskCreateScreen() {
             assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id,
             user_create: userData._id
 
+        }
+        if(getValues('parent_task')){
+            data['parent_task'] = getValues('parent_task');
         }
 
         taskApi.create(data).then(
