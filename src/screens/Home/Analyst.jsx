@@ -1,8 +1,15 @@
+//Packet
 import { useNavigate } from "react-router-dom";
 import { Alert } from "reactstrap";
+
+//constant
 import LinkName from "../../constants/linkName";
+import TypeCode from "../../constants/typeCode";
 
 export default function AnalystComponent(props) {
+    /**
+     * get property
+     */
     const { taskList } = props;
 
     let navigate = useNavigate();
@@ -38,7 +45,7 @@ export default function AnalystComponent(props) {
                                         className="cursor-pointer"
                                         onClick={()=> _onNavigate(LinkName.TASK_DETAIL, item._id)}
                                     >
-                                        #{item?.project?.project_name + ' - ' + item.title}
+                                        #{item?.project?.project_name + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[item.category] +' - ' + item.title}
                                     </Alert>
                                 ))
                             }

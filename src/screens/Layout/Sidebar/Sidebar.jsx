@@ -118,11 +118,6 @@ export default function Sidebar(props) {
                                             Nhân sự
                                         </Link>
                                     </li>
-                                    <li className={`d-flex align-items-center submenu-item ${currentPath === LinkName.TIME_KEEPING ? 'active' : ''}`}>
-                                        <Link to={LinkName.TIME_KEEPING} >
-                                            Công việc
-                                        </Link>
-                                    </li>
                                 </ul>
                             </Collapse>
                         </>
