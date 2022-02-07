@@ -34,7 +34,7 @@ export default function ProjectListScreen() {
         mode: 'all',
         reValidateMode: 'all',
     });
-    const { register, watch, getValues, formState: { errors } } = methods;
+    const { register, watch, getValues } = methods;
     /**
      * open/close modal project update
      */

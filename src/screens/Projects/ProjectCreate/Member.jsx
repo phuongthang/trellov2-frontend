@@ -19,7 +19,7 @@ import { filterUserFromExceptId, findFromId, filterUserMember } from "../../../u
 export default function MemberComponent(props) {
 
     const { usersMemberList, userSelectedList, setUserSelectedList  } = props;
-    const { register, watch, formState: { errors } } = useFormContext();
+    const { register, watch } = useFormContext();
     const [userMemberList, setUserMemberList] = useState([]);
 
     const defaultOptions = {

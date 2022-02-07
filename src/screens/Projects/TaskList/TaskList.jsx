@@ -12,7 +12,6 @@ import { TiDelete } from "react-icons/ti";
 
 //packet
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import { isEmpty } from 'underscore';
 
 //Constants
@@ -32,11 +31,6 @@ export default function TaskListScreen() {
     let navigate = useNavigate();
     const token = getTokenFromLocalStorage();
 
-    const methods = useForm({
-        mode: 'all',
-        reValidateMode: 'all',
-    });
-    const { formState: { errors } } = methods;
     /**
      * define state
      */

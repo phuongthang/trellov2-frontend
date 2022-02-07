@@ -1,6 +1,5 @@
 export default function ProjectMemberComponent(props) {
     const { projectInfo } = props;
-    console.log(projectInfo);
     /**
      * render template
      */

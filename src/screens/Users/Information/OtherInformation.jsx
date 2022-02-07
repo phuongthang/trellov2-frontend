@@ -9,7 +9,7 @@ import TypeCode from './../../../constants/typeCode';
 export default function OtherInformationComponent(props) {
 
     const { _disabled } = props;
-    const { register, formState: { errors } } = useFormContext();
+    const { register } = useFormContext();
     /**
      * render template
      */

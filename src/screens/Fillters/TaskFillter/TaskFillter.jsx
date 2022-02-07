@@ -31,7 +31,7 @@ export default function TaskFillterComponent(props) {
     /**
      * get property
      */
-    const { modal, toggle, projectList, taskList, oldUserList, _onSearch, parameterQuery, setParameterQuery } = props;
+    const { modal, toggle, projectList, oldUserList, _onSearch, parameterQuery, setParameterQuery } = props;
 
     const methods = useForm({
         mode: 'all',
