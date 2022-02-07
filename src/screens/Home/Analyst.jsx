@@ -1,6 +1,23 @@
+import { useNavigate } from "react-router-dom";
 import { Alert } from "reactstrap";
+import LinkName from "../../constants/linkName";
 
-export default function AnalystComponent() {
+export default function AnalystComponent(props) {
+    const { taskList } = props;
+
+    let navigate = useNavigate();
+
+    const COLOR_MAPPING = {
+        0: 'dark',
+        1: 'secondary',
+        2: 'success',
+        3: 'warning',
+        4: 'danger'
+    }
+
+    const _onNavigate = (url, id) => {
+        navigate(url, { state: { taskId: id } });
+    }
     /**
      * render template
      */
@@ -10,41 +27,21 @@ export default function AnalystComponent() {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-header">
-                            <h4 className="card-title">THỐNG KÊ</h4>
+                            <h4 className="card-title">DANH SÁCH CÔNG VIỆC</h4>
                         </div>
                         <div className="card-content px-3 pb-3">
-                            <Alert
-                                color="primary"
-                                className="cursor-pointer"
-                            >
-                                Ticket #1: Bug KH No.999 - Top (front)
-                            </Alert>
-                            <Alert
-                                color="danger"
-                                className="cursor-pointer"
-                            >
-                                Ticket #1: Bug KH No.999 - Top (front)
-                            </Alert>
-                            <Alert
-                                color="primary"
-                                className="cursor-pointer"
-
-                            >
-                               Ticket #1: Bug KH No.999 - Top (front)
-                            </Alert>
-                            <Alert
-                                color="success"
-                                className="cursor-pointer"
-
-                            >
-                                Ticket #1: Bug KH No.999 - Top (front)
-                            </Alert>
-                            <Alert
-                                color="primary"
-                                className="cursor-pointer"
-                            >
-                                Ticket #1: Bug KH No.999 - Top (front)
-                            </Alert>
+                            {
+                                taskList.length > 0 && taskList.map((item, idx) => (
+                                    <Alert
+                                        key = {idx}
+                                        color={COLOR_MAPPING[item.priority]}
+                                        className="cursor-pointer"
+                                        onClick={()=> _onNavigate(LinkName.TASK_DETAIL, item._id)}
+                                    >
+                                        #{item?.project?.project_name + ' - ' + item.title}
+                                    </Alert>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

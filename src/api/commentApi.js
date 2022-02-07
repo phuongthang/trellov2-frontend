@@ -12,6 +12,15 @@ const commentApi = {
     },
 
     /**
+     * [GET] list note
+     * @returns 
+     */
+    all() {
+        const url = `/comment/all`;
+        return axiosClient.get(url);
+    },
+
+    /**
      * [POST] create note
      * @returns 
      */
