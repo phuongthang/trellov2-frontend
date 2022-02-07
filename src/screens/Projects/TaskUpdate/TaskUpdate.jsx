@@ -26,6 +26,7 @@ import { replaceString } from './../../../utils/helpers';
 import projectApi from './../../../api/projectApi';
 import taskApi from './../../../api/taskApi';
 import commentApi from './../../../api/commentApi';
+import historyApi from "../../../api/historyApi";
 
 export default function TaskUpdateScreen(props) {
     /**
@@ -41,6 +42,10 @@ export default function TaskUpdateScreen(props) {
         reValidateMode: 'all',
     });
     const { register, handleSubmit, getValues, control, watch, setValue, formState: { errors } } = methods;
+
+    const arrParameterString = ['title', 'description', 'task_start_date', 'task_end_date', 'estimate_time', 'actual_time'];
+    const arrParameterNumber = ['status', 'category', 'priorty'];
+    const arrParameterObject = ['project', 'assign'];
 
     const [modalSuccess, setModalSuccess] = useState(false);
     const toggleModalSuccess = () => {
@@ -164,7 +169,7 @@ export default function TaskUpdateScreen(props) {
         );
     }
 
-    const _createComment = () => {
+    const _createComment = (isHistory, parameterList) => {
         const data = {
             comment: getValues('comment'),
             task: taskId,
@@ -176,8 +181,12 @@ export default function TaskUpdateScreen(props) {
         commentApi.create(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setMessage(response.data.message || 'Đăng kí bình luận thành công !');
-                    toggleModalSuccess();
+                    if (isHistory) {
+                        _createHistory(parameterList);
+                    } else {
+                        setMessage(response.data.message || 'Đăng kí bình luận thành công !');
+                        toggleModalSuccess();
+                    }
                 }
                 else {
                     setMessage(response.data.message || 'Đăng kí bình luận thất bại. Vui lòng thử lại !');
@@ -195,7 +204,65 @@ export default function TaskUpdateScreen(props) {
         );
     }
 
+    const _createHistory = (parameterList) => {
+        historyApi.create(parameterList).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Cập nhật thông tin công việc thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Cập nhật thông tin công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Cập nhật thông tin công việc thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
     const _onSubmit = () => {
+        let isHistory = false;
+        let parameterList = {
+            task: taskId,
+        }
+        arrParameterString.forEach((item) => {
+            if (getValues(item) !== taskInfo[item]) {
+                isHistory = true;
+                const oldItem = 'old_' + item;
+                parameterList[item] = true;
+                parameterList[oldItem] = taskInfo[item];
+            }
+        });
+
+        arrParameterNumber.forEach((item) => {
+            if (getValues(item) && (taskInfo[item] || taskInfo[item] === 0)) {
+                if (+getValues(item) !== +taskInfo[item]) {
+                    isHistory = true;
+                    const oldItem = 'old_' + item;
+                    parameterList[item] = true;
+                    parameterList[oldItem] = taskInfo[item];
+                }
+            }
+        });
+
+        arrParameterObject.forEach((item) => {
+            if (getValues(item) && (taskInfo[item])) {
+                if (getValues(item) !== taskInfo[item]._id) {
+                    isHistory = true;
+                    const oldItem = 'old_' + item;
+                    parameterList[item] = true;
+                    parameterList[oldItem] = taskInfo[item]._id;
+                }
+            }
+        });
+
         const data = {
             project: getValues('project'),
             task_start_date: getValues('task_start_date'),
@@ -212,7 +279,7 @@ export default function TaskUpdateScreen(props) {
 
         }
 
-        if(getValues('parent_task')){
+        if (getValues('parent_task')) {
             data['parent_task'] = getValues('parent_task');
         }
 
@@ -220,12 +287,14 @@ export default function TaskUpdateScreen(props) {
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
                     if (getValues('comment')) {
-                        _createComment();
+                        _createComment(isHistory, parameterList);
                     } else {
-                        setMessage(response.data.message || 'Cập nhật công việc thành công !');
-                        toggleModalSuccess();
-
-
+                        if (isHistory) {
+                            _createHistory(parameterList);
+                        } else {
+                            setMessage(response.data.message || 'Cập nhật công việc thành công !');
+                            toggleModalSuccess();
+                        }
                     }
                 }
                 else {
