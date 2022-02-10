@@ -51,6 +51,7 @@ export default function TaskCreateScreen() {
     const [taskStatusList, setTaskStatusList] = useState([]);
     const [taskMemberList, setTaskMemberList] = useState([]);
     const [taskParentList, setTaskParentList] = useState([]);
+    const [files, setFiles] = useState(null);
 
     /**
      * trim string
@@ -59,6 +60,14 @@ export default function TaskCreateScreen() {
      */
     const _onBlur = (name, value) => {
         setValue(name, value.trim(), { shouldValidate: true });
+    }
+
+    /**
+     * on change file
+     * @param {*} e 
+     */
+    const _onChangeFile = (e) => {
+        setFiles(e.target.files);
     }
 
     /**
@@ -139,24 +148,29 @@ export default function TaskCreateScreen() {
     }
 
     const _onSubmit = () => {
-        const data = {
-            project: getValues('project') ? getValues('project') : projectList[0]._id,
-            task_start_date: getValues('task_start_date'),
-            task_end_date: getValues('task_end_date'),
-            category: getValues('category') ? getValues('category') : taskCategoryList[0],
-            status: getValues('status') ? getValues('status') : taskStatusList[0],
-            title: getValues('title'),
-            description: getValues('description'),
-            priority: getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW,
-            estimate_time: getValues('estimate_time'),
-            actual_time: getValues('actual_time'),
-            assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id,
-            user_create: userData._id
+        const data = new FormData();
+        if (files) {
+            for (const key of Object.keys(files)) {
+                data.append('files', files[key])
+            }
+        }
 
+        if (getValues('parent_task')) {
+            data.append('parent_task', getValues('parent_task'));
         }
-        if(getValues('parent_task')){
-            data['parent_task'] = getValues('parent_task');
-        }
+
+        data.append('project', getValues('project') ? getValues('project') : projectList[0]._id);
+        data.append('task_start_date', getValues('task_start_date'));
+        data.append('task_end_date', getValues('task_end_date'));
+        data.append('category', getValues('category') ? getValues('category') : taskCategoryList[0]);
+        data.append('status', getValues('status') ? getValues('status') : taskStatusList[0]);
+        data.append('title', getValues('title'));
+        data.append('description', getValues('description'));
+        data.append('priority', getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW);
+        data.append('estimate_time', getValues('estimate_time'));
+        data.append('actual_time', getValues('actual_time'));
+        data.append('assign', getValues('assign') ? getValues('assign') : taskMemberList[0]._id);
+        data.append('user_create', userData._id);
 
         taskApi.create(data).then(
             (response) => {
@@ -458,7 +472,8 @@ export default function TaskCreateScreen() {
                                                             <input
                                                                 type="file"
                                                                 className="form-control"
-                                                                id="first-name-icon"
+                                                                multiple
+                                                                onChange={_onChangeFile}
                                                             />
                                                         </div>
                                                     </div>

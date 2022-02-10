@@ -15,7 +15,7 @@ import { FormFeedback } from 'reactstrap';
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
 import LinkName from '../../../constants/linkName';
 import Common from '../../../constants/common';
-import { formatDate, replaceString, formatDateTime } from '../../../utils/helpers';
+import { formatDate, replaceString, formatDateTime, getFileIcon, getFileName } from '../../../utils/helpers';
 import TypeCode from './../../../constants/typeCode';
 import Message from './../../../constants/message';
 import Validation from '../../../constants/validation';
@@ -24,6 +24,13 @@ import Validation from '../../../constants/validation';
 import taskApi from './../../../api/taskApi';
 import commentApi from '../../../api/commentApi';
 import historyApi from '../../../api/historyApi';
+
+//icon
+import word from "../../../assets/icon/word.png";
+import excel from "../../../assets/icon/excel.png";
+import powerpoint from "../../../assets/icon/powerpoint.png";
+import image from "../../../assets/icon/image.png";
+import pdf from "../../../assets/icon/pdf.png";
 
 
 export default function TaskDetailScreen(props) {
@@ -112,6 +119,17 @@ export default function TaskDetailScreen(props) {
      */
     const _onBlur = (name, value) => {
         setValue(name, value.trim(), { shouldValidate: true });
+    }
+
+    /**
+     * show file in open tab
+     * @param {*} filePath 
+     */
+    const _onShowFile = (filePath) => {
+        const image = new Image();
+        image.src = Common.ENV + filePath;
+        const w = window.open('about:blank');
+        w.document.write('<body style="background-color: #000; display: flex; justify-content: center; align-items: center;">' + image.outerHTML +'</body>');
     }
 
     const _onDetail = (id) => {
@@ -313,6 +331,36 @@ export default function TaskDetailScreen(props) {
                                     </div>
                                     <div className="pre-line">
                                         {taskInfo.description}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className="section">
+                <div className="row" id="table-striped">
+                    <div className="col-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <h4 className="card-title">TÀI LIỆU</h4>
+                            </div>
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="card-content px-3 pb-3">
+                                        <ul className='list-group list-group-flush'>
+                                            {
+                                                taskInfo?.files?.length > 0 && taskInfo?.files.map((item, idx) => (
+                                                    <li onClick={()=>_onShowFile(item)} className='list-group-item d-flex align-items-center cursor-pointer' key={idx}>
+                                                        <img style={{ width: '30px', height: '30px' }} src={getFileIcon(item, pdf, image, word, excel, powerpoint)} alt="" />
+                                                        <span className='px-3'><strong>{getFileName(item)}</strong></span>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                        {
+                                            taskInfo?.files?.length <= 0 && <h6>Không có tài liệu !</h6>
+                                        }
                                     </div>
                                 </div>
                             </div>

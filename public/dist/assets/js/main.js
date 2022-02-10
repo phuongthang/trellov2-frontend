@@ -46,12 +46,12 @@ window.onload = (event) => {
 
 
     // Perfect Scrollbar Init
-    // if (typeof PerfectScrollbar == 'function') {
-    //     const container = document.querySelector(".sidebar-wrapper");
-    //     const ps = new PerfectScrollbar(container, {
-    //         wheelPropagation: false
-    //     });
-    // }
+    if (typeof PerfectScrollbar == 'function') {
+        const container = document.querySelector(".sidebar-wrapper");
+        const ps = new PerfectScrollbar(container, {
+            wheelPropagation: false
+        });
+    }
 
     // Scroll into active sidebar
     if(document.querySelector('.sidebar-item.active')){

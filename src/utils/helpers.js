@@ -36,7 +36,7 @@ export function formatDate(dateString) {
  * @param {*} dateString 
  * @returns 
  */
- export function formatDateTime(dateString) {
+export function formatDateTime(dateString) {
     let dateFormat = '';
     if (dateString) {
         dateFormat = moment(dateString).format("DD/MM/YYYY HH:mm:ss");
@@ -92,4 +92,33 @@ export function getUserIdFromListUserSelected(userSelectedList) {
  */
 export function onLoadUserMember(usersMemberList, userIdSelectedList) {
     return usersMemberList.filter(item => !userIdSelectedList.includes(item._id));
+}
+
+/**
+ * filter user member
+ */
+export function getFileIcon(filename, pdf, image, word, excel, powerpoint) {
+    const fileSplit = filename.split('.');
+    let fileType = (fileSplit[fileSplit.length - 1]).toLowerCase();
+    let fileIcon = image;
+    if (fileType === "pdf") {
+        fileIcon = pdf;
+    }
+    if (fileType === "docx") {
+        fileIcon = word;
+    }
+    if (fileType === "xlsx" || fileType === "csv") {
+        fileIcon = excel;
+    }
+    if (fileType === "pptx") {
+        fileIcon = powerpoint;
+    }
+    return fileIcon;
+}
+
+export function getFileName(filename) {
+    const fileSplit = filename.split('___');
+    let fileName = fileSplit[fileSplit.length - 1];
+
+    return fileName;
 }
