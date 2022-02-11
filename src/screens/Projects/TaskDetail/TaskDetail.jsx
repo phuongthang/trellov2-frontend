@@ -56,6 +56,7 @@ export default function TaskDetailScreen(props) {
     const [taskInfo, setTaskInfo] = useState({});
     const [commentList, setCommentList] = useState([]);
     const [historyList, setHistoryList] = useState([]);
+    const [files, setFiles] = useState(null);
 
     const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
     const toggleModalTaskUpdate = () => {
@@ -73,6 +74,14 @@ export default function TaskDetailScreen(props) {
     const [message, setMessage] = useState('');
     const [keyWord, setKeyWord] = useState();
     const [commentId, setCommentId] = useState();
+
+    /**
+     * on change file
+     * @param {*} e 
+     */
+    const _onChangeFile = (e) => {
+        setFiles(e.target.files);
+    }
 
     /**
      * 
@@ -129,7 +138,7 @@ export default function TaskDetailScreen(props) {
         const image = new Image();
         image.src = Common.ENV + filePath;
         const w = window.open('about:blank');
-        w.document.write('<body style="background-color: #000; display: flex; justify-content: center; align-items: center;">' + image.outerHTML +'</body>');
+        w.document.write('<body style="background-color: #000; display: flex; justify-content: center; align-items: center;">' + image.outerHTML + '</body>');
     }
 
     const _onDetail = (id) => {
@@ -199,13 +208,24 @@ export default function TaskDetailScreen(props) {
     }
 
     const _onSubmit = () => {
-        const data = {
-            comment: getValues('comment'),
-            task: taskId,
-            user_create: userData._id,
-            user_edit: userData._id
+        // const data = {
+        //     comment: getValues('comment'),
+        //     task: taskId,
+        //     user_create: userData._id,
+        //     user_edit: userData._id
 
+        // }
+
+        const data = new FormData();
+        if (files) {
+            for (const key of Object.keys(files)) {
+                data.append('files', files[key])
+            }
         }
+        data.append('comment', getValues('comment'));
+        data.append('task', taskId);
+        data.append('user_create', userData._id);
+        data.append('user_edit', userData._id);
 
         commentApi.create(data).then(
             (response) => {
@@ -351,7 +371,7 @@ export default function TaskDetailScreen(props) {
                                         <ul className='list-group list-group-flush'>
                                             {
                                                 taskInfo?.files?.length > 0 && taskInfo?.files.map((item, idx) => (
-                                                    <li onClick={()=>_onShowFile(item)} className='list-group-item d-flex align-items-center cursor-pointer' key={idx}>
+                                                    <li onClick={() => _onShowFile(item)} className='list-group-item d-flex align-items-center cursor-pointer' key={idx}>
                                                         <img style={{ width: '30px', height: '30px' }} src={getFileIcon(item, pdf, image, word, excel, powerpoint)} alt="" />
                                                         <span className='px-3'><strong>{getFileName(item)}</strong></span>
                                                     </li>
@@ -457,6 +477,16 @@ export default function TaskDetailScreen(props) {
                                                                 <div className="chat-message pre-line">
                                                                     {item.comment}
                                                                 </div>
+                                                                <ul className='list-group list-group-flush'>
+                                                                    {
+                                                                        item?.files?.length > 0 && item?.files.map((item, idx) => (
+                                                                            <li onClick={() => _onShowFile(item)} className='list-group-item d-flex align-items-center cursor-pointer' key={idx}>
+                                                                                <img style={{ width: '30px', height: '30px' }} src={getFileIcon(item, pdf, image, word, excel, powerpoint)} alt="" />
+                                                                                <span className='px-3'><strong>{getFileName(item)}</strong></span>
+                                                                            </li>
+                                                                        ))
+                                                                    }
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -528,7 +558,8 @@ export default function TaskDetailScreen(props) {
                                                         <input
                                                             type="file"
                                                             className="form-control"
-                                                            id="first-name-icon"
+                                                            multiple
+                                                            onChange={_onChangeFile}
                                                         />
                                                     </div>
                                                 </div>
