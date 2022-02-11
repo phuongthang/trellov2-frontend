@@ -67,6 +67,9 @@ export default function TaskUpdateScreen(props) {
     const [taskMemberList, setTaskMemberList] = useState([]);
     const [taskParentList, setTaskParentList] = useState([]);
 
+    const [fileComments, setFileComments] = useState(null);
+    const [fileTasks, setFileTasks] = useState(null);
+
     const setValueFormInput = (data) => {
         setValue('project', data?.project?._id ? data?.project?._id : '');
         setValue('category', (data.category || data.category === TypeCode.PROJECT.CATEGORY.OTHER) ? '' + data.category : TypeCode.PROJECT.CATEGORY.FEATURE);
@@ -80,6 +83,22 @@ export default function TaskUpdateScreen(props) {
         setValue('task_end_date', data.task_end_date ? data.task_end_date : '');
         setValue('estimate_time', data.estimate_time ? data.estimate_time : '');
         setValue('actual_time', data.actual_time ? data.actual_time : '');
+    }
+
+    /**
+     * on change file
+     * @param {*} e 
+     */
+    const _onChangeFileComments = (e) => {
+        setFileComments(e.target.files);
+    }
+
+    /**
+     * on change file
+     * @param {*} e 
+     */
+    const _onChangeFileTasks = (e) => {
+        setFileTasks(e.target.files);
     }
 
 
@@ -130,7 +149,7 @@ export default function TaskUpdateScreen(props) {
                     let memberList = response.data.project.members;
                     memberList.push(response.data.project.project_manager);
                     setTaskMemberList(memberList);
-                    if(isFirstTimeLoad){
+                    if (isFirstTimeLoad) {
                         setValueFormInput(taskInfo);
                         setFirstTimeLoad(false);
                     }
@@ -174,13 +193,17 @@ export default function TaskUpdateScreen(props) {
     }
 
     const _createComment = (isHistory, parameterList) => {
-        const data = {
-            comment: getValues('comment'),
-            task: taskId,
-            user_create: userData._id,
-            user_edit: userData._id
-
+        const data = new FormData();
+        if (fileComments) {
+            for (const key of Object.keys(fileComments)) {
+                data.append('files', fileComments[key]);
+            }
         }
+        data.append('comment', getValues('comment'));
+        data.append('task', taskId);
+        data.append('user_create', userData._id);
+        data.append('user_edit', userData._id);
+
 
         commentApi.create(data).then(
             (response) => {
@@ -256,7 +279,7 @@ export default function TaskUpdateScreen(props) {
                     const newItem = 'new_' + item;
                     parameterList[item] = true;
                     parameterList[oldItem] = taskInfo[item];
-                    parameterList[newItem] = parseInt(getValues(item),10);
+                    parameterList[newItem] = parseInt(getValues(item), 10);
                 }
             }
         });
@@ -274,25 +297,29 @@ export default function TaskUpdateScreen(props) {
             }
         });
 
-        const data = {
-            project: getValues('project'),
-            task_start_date: getValues('task_start_date'),
-            task_end_date: getValues('task_end_date'),
-            category: getValues('category') ? getValues('category') : taskCategoryList[0],
-            status: getValues('status') ? getValues('status') : taskStatusList[0],
-            title: getValues('title'),
-            description: getValues('description'),
-            priority: getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW,
-            estimate_time: getValues('estimate_time'),
-            actual_time: getValues('actual_time'),
-            assign: getValues('assign') ? getValues('assign') : taskMemberList[0]._id,
-            _id: taskId,
-
+        const data = new FormData();
+        if (fileTasks) {
+            for (const key of Object.keys(fileTasks)) {
+                data.append('files', fileTasks[key])
+            }
         }
 
         if (getValues('parent_task')) {
-            data['parent_task'] = getValues('parent_task');
+            data.append('parent_task', getValues('parent_task'));
         }
+
+        data.append('project', getValues('project') ? getValues('project') : projectList[0]._id);
+        data.append('task_start_date', getValues('task_start_date'));
+        data.append('task_end_date', getValues('task_end_date'));
+        data.append('category', getValues('category') ? getValues('category') : taskCategoryList[0]);
+        data.append('status', getValues('status') ? getValues('status') : taskStatusList[0]);
+        data.append('title', getValues('title'));
+        data.append('description', getValues('description'));
+        data.append('priority', getValues('priority') ? getValues('priority') : TypeCode.TASK.PRIORITY.LOW);
+        data.append('estimate_time', getValues('estimate_time'));
+        data.append('actual_time', getValues('actual_time'));
+        data.append('assign', getValues('assign') ? getValues('assign') : taskMemberList[0]._id);
+        data.append('_id', taskId);
 
         taskApi.update(data).then(
             (response) => {
@@ -629,7 +656,7 @@ export default function TaskUpdateScreen(props) {
                                                                 <input
                                                                     type="file"
                                                                     className="form-control"
-                                                                    id="first-name-icon"
+                                                                    onChange={_onChangeFileTasks}
                                                                 />
                                                             </div>
                                                         </div>
@@ -694,6 +721,7 @@ export default function TaskUpdateScreen(props) {
                                                             <input
                                                                 type="file"
                                                                 className="form-control"
+                                                                onChange={_onChangeFileComments}
                                                             />
                                                         </div>
                                                     </div>

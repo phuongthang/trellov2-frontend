@@ -208,14 +208,6 @@ export default function TaskDetailScreen(props) {
     }
 
     const _onSubmit = () => {
-        // const data = {
-        //     comment: getValues('comment'),
-        //     task: taskId,
-        //     user_create: userData._id,
-        //     user_edit: userData._id
-
-        // }
-
         const data = new FormData();
         if (files) {
             for (const key of Object.keys(files)) {
