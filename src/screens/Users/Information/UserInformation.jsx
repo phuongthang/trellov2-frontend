@@ -27,6 +27,8 @@ import LinkName from "../../../constants/linkName";
 import Common from "../../../constants/common";
 import TypeCode from "../../../constants/typeCode";
 
+import imgDefault from "../../../assets/icon/default.png";
+
 //api
 import userApi from './../../../api/userApi';
 
@@ -291,7 +293,7 @@ export default function UserInformationScreen(props) {
                                                         <div className="position-relative">
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div className="avatar avatar-xxl me-3">
-                                                                    <img src={avatarSrc ? avatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
+                                                                    <img src={avatarSrc ? avatarSrc : imgDefault} alt="" srcSet="" />
                                                                     <span className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setAvatarSrc, setAvatar, setUploadAvatar)}><MdModeEditOutline /></span>
                                                                 </div>
                                                             </div>
@@ -304,7 +306,7 @@ export default function UserInformationScreen(props) {
                                                         <div className="position-relative">
                                                             <div className="d-flex justify-content-center mt-3">
                                                                 <div className="avatar avatar-xxl me-3">
-                                                                    <img src={subAvatarSrc ? subAvatarSrc : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2021/07/avatar-doi-ban-than-2021-22.jpg?fit=610%2C20000&quality=95&ssl=1"} alt="" srcSet="" />
+                                                                    <img src={subAvatarSrc ? subAvatarSrc : imgDefault} alt="" srcSet="" />
                                                                     <span disabled={isDisabled} className="avatar-xxl-status bg-warning cursor-pointer" onClick={() => _onClick(setSubAvatarSrc, setSubAvatar, setUploadSubAvatar)}><MdModeEditOutline /></span>
                                                                 </div>
                                                             </div>

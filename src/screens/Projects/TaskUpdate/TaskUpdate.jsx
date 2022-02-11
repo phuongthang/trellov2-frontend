@@ -261,7 +261,7 @@ export default function TaskUpdateScreen(props) {
             user_create: userData._id,
         }
         arrParameterString.forEach((item) => {
-            if (getValues(item) !== taskInfo[item]) {
+            if (getValues(item) && getValues(item) !== taskInfo[item]) {
                 isHistory = true;
                 const oldItem = 'old_' + item;
                 const newItem = 'new_' + item;
