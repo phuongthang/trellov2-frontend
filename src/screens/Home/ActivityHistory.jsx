@@ -1,11 +1,18 @@
+//constant
 import Common from "../../constants/common";
 import TypeCode from "../../constants/typeCode";
 import { formatDate } from "../../utils/helpers";
 import { formatDateTime } from './../../utils/helpers';
 
+//packet
+import ReactPaginate from 'react-paginate';
+
+//icon
+import { ImBackward2, ImForward3 } from "react-icons/im";
+
 export default function ActivityHistoryComponent(props) {
 
-    const { historyList } = props;
+    const { historyList, onPageChange, pageCount } = props;
     /**
      * render template
      */
@@ -74,6 +81,18 @@ export default function ActivityHistoryComponent(props) {
                                 historyList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
                             }
                         </div>
+                        {pageCount > 1 && <div className="d-flex justify-content-center">
+                            <ReactPaginate
+                                previousLabel={<ImBackward2 />}
+                                nextLabel={<ImForward3 />}
+                                breakLabel={"..."}
+                                breakClassName={"break-me"}
+                                pageCount={pageCount}
+                                onPageChange={onPageChange}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"} />
+                        </div>}
                     </div>
                 </div>
             </div>

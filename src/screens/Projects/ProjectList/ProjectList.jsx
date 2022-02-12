@@ -5,11 +5,13 @@ import ProjectUpdateScreen from './../ProjectUpdate/ProjectUpdate';
 import ModalConfirmDeleteProjectComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
+import ReactPaginate from 'react-paginate';
 
 //icon
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { BsPinAngleFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import { ImBackward2, ImForward3 } from "react-icons/im";
 
 //api
 import projectApi from '../../../api/projectApi';
@@ -54,6 +56,7 @@ export default function ProjectListScreen() {
         setModalConfirmDeleteProject(!modalConfirmDeleteProject);
     }
     const [projectList, setProjectList] = useState([]);
+    const [projectOriginList, setProjectOriginList] = useState([]);
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
         setModalError(!modalError);
@@ -67,6 +70,10 @@ export default function ProjectListScreen() {
         setModalSuccess(!modalSuccess);
     }
     const watchProjectStatus = watch('project_status');
+
+    const [pageLimit] = useState(5);
+    const [pageCount, setPageCount] = useState(0);
+    const [pageCurrent, setPageCurrent] = useState(1);
 
     /**
      * 
@@ -105,7 +112,9 @@ export default function ProjectListScreen() {
         projectApi.list().then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setProjectList(response.data.projects);
+                    setProjectOriginList(response.data.projects);
+                    setProjectList(response.data.projects.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.projects.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
@@ -127,7 +136,9 @@ export default function ProjectListScreen() {
         projectApi.search(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setProjectList(response.data.projects);
+                    setProjectOriginList(response.data.projects);
+                    setProjectList(response.data.projects.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.projects.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách dự án thất bại. Vui lòng thử lại !');
@@ -149,15 +160,28 @@ export default function ProjectListScreen() {
         navigate(url, { state: states });
     }
 
+    /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageChange = (e) => {
+        const selectedPage = e.selected;
+        setPageCurrent(selectedPage + 1);
+    }
+
     useEffect(() => {
-        if(watchProjectStatus){
-            if(+watchProjectStatus === TypeCode.FILLTER.ALL){
+        setProjectList(projectOriginList.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+    }, [pageCurrent]);
+
+    useEffect(() => {
+        if (watchProjectStatus) {
+            if (+watchProjectStatus === TypeCode.FILLTER.ALL) {
                 _getProjectList();
-            }else{
-                _onSearch({project_status: parseInt(getValues('project_status'), 10)});
+            } else {
+                _onSearch({ project_status: parseInt(getValues('project_status'), 10) });
             }
         }
-        
+
         // eslint-disable-next-line
     }, [watchProjectStatus]);
 
@@ -217,8 +241,8 @@ export default function ProjectListScreen() {
                                                 projectList.length > 0 && projectList.map((item, idx) => (
                                                     <tr key={idx}>
                                                         <td className="text-bold-500">{idx + 1}</td>
-                                                        <td style={{width:'300px'}} className="cursor-pointer" onClick={()=> _onNavigate(LinkName.PROJECT_DETAIL, {projectId: item._id})}>{item.project_name}</td>
-                                                        <td className="text-bold-500 cursor-pointer" style={{textAlign: 'center'}} onClick={()=>_onNavigate(LinkName.USER_UPDATE, {userId: item?.project_manager?._id})}>
+                                                        <td style={{ width: '300px' }} className="cursor-pointer" onClick={() => _onNavigate(LinkName.PROJECT_DETAIL, { projectId: item._id })}>{item.project_name}</td>
+                                                        <td className="text-bold-500 cursor-pointer" style={{ textAlign: 'center' }} onClick={() => _onNavigate(LinkName.USER_UPDATE, { userId: item?.project_manager?._id })}>
                                                             <div className="avatar me-3">
                                                                 <img src={Common.ENV + item.project_manager.avatar} alt="" srcSet="" />
                                                             </div>
@@ -248,7 +272,7 @@ export default function ProjectListScreen() {
                                                         </td>
                                                         <td>
                                                             <div className="d-flex justify-content-center">
-                                                                <span className='px-1 cursor-pointer'><MdEdit onClick={()=>toggleModalProjectUpdate(item._id)} /></span>
+                                                                <span className='px-1 cursor-pointer'><MdEdit onClick={() => toggleModalProjectUpdate(item._id)} /></span>
                                                                 <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={() => toggleModalConfirmDeleteProject(item._id, item.project_name)} /></span>
                                                                 <span className='px-1 cursor-pointer'><BsPinAngleFill /></span>
                                                             </div>
@@ -268,6 +292,18 @@ export default function ProjectListScreen() {
                                     }
                                 </div>
                             </div>
+                            {pageCount > 1 && <div className="d-flex justify-content-center">
+                                <ReactPaginate
+                                    previousLabel={<ImBackward2 />}
+                                    nextLabel={<ImForward3 />}
+                                    breakLabel={"..."}
+                                    breakClassName={"break-me"}
+                                    pageCount={pageCount}
+                                    onPageChange={_onPageChange}
+                                    containerClassName={"pagination"}
+                                    subContainerClassName={"pages pagination"}
+                                    activeClassName={"active"} />
+                            </div>}
                         </div>
                     </div>
                 </div>

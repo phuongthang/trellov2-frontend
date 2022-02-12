@@ -1,14 +1,20 @@
+import { useState, useEffect } from 'react';
 //Components
 import ActivityHistoryComponent from "./ActivityHistory";
 import AnalystComponent from "./Analyst";
 import InformationComponent from "./Information";
-import { useState, useEffect } from 'react';
+import ModalErrorComponent from "../../components/Modal/ModalError/ModalError";
+
+//constant
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from "../../utils/utils";
 import LinkName from "../../constants/linkName";
-import { useNavigate } from "react-router-dom";
-import taskApi from "../../api/taskApi";
 import Common from "../../constants/common";
-import ModalErrorComponent from "../../components/Modal/ModalError/ModalError";
+
+//packet
+import { useNavigate } from "react-router-dom";
+
+//api
+import taskApi from "../../api/taskApi";
 import historyApi from './../../api/historyApi';
 
 export default function HomeScreen() {
@@ -22,6 +28,11 @@ export default function HomeScreen() {
     const [userData, setUserData] = useState({});
     const [taskList, setTaskList] = useState([]);
     const [historyList, setHistoryList] = useState([]);
+    const [historyOriginList, setHistoryOriginList] = useState([]);
+
+    const [pageLimit] = useState(5);
+    const [pageCount, setPageCount] = useState(0);
+    const [pageCurrent, setPageCurrent] = useState(1);
 
     const [modalError, setModalError] = useState(false);
     const toggleModalError = () => {
@@ -60,7 +71,9 @@ export default function HomeScreen() {
         historyApi.search(id).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setHistoryList(response.data.histories);
+                    setHistoryOriginList(response.data.histories);
+                    setHistoryList(response.data.histories.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.histories.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
@@ -77,6 +90,19 @@ export default function HomeScreen() {
             }
         );
     }
+
+    /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageChange = (e) => {
+        const selectedPage = e.selected;
+        setPageCurrent(selectedPage + 1);
+    }
+
+    useEffect(() => {
+        setHistoryList(historyOriginList.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+    }, [pageCurrent]);
 
     /**
      * get infor user from token
@@ -112,12 +138,15 @@ export default function HomeScreen() {
                         <InformationComponent userData={userData} />
                     </div>
                     <div className="col-lg-7">
-                        <AnalystComponent taskList = {taskList} />
+                        <AnalystComponent taskList={taskList} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <ActivityHistoryComponent historyList={historyList} />
+                        <ActivityHistoryComponent 
+                        historyList={historyList} 
+                        onPageChange = {_onPageChange}
+                        pageCount = {pageCount} />
                     </div>
                 </div>
             </section>
