@@ -10,6 +10,7 @@ import ModalConfirmDeleteCommentComponent from '../../../components/Modal/ModalC
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FormFeedback } from 'reactstrap';
+import ReactPaginate from 'react-paginate';
 
 //constant
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
@@ -31,6 +32,7 @@ import excel from "../../../assets/icon/excel.png";
 import powerpoint from "../../../assets/icon/powerpoint.png";
 import image from "../../../assets/icon/image.png";
 import pdf from "../../../assets/icon/pdf.png";
+import { ImBackward2, ImForward3 } from "react-icons/im";
 
 
 export default function TaskDetailScreen(props) {
@@ -55,7 +57,9 @@ export default function TaskDetailScreen(props) {
     const [userData, setUserData] = useState({});
     const [taskInfo, setTaskInfo] = useState({});
     const [commentList, setCommentList] = useState([]);
+    const [commentOriginList, setCommentOriginList] = useState([]);
     const [historyList, setHistoryList] = useState([]);
+    const [historyOriginList, setHistoryOriginList] = useState([]);
     const [files, setFiles] = useState(null);
 
     const [modalTaskUpdate, setModalTaskUpdate] = useState(false);
@@ -75,12 +79,36 @@ export default function TaskDetailScreen(props) {
     const [keyWord, setKeyWord] = useState();
     const [commentId, setCommentId] = useState();
 
+    const [pageLimit] = useState(5);
+    const [pageCommentCount, setPageCommentCount] = useState(0);
+    const [pageCommentCurrent, setPageCommentCurrent] = useState(1);
+    const [pageHistoryCount, setPageHistoryCount] = useState(0);
+    const [pageHistoryCurrent, setPageHistoryCurrent] = useState(1);
+
     /**
      * on change file
      * @param {*} e 
      */
     const _onChangeFile = (e) => {
         setFiles(e.target.files);
+    }
+
+    /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageCommentChange = (e) => {
+        const selectedPage = e.selected;
+        setPageCommentCount(selectedPage + 1);
+    }
+
+    /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageHistoryChange = (e) => {
+        const selectedPage = e.selected;
+        setPageHistoryCurrent(selectedPage + 1);
     }
 
     /**
@@ -167,7 +195,9 @@ export default function TaskDetailScreen(props) {
         commentApi.list(id).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setCommentList(response.data.comments);
+                    setCommentOriginList(response.data.comments);
+                    setCommentList(response.data.comments.slice(pageCommentCurrent - 1, pageCommentCurrent - 1 + pageLimit));
+                    setPageCommentCount(Math.ceil(response.data.comments.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách bình luận thất bại. Vui lòng thử lại !');
@@ -189,7 +219,9 @@ export default function TaskDetailScreen(props) {
         historyApi.list(id).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setHistoryList(response.data.histories);
+                    setHistoryOriginList(response.data.histories);
+                    setHistoryList(response.data.histories.slice(pageHistoryCurrent - 1, pageHistoryCurrent - 1 + pageLimit));
+                    setPageHistoryCount(Math.ceil(response.data.histories.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
@@ -240,6 +272,14 @@ export default function TaskDetailScreen(props) {
             }
         );
     }
+
+    useEffect(() => {
+        setCommentList(commentOriginList.slice(pageCommentCurrent - 1, pageCommentCurrent - 1 + pageLimit));
+    }, [pageCommentCurrent]);
+
+    useEffect(() => {
+        setHistoryList(historyOriginList.slice(pageHistoryCurrent - 1, pageHistoryCurrent - 1 + pageLimit));
+    }, [pageHistoryCurrent]);
 
     useEffect(() => {
         if (token) {
@@ -441,6 +481,18 @@ export default function TaskDetailScreen(props) {
                                             historyList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
                                         }
                                     </div>
+                                    {pageHistoryCount > 1 && <div className="d-flex justify-content-center">
+                                        <ReactPaginate
+                                            previousLabel={<ImBackward2 />}
+                                            nextLabel={<ImForward3 />}
+                                            breakLabel={"..."}
+                                            breakClassName={"break-me"}
+                                            pageCount={pageHistoryCount}
+                                            onPageChange={_onPageHistoryChange}
+                                            containerClassName={"pagination"}
+                                            subContainerClassName={"pages pagination"}
+                                            activeClassName={"active"} />
+                                    </div>}
                                 </div>
                                 <div className="col-6">
                                     <div className="card-content px-3 pb-3">
@@ -489,6 +541,18 @@ export default function TaskDetailScreen(props) {
                                             commentList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
                                         }
                                     </div>
+                                    {pageCommentCount > 1 && <div className="d-flex justify-content-center">
+                                        <ReactPaginate
+                                            previousLabel={<ImBackward2 />}
+                                            nextLabel={<ImForward3 />}
+                                            breakLabel={"..."}
+                                            breakClassName={"break-me"}
+                                            pageCount={pageCommentCount}
+                                            onPageChange={_onPageCommentChange}
+                                            containerClassName={"pagination"}
+                                            subContainerClassName={"pages pagination"}
+                                            activeClassName={"active"} />
+                                    </div>}
                                 </div>
                             </div>
                         </div>

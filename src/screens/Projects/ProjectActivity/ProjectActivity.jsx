@@ -12,9 +12,13 @@ import TypeCode from "../../../constants/typeCode";
 
 //packet
 import { useNavigate } from "react-router-dom";
+import ReactPaginate from 'react-paginate';
 
 //component
 import ModalErrorComponent from "../../../components/Modal/ModalError/ModalError";
+
+//icon
+import { ImBackward2, ImForward3 } from "react-icons/im";
 
 export default function ProjectActivityScreen() {
 
@@ -24,6 +28,7 @@ export default function ProjectActivityScreen() {
      * define state
      */
     const [historyList, setHistoryList] = useState([]);
+    const [historyOriginList, setHistoryOriginList] = useState([]);
 
 
     const [modalError, setModalError] = useState(false);
@@ -31,12 +36,17 @@ export default function ProjectActivityScreen() {
         setModalError(!modalError);
     }
     const [message, setMessage] = useState('');
+    const [pageLimit] = useState(5);
+    const [pageCount, setPageCount] = useState(0);
+    const [pageCurrent, setPageCurrent] = useState(1);
 
     const _getHistoryList = () => {
         historyApi.all().then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setHistoryList(response.data.histories);
+                    setHistoryOriginList(response.data.histories);
+                    setHistoryList(response.data.histories.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.histories.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách lịch sử hoạt động thất bại. Vui lòng thử lại !');
@@ -53,6 +63,19 @@ export default function ProjectActivityScreen() {
             }
         );
     }
+
+    /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageChange = (e) => {
+        const selectedPage = e.selected;
+        setPageCurrent(selectedPage + 1);
+    }
+
+    useEffect(() => {
+        setHistoryList(historyOriginList.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+    }, [pageCurrent]);
 
     useEffect(() => {
         if (token) {
@@ -131,6 +154,18 @@ export default function ProjectActivityScreen() {
                                 historyList.length <= 0 && <h6>Không có lịch sử hoạt động nào gần đây !</h6>
                             }
                         </div>
+                        {pageCount > 1 && <div className="d-flex justify-content-center">
+                            <ReactPaginate
+                                previousLabel={<ImBackward2 />}
+                                nextLabel={<ImForward3 />}
+                                breakLabel={"..."}
+                                breakClassName={"break-me"}
+                                pageCount={pageCount}
+                                onPageChange={_onPageChange}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"} />
+                        </div>}
                     </div>
                 </div>
             </div>
