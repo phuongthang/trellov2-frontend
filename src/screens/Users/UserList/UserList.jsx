@@ -13,6 +13,7 @@ import { TiDelete } from "react-icons/ti";
 
 //packet
 import { useNavigate } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 
 //constant
 import LinkName from './../../../constants/linkName';
@@ -25,7 +26,6 @@ import userApi from './../../../api/userApi';
 //utils
 import { getTokenFromLocalStorage } from '../../../utils/utils';
 import { isEmpty } from 'underscore';
-import ReactPaginate from 'react-paginate';
 
 //icon
 import { ImBackward2, ImForward3 } from "react-icons/im";
@@ -60,7 +60,7 @@ export default function UserListScreen() {
     const [userId, setUserId] = useState();
     const [parameterQuery, setParameterQuery] = useState({});
 
-    const [pageLimit] = useState(1);
+    const [pageLimit] = useState(5);
     const [pageCount, setPageCount] = useState(0);
     const [pageCurrent, setPageCurrent] = useState(1);
 

@@ -13,6 +13,7 @@ import { TiDelete } from "react-icons/ti";
 //packet
 import { Link, useNavigate } from 'react-router-dom';
 import { isEmpty } from 'underscore';
+import ReactPaginate from 'react-paginate';
 
 //Constants
 import { getTokenFromLocalStorage } from '../../../utils/utils';
@@ -25,6 +26,9 @@ import { formatDate, formatDateTime, findFromId } from '../../../utils/helpers';
 import taskApi from './../../../api/taskApi';
 import projectApi from './../../../api/projectApi';
 import userApi from './../../../api/userApi';
+
+//icon
+import { ImBackward2, ImForward3 } from "react-icons/im";
 
 export default function TaskListScreen() {
 
@@ -45,6 +49,7 @@ export default function TaskListScreen() {
     }
 
     const [taskList, setTaskList] = useState([]);
+    const [taskOriginList, setTaskOriginList] = useState([]);
     const [projectList, setProjectList] = useState([]);
     const [userList, setUserList] = useState([]);
     const [parameterQuery, setParameterQuery] = useState({});
@@ -59,6 +64,10 @@ export default function TaskListScreen() {
         setModalSuccess(!modalSuccess);
     }
 
+    const [pageLimit] = useState(5);
+    const [pageCount, setPageCount] = useState(0);
+    const [pageCurrent, setPageCurrent] = useState(1);
+
 
     /**
      * 
@@ -69,7 +78,9 @@ export default function TaskListScreen() {
         taskApi.all().then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setTaskList(response.data.tasks);
+                    setTaskOriginList(response.data.tasks);
+                    setTaskList(response.data.tasks.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.tasks.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách công việc thất bại. Vui lòng thử lại !');
@@ -150,7 +161,9 @@ export default function TaskListScreen() {
         taskApi.search(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setTaskList(response.data.tasks);
+                    setTaskOriginList(response.data.tasks);
+                    setTaskList(response.data.tasks.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.tasks.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh sách công việc thất bại. Vui lòng thử lại !');
@@ -173,6 +186,15 @@ export default function TaskListScreen() {
     }
 
     /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageChange = (e) => {
+        const selectedPage = e.selected;
+        setPageCurrent(selectedPage + 1);
+    }
+
+    /**
      * click button delete search
      */
     const _onDeleteFillter = (name) => {
@@ -181,6 +203,10 @@ export default function TaskListScreen() {
         }
         _onSearch(parameterQuery);
     }
+
+    useEffect(() => {
+        setTaskList(taskOriginList.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+    }, [pageCurrent]);
 
     useEffect(() => {
         if (token) {
@@ -293,6 +319,18 @@ export default function TaskListScreen() {
                                     </table>
                                 </div>
                             </div>
+                            {pageCount > 1 && <div className="d-flex justify-content-center">
+                                <ReactPaginate
+                                    previousLabel={<ImBackward2 />}
+                                    nextLabel={<ImForward3 />}
+                                    breakLabel={"..."}
+                                    breakClassName={"break-me"}
+                                    pageCount={pageCount}
+                                    onPageChange={_onPageChange}
+                                    containerClassName={"pagination"}
+                                    subContainerClassName={"pages pagination"}
+                                    activeClassName={"active"} />
+                            </div>}
                         </div>
                     </div>
                 </div>
