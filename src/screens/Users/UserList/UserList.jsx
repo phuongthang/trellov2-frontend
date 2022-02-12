@@ -25,6 +25,10 @@ import userApi from './../../../api/userApi';
 //utils
 import { getTokenFromLocalStorage } from '../../../utils/utils';
 import { isEmpty } from 'underscore';
+import ReactPaginate from 'react-paginate';
+
+//icon
+import { ImBackward2, ImForward3 } from "react-icons/im";
 
 export default function UserListScreen() {
 
@@ -51,9 +55,14 @@ export default function UserListScreen() {
     const [message, setMessage] = useState('');
 
     const [userList, setUserList] = useState([]);
+    const [userOriginList, setUserOriginList] = useState([]);
     const [keyWord, setKeyWord] = useState();
     const [userId, setUserId] = useState();
     const [parameterQuery, setParameterQuery] = useState({});
+
+    const [pageLimit] = useState(1);
+    const [pageCount, setPageCount] = useState(0);
+    const [pageCurrent, setPageCurrent] = useState(1);
 
     /**
      * 
@@ -102,7 +111,9 @@ export default function UserListScreen() {
         userApi.list().then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setUserList(response.data.users);
+                    setUserOriginList(response.data.users);
+                    setUserList(response.data.users.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.users.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
@@ -127,6 +138,15 @@ export default function UserListScreen() {
     }
 
     /**
+     * on page change
+     * @param {*} 
+     */
+    const _onPageChange = (e) => {
+        const selectedPage = e.selected;
+        setPageCurrent(selectedPage + 1);
+    }
+
+    /**
      * 
      * @param {*} data 
      * click button search
@@ -135,7 +155,9 @@ export default function UserListScreen() {
         userApi.search(data).then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setUserList(response.data.users);
+                    setUserOriginList(response.data.users);
+                    setUserList(response.data.users.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setPageCount(Math.ceil(response.data.users.length / pageLimit));
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh nhân viên thất bại. Vui lòng thử lại !');
@@ -170,6 +192,10 @@ export default function UserListScreen() {
         }
         _onSearch(parameterQuery);
     }
+
+    useEffect(() => {
+        setUserList(userOriginList.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+    }, [pageCurrent]);
 
     useEffect(() => {
         if (token) {
@@ -269,6 +295,18 @@ export default function UserListScreen() {
                                     </table>
                                 </div>
                             </div>
+                            {pageCount > 1 && <div className="d-flex justify-content-center">
+                                <ReactPaginate
+                                    previousLabel={<ImBackward2 />}
+                                    nextLabel={<ImForward3 />}
+                                    breakLabel={"..."}
+                                    breakClassName={"break-me"}
+                                    pageCount={pageCount}
+                                    onPageChange={_onPageChange}
+                                    containerClassName={"pagination"}
+                                    subContainerClassName={"pages pagination"}
+                                    activeClassName={"active"} />
+                            </div>}
                         </div>
                     </div>
                 </div>
@@ -281,7 +319,7 @@ export default function UserListScreen() {
                     _onSearch={_onSearch}
                     parameterQuery={parameterQuery}
                     setParameterQuery={setParameterQuery}
-                    userList = {userList}
+                    userList={userList}
                 />
             }
             {
