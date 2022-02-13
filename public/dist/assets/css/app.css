@@ -146,11 +146,11 @@ header{
     min-width: 300px;
 }
 .widget-todo-left {
-    border-left: 1px solid #dee2e6;
+    border-left: 2px solid #dee2e6;
 }
 
 .widget-todo-right {
-    border-right: 1px solid #dee2e6;
+    border-right: 2px solid #dee2e6;
 }
 
 .category .widget-todo-item .widget-todo-title{

@@ -428,7 +428,7 @@ export default function TaskDetailScreen(props) {
                                 <h4 className="card-title">LỊCH SỬ HOẠT ĐỘNG</h4>
                             </div>
                             <div className="row">
-                                <div className="col-6">
+                                <div className="col-6" style={{ borderRight: '1px solid' }}>
                                     <div className="card-content px-3 pb-3">
                                         {
                                             historyList.length > 0 && historyList.map((item, idx) => (
@@ -494,7 +494,7 @@ export default function TaskDetailScreen(props) {
                                             activeClassName={"active"} />
                                     </div>}
                                 </div>
-                                <div className="col-6">
+                                <div className="col-6" style={{ borderLeft: '1px solid' }}>
                                     <div className="card-content px-3 pb-3">
                                         {
                                             commentList.length > 0 && commentList.map((item, idx) => (

@@ -41,7 +41,7 @@ export default function Layout(props) {
      */
     return (
         <div id="app">
-            <Sidebar />
+            <Sidebar data = {userData}/>
             <div id="main" className='layout-navbar'>
                 <Header data = {userData} />
                 <div id="main-content">

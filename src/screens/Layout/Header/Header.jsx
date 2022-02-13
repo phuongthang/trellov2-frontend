@@ -1,10 +1,17 @@
 import { useState } from "react";
+
+//packet
+import { useNavigate } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu} from 'reactstrap';
+
+//constant
 import Common from "../../../constants/common";
+import LinkName from "../../../constants/linkName";
 
 export default function Header(props) {
 
     const { data } = props;
+    let navigate = useNavigate();
     /**
     * define state
     */
@@ -16,6 +23,17 @@ export default function Header(props) {
     const [dropDownNotification, setDropDownNotification] = useState(false);
     const toggleDropDownNotification = () => {
         setDropDownNotification(!dropDownNotification);
+    }
+
+    /**
+     * logout
+     */
+    const logOut = () => {
+        navigate(LinkName.LOGIN);
+    }
+
+    const _onNavigate = (url, states) => {
+        navigate(url, { state: states });
     }
 
     /**
@@ -81,7 +99,7 @@ export default function Header(props) {
                                 <li>
                                     <h6 className="dropdown-header">Xin chào, {data.fullname ? data.fullname : ''}!</h6>
                                 </li>
-                                <li>
+                                <li onClick={()=>_onNavigate(LinkName.USER_UPDATE, {userId: data._id})}>
                                     <span className="dropdown-item cursor-pointer">
                                         <i className="icon-mid bi bi-person me-2" />Thông tin
                                     </span>
@@ -89,7 +107,7 @@ export default function Header(props) {
                                 <li>
                                     <hr className="dropdown-divider" />
                                 </li>
-                                <li>
+                                <li onClick={logOut}>
                                     <span className="dropdown-item cursor-pointer">
                                         <i className="icon-mid bi bi-box-arrow-left me-2" /> Đăng xuất
                                     </span>

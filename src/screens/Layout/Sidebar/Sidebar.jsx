@@ -6,14 +6,17 @@ import { Collapse } from "reactstrap"
 //Constant
 import LinkName from "../../../constants/linkName";
 import Common from '../../../constants/common';
+import TypeCode from '../../../constants/typeCode';
 
 
 export default function Sidebar(props) {
+
+    const { data } = props;
     /**
      * define constant
      */
     const listPathUserInformation = [LinkName.USER_INFORMATION, LinkName.TIME_KEEPING];
-    const listPathProject = [LinkName.PROJECT_CREATE, LinkName.PROJECT_LIST, LinkName.PROJECT_DETAIL,LinkName.TASK_CREATE, LinkName.TASK_LIST, LinkName.PROJECT_ACTIVITY, LinkName.TASK_DETAIL];
+    const listPathProject = [LinkName.PROJECT_CREATE, LinkName.PROJECT_LIST, LinkName.PROJECT_DETAIL, LinkName.TASK_CREATE, LinkName.TASK_LIST, LinkName.PROJECT_ACTIVITY, LinkName.TASK_DETAIL];
     const listPathManager = [LinkName.USER_LIST, LinkName.USER_UPDATE, LinkName.USER_CREATE];
     const currentPath = window.location.pathname;
 
@@ -99,28 +102,32 @@ export default function Sidebar(props) {
                                 <span>Trang chủ</span>
                             </span>
                         </li>
-                        <>
-                            <li onClick={() => toggleOpenCollaspe(setOpenTabManager, isOpenTabManager, Common.NAV.MANAGER)} className={`sidebar-item ${listPathManager.includes(currentPath) ? 'active' : ''}`}>
-                                <span className="sidebar-link cursor-pointer">
-                                    <i className="bi bi-people-fill" />
-                                    <span>Quản lí</span>
-                                </span>
-                            </li>
-                            <Collapse isOpen={isOpenTabManager} className={`sidebar-item`}>
-                                <ul className="submenu d-block">
-                                    <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_CREATE ? 'active' : ''}`}>
-                                        <Link to={LinkName.USER_CREATE} >
-                                            Thêm nhân viên
-                                        </Link>
-                                    </li>
-                                    <li className={`d-flex align-items-center submenu-item ${(currentPath === LinkName.USER_LIST || currentPath === LinkName.USER_UPDATE)? 'active' : ''}`}>
-                                        <Link to={LinkName.USER_LIST} >
-                                            Nhân sự
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </Collapse>
-                        </>
+
+                        {
+                            data?.role === TypeCode.USER.ROLE.ADMINISTRATOR &&
+                            <>
+                                <li onClick={() => toggleOpenCollaspe(setOpenTabManager, isOpenTabManager, Common.NAV.MANAGER)} className={`sidebar-item ${listPathManager.includes(currentPath) ? 'active' : ''}`}>
+                                    <span className="sidebar-link cursor-pointer">
+                                        <i className="bi bi-people-fill" />
+                                        <span>Quản lí</span>
+                                    </span>
+                                </li>
+                                <Collapse isOpen={isOpenTabManager} className={`sidebar-item`}>
+                                    <ul className="submenu d-block">
+                                        <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.USER_CREATE ? 'active' : ''}`}>
+                                            <Link to={LinkName.USER_CREATE} >
+                                                Thêm nhân viên
+                                            </Link>
+                                        </li>
+                                        <li className={`d-flex align-items-center submenu-item ${(currentPath === LinkName.USER_LIST || currentPath === LinkName.USER_UPDATE) ? 'active' : ''}`}>
+                                            <Link to={LinkName.USER_LIST} >
+                                                Nhân sự
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </Collapse>
+                            </>
+                        }
                         <>
                             <li onClick={() => toggleOpenCollaspe(setOpenTabInformation, isOpenTabInformation, Common.NAV.USER)} className={`sidebar-item ${listPathUserInformation.includes(currentPath) ? 'active' : ''}`}>
                                 <span className="sidebar-link cursor-pointer">
@@ -153,11 +160,14 @@ export default function Sidebar(props) {
                             </li>
                             <Collapse isOpen={isOpenTabProject} className={`sidebar-item`}>
                                 <ul className="submenu d-block">
-                                    <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
-                                        <Link to={LinkName.PROJECT_CREATE}>
-                                            Tạo mới dự án
-                                        </Link>
-                                    </li>
+                                    {
+                                        data?.role === TypeCode.USER.ROLE.ADMINISTRATOR &&
+                                        <li className={`d-flex align-items-center submenu-item mb-1 ${currentPath === LinkName.PROJECT_CREATE ? 'active' : ''}`}>
+                                            <Link to={LinkName.PROJECT_CREATE}>
+                                                Tạo mới dự án
+                                            </Link>
+                                        </li>
+                                    }
                                     <li className={`d-flex align-items-center submenu-item mb-1 ${(currentPath === LinkName.PROJECT_LIST || currentPath === LinkName.PROJECT_DETAIL) ? 'active' : ''}`}>
                                         <Link to={LinkName.PROJECT_LIST}>
                                             Danh sách dự án
