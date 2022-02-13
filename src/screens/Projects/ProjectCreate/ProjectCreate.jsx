@@ -158,6 +158,7 @@ export default function ProjectCreateScreen() {
                                         <div className="form-body">
                                             <InformationComponent
                                                 _onBlur={_onBlur}
+                                                projectManagerList = {projectManagerList}
                                             />
                                             <div className="row">
                                                 <div className="col-xl-4 col-md-4 col-xs-4">
@@ -241,16 +242,57 @@ export default function ProjectCreateScreen() {
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-4 col-md-4 col-xs-4">
-                                                    <div className="form-group">
-                                                        <label htmlFor="first-name-icon"><h6>Project Manager :</h6></label>
+                                                    <div className="form-group has-icon-left">
+                                                        <label htmlFor="first-name-icon text-bold-500"><h6>Loại :</h6></label>
                                                         <div className="position-relative">
-                                                            <select className="choices form-select"
-                                                                {...register("project_manager")}
-                                                            >
-                                                                {projectManagerList.length > 0 && projectManagerList.map((item, idx) => (
-                                                                    <option key={idx} value={item._id}>{item.fullname}</option>
-                                                                ))}
-                                                            </select>
+                                                            <ul className="list-unstyled mb-0 pt-1">
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-primary"
+                                                                                id="outsource"
+                                                                                value={TypeCode.PROJECT.TYPE.OUTSOURCE}
+                                                                                defaultChecked
+                                                                                {...register(
+                                                                                    "type",
+                                                                                )} />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="outsource"><h6>Outsource</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-primary"
+                                                                                id="product"
+                                                                                value={TypeCode.PROJECT.TYPE.PRODUCT}
+                                                                                {...register(
+                                                                                    "type",
+                                                                                )} />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="product"><h6>Product</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li className="d-inline-block me-5 mb-1 mt-2">
+                                                                    <div className="form-check">
+                                                                        <div className="custom-control custom-checkbox">
+                                                                            <input type="radio"
+                                                                                className="form-check-input form-check-primary"
+                                                                                id="other"
+                                                                                value={TypeCode.PROJECT.TYPE.OTHER}
+                                                                                {...register(
+                                                                                    "type",
+                                                                                )} />
+                                                                            <label className="form-check-label"
+                                                                                htmlFor="other"><h6>Khác</h6></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
