@@ -266,6 +266,9 @@ export default function UserInformationScreen(props) {
             }
         } else if (window.location.pathname === LinkName.USER_UPDATE) {
             _onDetail(id);
+            if (data.role === TypeCode.USER.ROLE.STAFF) {
+                setDisabled(true);
+            }
         }
         // eslint-disable-next-line
     }, [window.location.pathname]);

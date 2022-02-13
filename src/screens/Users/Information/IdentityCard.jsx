@@ -51,13 +51,13 @@ export default function IdentityCardComponent(props) {
                         <Controller
                             control={control}
                             name="identity_date"
-                            disabled={_disabled}
                             render={({ field: {
                                 onChange,
                                 onBlur,
                                 value
                             } }) => (
                                 <DatePicker
+                                    disabled={_disabled}
                                     dateFormat="dd/MM/yyyy"
                                     className="form-control"
                                     name="identity_date"

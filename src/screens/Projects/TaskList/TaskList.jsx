@@ -181,8 +181,8 @@ export default function TaskListScreen() {
         );
     }
 
-    const _onNavigate = (url, id) => {
-        navigate(url, { state: { taskId: id } });
+    const _onNavigate = (url, states) => {
+        navigate(url, { state: states });
     }
 
     /**
@@ -287,7 +287,7 @@ export default function TaskListScreen() {
                                                 taskList.length > 0 && taskList.map((item, idx) => (
                                                     <tr key={idx}>
                                                         <td className="text-bold-500">#{idx + 1}</td>
-                                                        <td>{item?.project?.project_name}</td>
+                                                        <td className="cursor-pointer" onClick={() => { _onNavigate(LinkName.PROJECT_DETAIL, {projectId : item?.project?._id}) }}>{item?.project?.project_name}</td>
                                                         <td>
                                                             <button className={`btn btn-sm ${TypeCode.COLOR.COLOR_CATEGORY_MAPPING[+item.category]} rounded-pill`}>{TypeCode.PROJECT.CATEGORY_MAPPING[+item.category]}</button>
                                                         </td>
@@ -297,10 +297,10 @@ export default function TaskListScreen() {
                                                         <td>
                                                             <button className={`btn btn-sm ${TypeCode.COLOR.COLOR_PRIORITY_MAPPING[+item.priority]} rounded-pill`}>{TypeCode.TASK.PRIORITY_MAPPING[+item.priority]}</button>
                                                         </td>
-                                                        <td className="cursor-pointer" onClick={() => { _onNavigate(LinkName.TASK_DETAIL, item._id) }}>
+                                                        <td className="cursor-pointer" onClick={() => { _onNavigate(LinkName.TASK_DETAIL, {taskId : item._id}) }}>
                                                             {item.title}
                                                         </td>
-                                                        <td className="text-bold-500">
+                                                        <td className="text-bold-500 cursor-pointer" onClick={() => { _onNavigate(LinkName.USER_UPDATE, {userId : item?.assign?._id}) }}>
                                                             <div className="avatar me-3">
                                                                 <img src={Common.ENV + item?.assign?.avatar} alt="" srcSet="" />
                                                             </div>

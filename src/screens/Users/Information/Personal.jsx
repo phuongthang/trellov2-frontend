@@ -143,7 +143,6 @@ export default function PersonalComponent(props) {
                         <Controller
                             control={control}
                             name="birthday"
-                            disabled={_disabled}
                             render={({ field: {
                                 onChange,
                                 onBlur,
@@ -154,6 +153,7 @@ export default function PersonalComponent(props) {
                                     className="form-control"
                                     name="birthday"
                                     autoComplete="off"
+                                    disabled={_disabled}
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     selected={value ? moment(value).toDate() : value}
