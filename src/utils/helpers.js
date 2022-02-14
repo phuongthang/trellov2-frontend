@@ -122,3 +122,44 @@ export function getFileName(filename) {
 
     return fileName;
 }
+
+export function filterProjectList(projectList, userId) {
+    let projectListFilter = [];
+    projectList.forEach((item) => {
+        if(item.project_manager._id === userId){
+            projectListFilter.push(item);
+            return;
+        }
+        if(item.members.length > 0){
+            item.members.forEach((i) => {
+                if(i._id === userId){
+                    projectListFilter.push(item);
+                }
+            })
+        }
+    });
+    return projectListFilter;
+}
+
+export function filterProjectIdList(projectList, userId) {
+    let projectIdListFilter = [];
+    projectList.forEach((item) => {
+        if(item.project_manager._id === userId){
+            projectIdListFilter.push(item._id);
+            return;
+        }
+        if(item.members.length > 0){
+            item.members.forEach((i) => {
+                if(i._id === userId){
+                    projectIdListFilter.push(item._id);
+                }
+            })
+        }
+    });
+    return projectIdListFilter;
+}
+
+
+export function filterTaskList(taskList, projectIdList) {
+    return taskList.filter((item) => projectIdList.includes(item.project._id));
+}

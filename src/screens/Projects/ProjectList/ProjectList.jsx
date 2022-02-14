@@ -19,7 +19,7 @@ import projectApi from '../../../api/projectApi';
 //packet
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { formatDate } from '../../../utils/helpers';
+import { filterProjectList, formatDate } from '../../../utils/helpers';
 
 //constants
 import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
@@ -114,7 +114,7 @@ export default function ProjectListScreen() {
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
                     setProjectOriginList(response.data.projects);
-                    setProjectList(response.data.projects.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setProjectList(filterProjectList(response.data.projects, userData._id).slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
                     setPageCount(Math.ceil(response.data.projects.length / pageLimit));
                 }
                 else {
@@ -138,7 +138,7 @@ export default function ProjectListScreen() {
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
                     setProjectOriginList(response.data.projects);
-                    setProjectList(response.data.projects.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setProjectList(filterProjectList(response.data.projects, userData._id).slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
                     setPageCount(Math.ceil(response.data.projects.length / pageLimit));
                 }
                 else {
@@ -186,9 +186,14 @@ export default function ProjectListScreen() {
         // eslint-disable-next-line
     }, [watchProjectStatus]);
 
+    useEffect(()=>{
+        if(userData){
+            _getProjectList();
+        }
+    },[userData]);
+
     useEffect(() => {
         if (token) {
-            _getProjectList();
             setUserData(getUserDataFromLocalStorage);
         } else {
             navigate(LinkName.LOGIN);

@@ -398,7 +398,8 @@ export default function TaskUpdateScreen(props) {
                                                             <label htmlFor="first-name-icon text-bold-500"><h6>Dự án:</h6></label>
                                                             <div className="position-relative">
                                                                 <select className="choices form-select"
-                                                                    {...register("project")}>
+                                                                    {...register("project")}
+                                                                    disabled = {true}>
                                                                     {projectList.length > 0 && projectList.map((item, idx) => (
                                                                         <option key={idx} value={item._id}>{item.project_name}</option>
                                                                     ))}

@@ -16,11 +16,11 @@ import { isEmpty } from 'underscore';
 import ReactPaginate from 'react-paginate';
 
 //Constants
-import { getTokenFromLocalStorage } from '../../../utils/utils';
+import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
 import Common from '../../../constants/common';
 import LinkName from '../../../constants/linkName';
 import TypeCode from './../../../constants/typeCode';
-import { formatDate, formatDateTime, findFromId } from '../../../utils/helpers';
+import { formatDate, formatDateTime, findFromId, filterProjectList, filterTaskList } from '../../../utils/helpers';
 
 //api
 import taskApi from './../../../api/taskApi';
@@ -29,6 +29,7 @@ import userApi from './../../../api/userApi';
 
 //icon
 import { ImBackward2, ImForward3 } from "react-icons/im";
+import { filterProjectIdList } from './../../../utils/helpers';
 
 export default function TaskListScreen() {
 
@@ -67,6 +68,9 @@ export default function TaskListScreen() {
     const [pageLimit] = useState(5);
     const [pageCount, setPageCount] = useState(0);
     const [pageCurrent, setPageCurrent] = useState(1);
+    const [userData, setUserData] = useState({});
+    const [projectIdList, setProjectIdList] = useState([]);
+
 
 
     /**
@@ -74,12 +78,12 @@ export default function TaskListScreen() {
      * @param {*} get list project
      */
 
-    const _getTaskList = () => {
+    const _getTaskList = (projectIdList) => {
         taskApi.all().then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
                     setTaskOriginList(response.data.tasks);
-                    setTaskList(response.data.tasks.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setTaskList(filterTaskList(response.data.tasks, projectIdList).slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
                     setPageCount(Math.ceil(response.data.tasks.length / pageLimit));
                 }
                 else {
@@ -107,7 +111,10 @@ export default function TaskListScreen() {
         projectApi.list().then(
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
-                    setProjectList(response.data.projects);
+                    setProjectList(filterProjectList(response.data.projects, userData._id));
+                    const projectIdList = filterProjectIdList(response.data.projects, userData._id);
+                    _getTaskList(projectIdList);
+                    setProjectIdList(projectIdList);
                 }
                 else {
                     setMessage(response.data.message || 'Lấy danh dự án thất bại. Vui lòng thử lại !');
@@ -162,7 +169,7 @@ export default function TaskListScreen() {
             (response) => {
                 if (response.status === Common.HTTP_STATUS.OK) {
                     setTaskOriginList(response.data.tasks);
-                    setTaskList(response.data.tasks.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
+                    setTaskList(filterTaskList(response.data.tasks,projectIdList).slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
                     setPageCount(Math.ceil(response.data.tasks.length / pageLimit));
                 }
                 else {
@@ -208,11 +215,16 @@ export default function TaskListScreen() {
         setTaskList(taskOriginList.slice(pageCurrent - 1, pageCurrent - 1 + pageLimit));
     }, [pageCurrent]);
 
-    useEffect(() => {
-        if (token) {
-            _getTaskList();
+    useEffect(()=>{
+        if(userData){
             _getProjectList();
             _getListUser();
+        }
+    },[userData]);
+
+    useEffect(() => {
+        if (token) {
+            setUserData(getUserDataFromLocalStorage);
         } else {
             navigate(LinkName.LOGIN);
         }
