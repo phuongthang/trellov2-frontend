@@ -99,7 +99,7 @@ export default function TaskDetailScreen(props) {
      */
     const _onPageCommentChange = (e) => {
         const selectedPage = e.selected;
-        setPageCommentCount(selectedPage + 1);
+        setPageCommentCurrent(selectedPage + 1);
     }
 
     /**

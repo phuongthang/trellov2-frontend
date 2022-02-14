@@ -165,7 +165,7 @@ export default function TaskFillterComponent(props) {
                                                         <option value={TypeCode.FILLTER.ALL}>Tất cả</option>
                                                         {
                                                             projectList.length > 0 && projectList.map((item, idx) => (
-                                                                <option value={item._id}>{item.project_name}</option>
+                                                                <option key = {idx} value={item._id}>{item.project_name}</option>
                                                             ))
                                                         }
                                                     </select>
