@@ -131,8 +131,10 @@ export default function TaskFillterComponent(props) {
 
     const watchProject = watch('project');
     useEffect(() => {
-        if (watchProject) {
+        if (watchProject && (+watchProject !== TypeCode.FILLTER.ALL)) {
             _onDetail(watchProject);
+        }else{
+            setUserList(oldUserList);
         }
     }, [watchProject]);
 
