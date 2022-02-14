@@ -310,7 +310,7 @@ export default function TaskListScreen() {
                                                             {formatDateTime(item.update_at)}
                                                         </td>
                                                         <td>
-                                                            <MdBookmarkAdded onClick={toggleModalTaskUpdate} />
+                                                            <MdBookmarkAdded />
                                                         </td>
                                                     </tr>
                                                 ))

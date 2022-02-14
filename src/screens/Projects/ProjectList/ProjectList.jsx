@@ -22,7 +22,7 @@ import { useForm } from 'react-hook-form';
 import { formatDate } from '../../../utils/helpers';
 
 //constants
-import { getTokenFromLocalStorage } from '../../../utils/utils';
+import { getTokenFromLocalStorage, getUserDataFromLocalStorage } from '../../../utils/utils';
 import Common from '../../../constants/common';
 import LinkName from '../../../constants/linkName';
 import TypeCode from '../../../constants/typeCode';
@@ -74,6 +74,7 @@ export default function ProjectListScreen() {
     const [pageLimit] = useState(5);
     const [pageCount, setPageCount] = useState(0);
     const [pageCurrent, setPageCurrent] = useState(1);
+    const [userData, setUserData] = useState({});
 
     /**
      * 
@@ -188,6 +189,7 @@ export default function ProjectListScreen() {
     useEffect(() => {
         if (token) {
             _getProjectList();
+            setUserData(getUserDataFromLocalStorage);
         } else {
             navigate(LinkName.LOGIN);
         }
@@ -259,9 +261,9 @@ export default function ProjectListScreen() {
                                                                 {
                                                                     item.members.length > 0 && (
                                                                         <>
-                                                                            {item.members[0] && <li onClick={()=>_onNavigate(LinkName.USER_UPDATE, {userId : item.members[0]._id})} className="team-member team-member-sm cursor-pointer"><img className="rounded-circle" src={Common.ENV + item.members[0].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[0].fullname} /></li>}
-                                                                            {item.members[1] && <li onClick={()=>_onNavigate(LinkName.USER_UPDATE, {userId : item.members[1]._id})} className="team-member team-member-sm cursor-pointer"><img className="rounded-circle" src={Common.ENV + item.members[1].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[1].fullname} /></li>}
-                                                                            {item.members[2] && <li onClick={()=>_onNavigate(LinkName.USER_UPDATE, {userId : item.members[2]._id})} className="team-member team-member-sm cursor-pointer"><img className="rounded-circle" src={Common.ENV + item.members[2].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[2].fullname} /></li>}
+                                                                            {item.members[0] && <li onClick={() => _onNavigate(LinkName.USER_UPDATE, { userId: item.members[0]._id })} className="team-member team-member-sm cursor-pointer"><img className="rounded-circle" src={Common.ENV + item.members[0].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[0].fullname} /></li>}
+                                                                            {item.members[1] && <li onClick={() => _onNavigate(LinkName.USER_UPDATE, { userId: item.members[1]._id })} className="team-member team-member-sm cursor-pointer"><img className="rounded-circle" src={Common.ENV + item.members[1].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[1].fullname} /></li>}
+                                                                            {item.members[2] && <li onClick={() => _onNavigate(LinkName.USER_UPDATE, { userId: item.members[2]._id })} className="team-member team-member-sm cursor-pointer"><img className="rounded-circle" src={Common.ENV + item.members[2].avatar} alt="user" data-toggle="tooltip" title="" data-original-title={item.members[2].fullname} /></li>}
                                                                         </>
                                                                     )
                                                                 }
@@ -272,8 +274,13 @@ export default function ProjectListScreen() {
                                                         </td>
                                                         <td>
                                                             <div className="d-flex justify-content-center">
-                                                                <span className='px-1 cursor-pointer'><MdEdit onClick={() => toggleModalProjectUpdate(item._id)} /></span>
-                                                                <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={() => toggleModalConfirmDeleteProject(item._id, item.project_name)} /></span>
+                                                                {
+                                                                    userData.role === TypeCode.USER.ROLE.ADMINISTRATOR &&
+                                                                    <>
+                                                                        <span className='px-1 cursor-pointer'><MdEdit onClick={() => toggleModalProjectUpdate(item._id)} /></span>
+                                                                        <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={() => toggleModalConfirmDeleteProject(item._id, item.project_name)} /></span>
+                                                                    </>
+                                                                }
                                                                 <span className='px-1 cursor-pointer'><BsPinAngleFill /></span>
                                                             </div>
                                                         </td>

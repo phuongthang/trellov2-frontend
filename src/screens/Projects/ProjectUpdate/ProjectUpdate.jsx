@@ -28,6 +28,9 @@ import Message from "../../../constants/message";
 import userApi from "../../../api/userApi";
 import projectApi from "../../../api/projectApi";
 
+//icon
+import { TiDelete } from "react-icons/ti";
+
 
 
 export default function ProjectUpdateScreen(props) {
@@ -193,8 +196,9 @@ export default function ProjectUpdateScreen(props) {
                 <div className="row match-height">
                     <div className="col-md-12 col-12">
                         <div className="card">
-                            <div className="card-header">
+                            <div className="card-header d-flex justify-content-between">
                                 <h4 className="card-title">CHỈNH SỬA DỰ ÁN</h4>
+                                <TiDelete className="cursor-pointer" onClick={toggle} style={{width: '40px', height: '40px'}}/>
                             </div>
                             <div className="card-content">
                                 <div className="card-body">

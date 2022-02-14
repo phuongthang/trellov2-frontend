@@ -31,6 +31,19 @@ export default function ActivityHistoryComponent(props) {
                                         <div className="col-12">
                                             <div className="card">
                                                 <div className="media d-flex align-items-center">
+                                                    <div className="avatar me-3">
+                                                        <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
+                                                        <span className="avatar-status bg-success" />
+                                                    </div>
+                                                    <div className="name flex-grow-1">
+                                                        <h6 className="mb-0">{item.user_create.fullname}</h6>
+                                                        <div className="d-flex justify-content-between">
+                                                            <span className="text-xs">{formatDateTime(item.created_at)}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div className="media d-flex align-items-center">
                                                     <div className="name flex-grow-1 px-3">
                                                         <h6 className="mb-0"><strong>#{item?.task?.project?.project_name + ' - ' + TypeCode.PROJECT.CATEGORY_MAPPING[item?.task?.category] + ' - ' + item?.task?.title}</strong></h6>
                                                     </div>
@@ -58,18 +71,6 @@ export default function ActivityHistoryComponent(props) {
                                                                 </div>
                                                                 <strong>{item?.new_assign?.fullname}</strong>.</h6></li>}
                                                         </ul>
-                                                    </div>
-                                                    <div className="media d-flex align-items-center">
-                                                        <div className="avatar me-3">
-                                                            <img src={Common.ENV + item.user_create.avatar} alt="" srcSet="" />
-                                                            <span className="avatar-status bg-success" />
-                                                        </div>
-                                                        <div className="name flex-grow-1">
-                                                            <h6 className="mb-0">{item.user_create.fullname}</h6>
-                                                            <div className="d-flex justify-content-between">
-                                                                <span className="text-xs">{formatDateTime(item.created_at)}</span>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

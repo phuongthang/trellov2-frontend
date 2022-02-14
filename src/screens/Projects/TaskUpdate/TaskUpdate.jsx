@@ -28,6 +28,9 @@ import taskApi from './../../../api/taskApi';
 import commentApi from './../../../api/commentApi';
 import historyApi from "../../../api/historyApi";
 
+//icon
+import { TiDelete } from "react-icons/ti";
+
 export default function TaskUpdateScreen(props) {
     /**
      * get property
@@ -382,8 +385,9 @@ export default function TaskUpdateScreen(props) {
                         <div className="row match-height">
                             <div className="col-md-12 col-12">
                                 <div className="card">
-                                    <div className="card-header">
+                                    <div className="card-header d-flex justify-content-between">
                                         <h4 className="card-title">CHỈNH SỬA CÔNG VIỆC</h4>
+                                        <TiDelete className="cursor-pointer" onClick={toggle} style={{width: '40px', height: '40px'}}/>
                                     </div>
                                     <div className="card-content">
                                         <div className="card-body">
