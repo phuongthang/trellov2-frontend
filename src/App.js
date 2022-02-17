@@ -53,6 +53,9 @@ const NoteScreen = React.lazy(() => import("./screens/Note/Note"));
 //UserList
 const UserListScreen = React.lazy(() => import("./screens/Users/UserList/UserList"));
 
+//change password
+const ChangePasswordScreen = React.lazy(() => import("./screens/Password/ChangePassword/ChangePassword"));
+
 
 
 
@@ -82,6 +85,7 @@ function App() {
 					<Route path={LinkName.USER_LIST} element={<UserListScreen />} />
 					<Route path={LinkName.USER_UPDATE} element={<UserInformationScreen />} />
 					<Route path={LinkName.USER_CREATE} element={<UserInformationScreen />} />
+					<Route path={LinkName.CHANGE_PASSWORD} element={<ChangePasswordScreen />} />
 				</Route>
 			</Routes>
 		</React.Suspense>

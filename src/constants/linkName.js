@@ -2,6 +2,7 @@ const linkName = {
     //auth
     LOGIN: '/',
 
+    CHANGE_PASSWORD: '/change-password',
     //errors
     ERROR_403: '/error-403',
     ERROR_404: '/error-404',

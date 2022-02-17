@@ -386,3 +386,8 @@ input[type="radio"]:disabled{
     border-bottom-left-radius: .25rem;
     border-top-left-radius: .25rem
 }
+
+.box-change-password{
+    max-width: 50%;
+    margin: 0 auto;
+}

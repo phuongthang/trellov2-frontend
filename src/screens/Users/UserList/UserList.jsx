@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 //Component
 import UserFillterComponent from '../../Fillters/UserFillter/UserFillter';
 import ModalConfirmDeleteUserComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
+import ModalConfirmResetPasswordComponent from '../../../components/Modal/ModalConfirmDelete/ModalConfirmDelete';
 import ModalSuccessComponent from '../../../components/Modal/ModalSuccess/ModalSuccess';
 import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError';
 
@@ -10,6 +11,8 @@ import ModalErrorComponent from '../../../components/Modal/ModalError/ModalError
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
+import { ImBackward2, ImForward3 } from "react-icons/im";
+import { GrUpdate } from "react-icons/gr";
 
 //packet
 import { useNavigate } from 'react-router-dom';
@@ -26,9 +29,8 @@ import userApi from './../../../api/userApi';
 //utils
 import { getTokenFromLocalStorage } from '../../../utils/utils';
 import { isEmpty } from 'underscore';
+import authApi from './../../../api/authApi';
 
-//icon
-import { ImBackward2, ImForward3 } from "react-icons/im";
 
 export default function UserListScreen() {
 
@@ -103,6 +105,16 @@ export default function UserListScreen() {
     }
 
     /**
+     * open/close modal confirm delete user
+     */
+    const [modalConfirmResetPassword, setModalConfirmResetPassword] = useState(false);
+    const toggleModalConfirmResetPassword = (id, keyWord) => {
+        setUserId(id);
+        setKeyWord(keyWord);
+        setModalConfirmResetPassword(!modalConfirmResetPassword);
+    }
+
+    /**
      * 
      * @param {*} get list user
      */
@@ -136,6 +148,33 @@ export default function UserListScreen() {
     const _onEdit = (id) => {
         navigate(LinkName.USER_UPDATE, { state: { userId: id } });
     }
+
+    /**
+     * reset default password
+     */
+    const _onResetPassword = (id) => {
+        authApi.reset(id).then(
+            (response) => {
+                if (response.status === Common.HTTP_STATUS.OK) {
+                    setMessage(response.data.message || 'Thiết lập lại mật khẩu thành công !');
+                    toggleModalSuccess();
+                }
+                else {
+                    setMessage(response.data.message || 'Thiết lập lại mật khẩu thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            },
+            (error) => {
+                if (error.response && error.response.status === Common.HTTP_STATUS.UNAUTHORIZED) {
+                    navigate(LinkName.LOGIN);
+                } else {
+                    setMessage(error.response?.message || 'Thiết lập lại mật khẩu thất bại. Vui lòng thử lại !');
+                    toggleModalError();
+                }
+            }
+        );
+    }
+
 
     /**
      * on page change
@@ -286,6 +325,7 @@ export default function UserListScreen() {
                                                             <div className="d-flex justify-content-center">
                                                                 <span className='px-1 cursor-pointer' onClick={() => _onEdit(user._id)}><MdEdit /></span>
                                                                 <span className='px-1 cursor-pointer'><RiDeleteBin5Fill onClick={() => toggleModalConfirmDeleteUser(user._id, user.fullname)} /></span>
+                                                                <span className='px-1 cursor-pointer' onClick={() => toggleModalConfirmResetPassword(user._id, user.fullname)}><GrUpdate /></span>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -329,6 +369,17 @@ export default function UserListScreen() {
                     toggle={toggleModalConfirmDeleteUser}
                     keyWord={keyWord}
                     _onCallback={_onDelete}
+                    id={userId}
+                />
+            }
+
+            {
+                modalConfirmResetPassword &&
+                <ModalConfirmResetPasswordComponent
+                    modal={modalConfirmResetPassword}
+                    toggle={toggleModalConfirmResetPassword}
+                    keyWord={keyWord}
+                    _onCallback={_onResetPassword}
                     id={userId}
                 />
             }
